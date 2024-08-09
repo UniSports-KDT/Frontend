@@ -30,7 +30,7 @@ import { Button } from "@/components/ui/button"
 export function BookingList() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold">유니스포츠</span>
@@ -61,7 +61,7 @@ export function BookingList() {
             <AvatarFallback>JD</AvatarFallback>
           </Avatar>
         </div>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-4 md:px-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-2xl font-bold mb-6">예약 내역</h1>
@@ -123,7 +123,7 @@ export function BookingList() {
           </div>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-8">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-8">
         <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-sm">&copy; 2024 유니스포츠. 모든 권리 보유.</div>
           <nav className="flex items-center gap-4">
@@ -146,7 +146,7 @@ export function BookingList() {
             </Link>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

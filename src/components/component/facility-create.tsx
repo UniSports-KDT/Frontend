@@ -27,7 +27,7 @@ import { Textarea } from "@/components/ui/textarea"
 export function FacilityCreate() {
   return (
     <div className="flex flex-col h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between md:px-8">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between md:px-8">
         <Link href="#" prefetch={false}>
           <LogInIcon className="h-8 w-auto" />
         </Link>
@@ -71,7 +71,7 @@ export function FacilityCreate() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </header>
+      </header> */}
       <main className="flex-1 p-8">
         <h1 className="text-2xl font-bold mb-6">새로운 시설 등록</h1>
         <form className="space-y-6">
@@ -89,7 +89,10 @@ export function FacilityCreate() {
           </div>
           <div>
             <Label htmlFor="hours">운영 시간</Label>
-            <Input id="hours" placeholder="운영 시간 입력" />
+            <div className="grid grid-cols-2 gap-4">
+              <Input id="available-hours-start" type="time" defaultValue="08:00" />
+              <Input id="available-hours-end" type="time" defaultValue="22:00" />
+            </div>
           </div>
           <div>
             <Label htmlFor="price">요금</Label>
@@ -134,7 +137,7 @@ export function FacilityCreate() {
               </div>
             </div>
           </div>
-          <div>
+          {/* <div>
             <Label>예약 가능 시간대</Label>
             <div className="flex space-x-4 overflow-x-auto pb-4">
               <Button variant="outline">06:00 - 08:00</Button>
@@ -146,13 +149,14 @@ export function FacilityCreate() {
               <Button variant="outline">18:00 - 20:00</Button>
               <Button variant="outline">20:00 - 22:00</Button>
             </div>
-          </div>
+          </div> */}
           <div className="flex justify-end">
             <Button type="submit">등록 완료</Button>
           </div>
         </form>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-8 flex justify-between">
+      
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-8 flex justify-between">
         <div className="space-y-2">
           <p>UniSport 소개</p>
           <p>연락처: 123-456-7890</p>
@@ -176,12 +180,12 @@ export function FacilityCreate() {
             <InstagramIcon className="h-6 w-6" />
           </Link>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }
 
-function FacebookIcon(props) {
+function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -201,7 +205,7 @@ function FacebookIcon(props) {
 }
 
 
-function InstagramIcon(props) {
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -223,7 +227,7 @@ function InstagramIcon(props) {
 }
 
 
-function LogInIcon(props) {
+function LogInIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -245,7 +249,7 @@ function LogInIcon(props) {
 }
 
 
-function MoveVerticalIcon(props) {
+function MoveVerticalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -267,7 +271,7 @@ function MoveVerticalIcon(props) {
 }
 
 
-function PlusIcon(props) {
+function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -288,7 +292,7 @@ function PlusIcon(props) {
 }
 
 
-function TrashIcon(props) {
+function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -310,7 +314,7 @@ function TrashIcon(props) {
 }
 
 
-function TwitterIcon(props) {
+function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}

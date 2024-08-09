@@ -31,7 +31,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 export function FacilityAdmin() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <LogInIcon className="h-8 w-8" />
@@ -73,7 +73,7 @@ export function FacilityAdmin() {
             <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between mb-6">
@@ -144,7 +144,7 @@ export function FacilityAdmin() {
           </div>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-6">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col md:flex-row items-center gap-4">
             <div className="flex items-center gap-2">
@@ -173,7 +173,7 @@ export function FacilityAdmin() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

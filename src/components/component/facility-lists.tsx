@@ -34,7 +34,7 @@ import { Badge } from "@/components/ui/badge"
 export function FacilityList() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-bold">UniSport</span>
@@ -60,7 +60,7 @@ export function FacilityList() {
           </Button>
           <Button>로그인</Button>
         </div>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
@@ -104,7 +104,7 @@ export function FacilityList() {
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <Card>
-              <Link href="#" prefetch={false}>
+              <Link href="/facility-resevations" prefetch={false}>
                 <img
                   src="/placeholder.svg"
                   width={400}
@@ -203,7 +203,7 @@ export function FacilityList() {
         </div>
       </main>
 
-      <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-8">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-lg font-bold mb-4">UniSport 소개</h3>
@@ -249,7 +249,7 @@ export function FacilityList() {
             </Link>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

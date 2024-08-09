@@ -26,7 +26,7 @@ import { Badge } from "@/components/ui/badge"
 export function ReservationAdmin() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-bold">UniSport</span>
@@ -68,7 +68,7 @@ export function ReservationAdmin() {
             <DropdownMenuItem>로그아웃</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-6">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
@@ -148,7 +148,7 @@ export function ReservationAdmin() {
           </Card>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-6">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-6">
         <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-2">
             <h3 className="text-lg font-bold">UniSport 소개</h3>
@@ -188,7 +188,7 @@ export function ReservationAdmin() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

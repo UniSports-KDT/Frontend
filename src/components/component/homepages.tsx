@@ -28,38 +28,6 @@ import Link from "next/link"
 export function Homepage() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
-        <Link href="#" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="text-lg font-bold">UniSport</span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-6">
-          <Link href="#" className="hover:underline" prefetch={false}>
-            홈
-          </Link>
-          <Link href="#" className="hover:underline" prefetch={false}>
-            시설
-          </Link>
-          <Link href="#" className="hover:underline" prefetch={false}>
-            예약
-          </Link>
-          <Link href="#" className="hover:underline" prefetch={false}>
-            공지사항
-          </Link>
-        </nav>
-        <div className="flex items-center gap-4">
-          <Link href="#" className="hover:underline" prefetch={false}>
-            로그인
-          </Link>
-          <Link
-            href="#"
-            className="bg-primary-foreground text-primary px-4 py-2 rounded-md hover:bg-primary/90"
-            prefetch={false}
-          >
-            회원가입
-          </Link>
-        </div>
-      </header>
       <main className="flex-1 py-12 px-6">
         <section className="max-w-5xl mx-auto space-y-8">
           <div>
@@ -169,7 +137,7 @@ export function Homepage() {
           </div>
         </section>
       </main>
-      <footer className="bg-muted text-muted-foreground py-8 px-6">
+      {/* <footer className="bg-muted text-muted-foreground py-8 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-4">
             <h3 className="text-lg font-bold">UniSport 소개</h3>
@@ -212,7 +180,7 @@ export function Homepage() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

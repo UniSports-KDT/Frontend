@@ -30,7 +30,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 export function Announcements() {
   return (
     <div className="flex flex-col min-h-[100dvh]">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold">유니스포츠</span>
@@ -59,7 +59,7 @@ export function Announcements() {
           </Button>
           <Button variant="outline">로그인</Button>
         </div>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-2xl font-bold mb-6">공지사항</h1>
@@ -96,7 +96,7 @@ export function Announcements() {
           </div>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-6">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-6">
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <h3 className="text-lg font-semibold">유니스포츠 소개</h3>
@@ -126,7 +126,7 @@ export function Announcements() {
             </Link>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

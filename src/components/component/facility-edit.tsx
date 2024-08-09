@@ -30,7 +30,7 @@ import { Calendar } from "@/components/ui/calendar"
 export function FacilityEdit() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link href="#" className="flex items-center gap-2" prefetch={false}>
             <Package2Icon className="h-6 w-6" />
@@ -72,7 +72,7 @@ export function FacilityEdit() {
             <DropdownMenuItem>로그아웃</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </header>
+      </header> */}
       <main className="flex-1 bg-muted/40 py-8 px-6">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-2xl font-bold mb-6">시설 편집</h1>
@@ -139,7 +139,7 @@ export function FacilityEdit() {
               <div>
                 <Label>예약 설정</Label>
                 <div className="grid gap-4 mt-2">
-                  <div className="grid gap-2">
+                  {/* <div className="grid gap-2">
                     <Label htmlFor="unavailable-dates">예약 불가능 날짜</Label>
                     <Popover>
                       <PopoverTrigger asChild>
@@ -152,7 +152,7 @@ export function FacilityEdit() {
                         <Calendar mode="range" />
                       </PopoverContent>
                     </Popover>
-                  </div>
+                  </div> */}
                   <div className="grid gap-2">
                     <Label htmlFor="available-hours">운영 시간</Label>
                     <div className="grid grid-cols-2 gap-4">
@@ -169,7 +169,7 @@ export function FacilityEdit() {
           </div>
         </div>
       </main>
-      <footer className="bg-primary text-primary-foreground py-6 px-6">
+      {/* <footer className="bg-primary text-primary-foreground py-6 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="space-y-2">
             <h3 className="font-semibold">유니스포츠</h3>
@@ -205,7 +205,7 @@ export function FacilityEdit() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

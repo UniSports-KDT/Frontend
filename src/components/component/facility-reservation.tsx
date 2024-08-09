@@ -32,7 +32,7 @@ import { Carousel, CarouselItem } from "@/components/ui/carousel"
 export function FacilityReservation() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="w-8 h-8" />
           <span className="text-xl font-bold">유니스포츠</span>
@@ -76,7 +76,7 @@ export function FacilityReservation() {
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-      </header>
+      </header> */}
       <main className="flex-1">
         <section className="bg-muted py-12 md:py-16 lg:py-20">
           <div className="container px-4 md:px-6">
@@ -188,7 +188,7 @@ export function FacilityReservation() {
           </div>
         </section>
       </main>
-      <footer className="bg-primary text-primary-foreground py-6 px-4 md:px-6">
+      {/* <footer className="bg-primary text-primary-foreground py-6 px-4 md:px-6">
         <div className="container flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <MountainIcon className="w-6 h-6" />
@@ -220,7 +220,7 @@ export function FacilityReservation() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }

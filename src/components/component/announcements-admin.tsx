@@ -32,7 +32,7 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 export function AnnouncementsAdmin() {
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="bg-primary text-primary-foreground py-3 px-6 flex items-center justify-between">
+      {/* <header className="bg-primary text-primary-foreground py-3 px-6 flex items-center justify-between">
         <Link href="#" className="flex items-center gap-2" prefetch={false}>
           <MountainIcon className="h-6 w-6" />
           <span className="text-lg font-semibold">UniSport</span>
@@ -71,7 +71,7 @@ export function AnnouncementsAdmin() {
             <DropdownMenuItem>로그아웃</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </header>
+      </header> */}
       <main className="flex-1 py-8 px-4 sm:px-6 md:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6">
@@ -148,7 +148,7 @@ export function AnnouncementsAdmin() {
           </div>
         </div>
       </main>
-      <footer className="bg-muted text-muted-foreground py-6 px-4 sm:px-6 md:px-8">
+      {/* <footer className="bg-muted text-muted-foreground py-6 px-4 sm:px-6 md:px-8">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex flex-col items-center md:items-start gap-2">
             <div className="flex items-center gap-2">
@@ -178,7 +178,7 @@ export function AnnouncementsAdmin() {
             </div>
           </div>
         </div>
-      </footer>
+      </footer> */}
     </div>
   )
 }
