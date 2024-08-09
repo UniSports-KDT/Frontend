@@ -28,7 +28,7 @@ import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuIte
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 
-export function AnnouncementAdmin() {
+export function FacilityAdmin() {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
