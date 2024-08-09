@@ -75,8 +75,8 @@ export function FacilityList() {
               </div>
               <div>
                 <Label htmlFor="location">위치</Label>
-                <Select id="location">
-                  <SelectTrigger>
+                <Select>
+                  <SelectTrigger id="location">
                     <SelectValue placeholder="위치 선택" />
                   </SelectTrigger>
                   <SelectContent>
@@ -88,8 +88,8 @@ export function FacilityList() {
               </div>
               <div>
                 <Label htmlFor="sport">종목</Label>
-                <Select id="sport">
-                  <SelectTrigger>
+                <Select>
+                  <SelectTrigger id="sport">
                     <SelectValue placeholder="종목 선택" />
                   </SelectTrigger>
                   <SelectContent>
@@ -117,8 +117,8 @@ export function FacilityList() {
                   <h3 className="text-lg font-bold mb-2">농구장</h3>
                   <p className="text-muted-foreground mb-4">규격 농구장, 높이 조절 가능한 골대.</p>
                   <div className="flex items-center justify-between">
-                    <Badge variant={true ? "success" : "danger"}>
-                      {true ? "\uC0AC\uC6A9 \uAC00\uB2A5" : "\uC0AC\uC6A9 \uBD88\uAC00"}
+                    <Badge variant="default">
+                      사용 가능
                     </Badge>
                     <Button variant="outline" size="sm">
                       자세히 보기
@@ -141,8 +141,8 @@ export function FacilityList() {
                   <h3 className="text-lg font-bold mb-2">배구장</h3>
                   <p className="text-muted-foreground mb-4">규격 배구장, 높이 조절 가능한 네트.</p>
                   <div className="flex items-center justify-between">
-                    <Badge variant={true ? "success" : "danger"}>
-                      {true ? "\uC0AC\uC6A9 \uAC00\uB2A5" : "\uC0AC\uC6A9 \uBD88\uAC00"}
+                    <Badge variant="default">
+                      사용 가능
                     </Badge>
                     <Button variant="outline" size="sm">
                       자세히 보기
@@ -165,8 +165,8 @@ export function FacilityList() {
                   <h3 className="text-lg font-bold mb-2">축구장</h3>
                   <p className="text-muted-foreground mb-4">규격 축구장, 인조 잔디 표면.</p>
                   <div className="flex items-center justify-between">
-                    <Badge variant={true ? "success" : "danger"}>
-                      {true ? "\uC0AC\uC6A9 \uAC00\uB2A5" : "\uC0AC\uC6A9 \uBD88\uAC00"}
+                    <Badge variant="default">
+                      사용 가능
                     </Badge>
                     <Button variant="outline" size="sm">
                       자세히 보기
@@ -189,8 +189,8 @@ export function FacilityList() {
                   <h3 className="text-lg font-bold mb-2">테니스장</h3>
                   <p className="text-muted-foreground mb-4">규격 테니스장, 하드 코트 표면.</p>
                   <div className="flex items-center justify-between">
-                    <Badge variant={true ? "success" : "danger"}>
-                      {true ? "\uC0AC\uC6A9 \uAC00\uB2A5" : "\uC0AC\uC6A9 \uBD88\uAC00"}
+                    <Badge variant="default">
+                      사용 가능
                     </Badge>
                     <Button variant="outline" size="sm">
                       자세히 보기
@@ -202,6 +202,7 @@ export function FacilityList() {
           </div>
         </div>
       </main>
+
       <footer className="bg-muted text-muted-foreground py-6 px-4 md:px-8">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -253,7 +254,7 @@ export function FacilityList() {
   )
 }
 
-function FacebookIcon(props) {
+function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -273,7 +274,7 @@ function FacebookIcon(props) {
 }
 
 
-function InstagramIcon(props) {
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -295,7 +296,7 @@ function InstagramIcon(props) {
 }
 
 
-function MountainIcon(props) {
+function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -315,7 +316,7 @@ function MountainIcon(props) {
 }
 
 
-function TwitterIcon(props) {
+function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
@@ -335,7 +336,7 @@ function TwitterIcon(props) {
 }
 
 
-function UserIcon(props) {
+function UserIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg
       {...props}
