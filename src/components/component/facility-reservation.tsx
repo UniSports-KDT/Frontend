@@ -188,7 +188,7 @@ export function FacilityReservation() {
                   </ul>
                 </div>  
                 <div className="grid gap-2">
-                    <Label htmlFor="unavailable-dates">예약 불가능 날짜</Label>
+                    <Label htmlFor="unavailable-dates">예약 날짜</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button variant="outline" className="justify-between w-full">
