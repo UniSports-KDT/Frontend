@@ -23,13 +23,34 @@ To read more about using these font, please visit the Next.js documentation:
 - App Directory: https://nextjs.org/docs/app/building-your-application/optimizing/fonts
 - Pages Directory: https://nextjs.org/docs/pages/building-your-application/optimizing/fonts
 **/
+"use client"; // 이 줄을 추가합니다
+
 import Link from "next/link"
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Carousel, CarouselItem } from "@/components/ui/carousel"
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
+import { Label } from "@/components/ui/label"
+import { ChevronDownIcon } from "lucide-react"
+import { useState } from "react";
+
 
 export function FacilityReservation() {
+
+  // 선택된 날짜를 관리하는 상태를 추가합니다.
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+  // 날짜 선택 시 호출되는 함수
+  const handleDateSelect = (date: Date | undefined) => {
+    setSelectedDate(date || null); // undefined일 경우 null로 설정
+    console.log("선택된 날짜:", date); // 콘솔에 선택된 날짜를 출력합니다.
+    console.log(date?.getDate()) 
+    console.log(date?.getFullYear())
+    console.log(date?.getMonth())
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       {/* <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
@@ -165,7 +186,21 @@ export function FacilityReservation() {
                       관람객을 위한 충분한 좌석
                     </li>
                   </ul>
-                </div>
+                </div>  
+                <div className="grid gap-2">
+                    <Label htmlFor="unavailable-dates">예약 불가능 날짜</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button variant="outline" className="justify-between w-full">
+                        <span>{selectedDate ? selectedDate.toLocaleDateString() : "날짜 선택"}</span>
+                          <ChevronDownIcon className="w-4 h-4" />
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="p-0 max-w-[276px]">
+                        <Calendar mode="single" onSelect={handleDateSelect} />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
                 <div>
                   <h2 className="text-xl font-bold">예약 가능 시간</h2>
                   <div className="grid grid-cols-2 gap-4 overflow-x-auto">
