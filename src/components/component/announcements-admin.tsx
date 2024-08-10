@@ -76,10 +76,12 @@ export function AnnouncementsAdmin() {
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6">
             <h1 className="text-2xl font-bold">공지사항</h1>
-            <Button size="sm">
-              <PlusIcon className="h-4 w-4 mr-2" />
-              공지사항 작성
-            </Button>
+            <Link href="/announcement-write" className="flex items-center justify-between" prefetch={false}>
+              <Button size="sm">
+                <PlusIcon className="h-4 w-4 mr-2" />
+                공지사항 작성
+              </Button>
+            </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             <Card>
