@@ -1,4 +1,4 @@
-import { AdminPage } from '@/components/component/admin-page';
+import { AdminPage } from '@/components/admin/admin-page';
 import React from 'react';
 
 export default function HomePage() {

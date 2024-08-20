@@ -1,8 +1,19 @@
-import { FacilityList } from '@/components/component/facility-lists';
-import React from 'react';
+import { Suspense } from 'react';
+import { FacilityList } from '@/components/facility/facility-lists';
+import { getFacilities } from '@/lib/api';
 
-export default function HomePage() {
+export default async function FacilityListPage() {
     return (
-        <FacilityList/>
+        <Suspense fallback={<div>로딩 중...</div>}>
+            <FacilityListContent />
+        </Suspense>
     );
-  }
+}
+
+async function FacilityListContent() {
+    const facilities = await getFacilities();
+    return <FacilityList facilities={facilities} />;
+}
+
+export const revalidate = 3600; // 1시간마다 재검증
+
