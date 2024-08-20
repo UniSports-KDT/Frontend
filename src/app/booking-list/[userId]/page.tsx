@@ -1,4 +1,4 @@
-import { BookingList } from '@/components/component/booking-list';
+import { BookingList } from '@/components/reservation/booking-list';
 import axios from 'axios';
 import React from 'react';
 import {Booking} from "@/types/booking";

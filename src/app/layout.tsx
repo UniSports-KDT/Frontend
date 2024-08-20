@@ -26,7 +26,7 @@ export default function RootLayout({
           <span className="text-lg font-bold">UniSport</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          <Link href="/homepages" className="hover:underline" prefetch={false}>
+          <Link href="/" className="hover:underline" prefetch={false}>
             홈
           </Link>
           <Link href="/facility-lists" className="hover:underline" prefetch={false}>

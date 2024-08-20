@@ -1,24 +1,19 @@
-import { FacilityList } from '@/components/component/facility-lists';
-import axios from 'axios';
-
-async function getFacilities() {
-    try {
-        const res = await axios.get('http://3.39.23.4:8080/api/facilities');
-        return res.data;
-    } catch (error) {
-        console.error('Failed to fetch facilities:', error);
-        if (axios.isAxiosError(error)) {
-            console.error('Axios error response data:', error.response?.data);
-        } else {
-            console.error('Unexpected error:', error);
-        }
-        return []; // 빈 배열 반환
-    }
-}
+import { Suspense } from 'react';
+import { FacilityList } from '@/components/facility/facility-lists';
+import { getFacilities } from '@/lib/api';
 
 export default async function FacilityListPage() {
+    return (
+        <Suspense fallback={<div>로딩 중...</div>}>
+            <FacilityListContent />
+        </Suspense>
+    );
+}
+
+async function FacilityListContent() {
     const facilities = await getFacilities();
     return <FacilityList facilities={facilities} />;
 }
+
 export const revalidate = 3600; // 1시간마다 재검증
 

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Announcements from '@/components/component/announcements';
+import Announcements from '@/components/announcement/announcements';
 
 async function getAnnouncements() {
     try {
