@@ -6,50 +6,51 @@ import { AnnouncementsProps } from '@/types/announcements'
 
 export function AnnouncementsAdmin({announcements} : AnnouncementsProps) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <main className="flex-1 py-8 px-4 sm:px-6 md:px-8">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h1 className="text-2xl font-bold">공지사항</h1>
-            <Link href="/announcement-write" className="flex items-center justify-between" prefetch={false}>
-              <Button size="sm">
-                <PlusIcon className="h-4 w-4 mr-2" />
-                공지사항 작성
-              </Button>
-            </Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {announcements.length > 0 ? (
-                announcements.map((announcement) => (
-                    <Card key={announcement.id}>
-                      <CardHeader>
-                        <CardTitle>{announcement.title}</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p>{announcement.content}</p>
-                      </CardContent>
-                      <CardFooter className="flex items-center justify-between">
+      <div className="flex flex-col min-h-screen">
+        <main className="flex-1 py-20 px-6">
+          {/*<main className="flex-1 py-8 px-4 sm:px-6 md:px-8">*/}
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h1 className="text-2xl font-bold">공지사항</h1>
+              <Link href="/announcement-write" className="flex items-center justify-between" prefetch={false}>
+                <Button size="sm">
+                  <PlusIcon className="h-4 w-4 mr-2"/>
+                  공지사항 작성
+                </Button>
+              </Link>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+              {announcements.length > 0 ? (
+                  announcements.map((announcement) => (
+                      <Card key={announcement.id}>
+                        <CardHeader>
+                          <CardTitle>{announcement.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p>{announcement.content}</p>
+                        </CardContent>
+                        <CardFooter className="flex items-center justify-between">
                         <span
                             className="text-sm text-muted-foreground">{new Date(announcement.createdAt).toLocaleDateString()}</span>
-                        <div className="flex items-center gap-2">
-                          <Button variant="ghost" size="icon">
-                            <FilePenIcon className="h-4 w-4" />
-                            <span className="sr-only">편집</span>
-                          </Button>
-                          <Button variant="ghost" size="icon">
-                            <Trash2Icon className="h-4 w-4" />
-                            <span className="sr-only">삭제</span>
-                          </Button>
-                        </div>
-                      </CardFooter>
-                    </Card>
-                ))) : (
-                    <p>공지사항이 없습니다.</p>
-            )}
+                          <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="icon">
+                              <FilePenIcon className="h-4 w-4"/>
+                              <span className="sr-only">편집</span>
+                            </Button>
+                            <Button variant="ghost" size="icon">
+                              <Trash2Icon className="h-4 w-4"/>
+                              <span className="sr-only">삭제</span>
+                            </Button>
+                          </div>
+                        </CardFooter>
+                      </Card>
+                  ))) : (
+                  <p>공지사항이 없습니다.</p>
+              )}
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
   )
 }
 

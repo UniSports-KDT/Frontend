@@ -4,7 +4,7 @@ import {Booking} from "@/types/booking";
 export function BookingList({ bookings }: { bookings: Booking[] }) {
   return (
       <div className="flex flex-col min-h-screen">
-        <main className="flex-1 py-8 px-4 md:px-8">
+        <main className="flex-1 py-20 px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">예약 내역</h1>
             <div className="space-y-4">

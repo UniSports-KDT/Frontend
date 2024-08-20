@@ -5,7 +5,7 @@ import { AnnouncementsProps } from '@/types/announcements'
 export default function Announcements({ announcements }: AnnouncementsProps) {
     return (
         <div className="flex flex-col min-h-[100dvh]">
-            <main className="flex-1 py-8 px-4 md:px-6">
+            <main className="flex-1 py-20 px-4 md:px-6">
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-2xl font-bold mb-6">공지사항</h1>
                     <div className="grid gap-4">

@@ -3,23 +3,42 @@ import { Facility } from '@/types/facility';
 import { Announcement, HomePageAnnouncement } from '@/types/announcements';
 import { Booking } from '@/types/booking';
 
+const isServer = () => typeof window === 'undefined'; //SSG를 위한 환경 체크 함수
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-//3.전체 시설 조회
+//3.전체 시설 조회 (SSG 최적화)
 export async function getFacilities(): Promise<Facility[]> {
-    if (!API_URL) {
-        //throw new Error('API에러');
+    if (isServer() && !API_URL) {
         return fallbackFacilities;
     }
     try {
+        if (!API_URL) throw new Error('API에러');
         const res = await axios.get<Facility[]>(`${API_URL}/api/facilities`);
         return res.data;
     } catch (error) {
         console.error('Failed to fetch facilities:', error);
-        //throw error;
-        return fallbackFacilities;
+        if (isServer()) {
+            return fallbackFacilities;
+        }
+        throw error;
     }
 }
+
+//3.전체 시설 조회 (SSR)
+// export async function getFacilities(): Promise<Facility[]> {
+//     if (!API_URL) {
+//         //throw new Error('API에러');
+//         return fallbackFacilities;
+//     }
+//     try {
+//         const res = await axios.get<Facility[]>(`${API_URL}/api/facilities`);
+//         return res.data;
+//     } catch (error) {
+//         console.error('Failed to fetch facilities:', error);
+//         //throw error;
+//         return fallbackFacilities;
+//     }
+// }
 
 //12. 공지사항 조회
 export async function getAnnouncements(isHomePage: boolean = false): Promise<Announcement[] | HomePageAnnouncement[]> {
