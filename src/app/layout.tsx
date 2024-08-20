@@ -19,10 +19,11 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} flex flex-col h-screen`}>
+      {/*<body className={inter.className}>*/}
       <header className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between">
-        <Link href="/homepages" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
+        <Link href="/" className="flex items-center gap-2" prefetch={false}>
+          <MountainIcon className="h-6 w-6"/>
           <span className="text-lg font-bold">UniSport</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
@@ -58,14 +59,14 @@ export default function RootLayout({
         {/* 모바일 뷰용 햄버거 메뉴 */}
         <div className="md:hidden">
           <button id="menuButton" className="flex items-center">
-            <HamburgerIcon className="h-6 w-6" />
+            <HamburgerIcon className="h-6 w-6"/>
           </button>
         </div>
         {/* 모바일 뷰용 드롭다운 메뉴 만들어줘야함*/}
-
       </header>
-      {children}
-      {/* 푸터 */}
+      <main className="flex-grow overflow-auto">
+        {children}
+      </main>
       <footer className="bg-muted text-muted-foreground py-6 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
           <div className="space-y-2">
@@ -96,13 +97,13 @@ export default function RootLayout({
             <h4 className="font-semibold">팔로우 하기</h4>
             <div className="flex items-center gap-4">
               <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                <FacebookIcon className="h-6 w-6" />
+                <FacebookIcon className="h-6 w-6"/>
               </Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                <TwitterIcon className="h-6 w-6" />
+                <TwitterIcon className="h-6 w-6"/>
               </Link>
               <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                <InstagramIcon className="h-6 w-6" />
+                <InstagramIcon className="h-6 w-6"/>
               </Link>
             </div>
           </div>
@@ -150,7 +151,6 @@ function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
       </svg>
   )
 }
-
 
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
