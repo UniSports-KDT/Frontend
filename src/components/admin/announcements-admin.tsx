@@ -8,7 +8,6 @@ export function AnnouncementsAdmin({announcements} : AnnouncementsProps) {
   return (
       <div className="flex flex-col min-h-screen">
         <main className="flex-1 py-20 px-6">
-          {/*<main className="flex-1 py-8 px-4 sm:px-6 md:px-8">*/}
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold">공지사항</h1>
