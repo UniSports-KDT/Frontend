@@ -2,8 +2,9 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
+import { AnnouncementsProps } from '@/types/announcements'
 
-export function AnnouncementsAdmin() {
+export function AnnouncementsAdmin({announcements} : AnnouncementsProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 py-8 px-4 sm:px-6 md:px-8">
@@ -18,69 +19,33 @@ export function AnnouncementsAdmin() {
             </Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            <Card>
-              <CardHeader>
-                <CardTitle>시설 보수 안내</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>6월 1일부터 6월 15일까지 농구장 보수 작업으로 인해 이용이 제한됩니다.</p>
-              </CardContent>
-              <CardFooter className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">2023-05-15</span>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <FilePenIcon className="h-4 w-4" />
-                    <span className="sr-only">편집</span>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <Trash2Icon className="h-4 w-4" />
-                    <span className="sr-only">삭제</span>
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>신규 회원권 프로모션</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>신규 회원 가입 시 첫 달 20% 할인 혜택을 받으실 수 있습니다.</p>
-              </CardContent>
-              <CardFooter className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">2023-04-30</span>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <FilePenIcon className="h-4 w-4" />
-                    <span className="sr-only">편집</span>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <Trash2Icon className="h-4 w-4" />
-                    <span className="sr-only">삭제</span>
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>여름 캠프 등록 오픈</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p>여름 스포츠 캠프 등록이 시작되었습니다. 빨리 등록하세요!</p>
-              </CardContent>
-              <CardFooter className="flex items-center justify-between">
-                <span className="text-sm text-muted-foreground">2023-03-20</span>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <FilePenIcon className="h-4 w-4" />
-                    <span className="sr-only">편집</span>
-                  </Button>
-                  <Button variant="ghost" size="icon">
-                    <Trash2Icon className="h-4 w-4" />
-                    <span className="sr-only">삭제</span>
-                  </Button>
-                </div>
-              </CardFooter>
-            </Card>
+            {announcements.length > 0 ? (
+                announcements.map((announcement) => (
+                    <Card key={announcement.id}>
+                      <CardHeader>
+                        <CardTitle>{announcement.title}</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <p>{announcement.content}</p>
+                      </CardContent>
+                      <CardFooter className="flex items-center justify-between">
+                        <span
+                            className="text-sm text-muted-foreground">{new Date(announcement.createdAt).toLocaleDateString()}</span>
+                        <div className="flex items-center gap-2">
+                          <Button variant="ghost" size="icon">
+                            <FilePenIcon className="h-4 w-4" />
+                            <span className="sr-only">편집</span>
+                          </Button>
+                          <Button variant="ghost" size="icon">
+                            <Trash2Icon className="h-4 w-4" />
+                            <span className="sr-only">삭제</span>
+                          </Button>
+                        </div>
+                      </CardFooter>
+                    </Card>
+                ))) : (
+                    <p>공지사항이 없습니다.</p>
+            )}
           </div>
         </div>
       </main>
@@ -128,7 +93,6 @@ function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
     </svg>
   )
 }
-
 
 function Trash2Icon(props: React.SVGProps<SVGSVGElement>) {
   return (
