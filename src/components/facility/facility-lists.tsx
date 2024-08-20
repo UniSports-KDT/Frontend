@@ -1,5 +1,4 @@
 'use client'
-
 import Link from "next/link"
 import React from "react"
 import Image from "next/image"
@@ -89,105 +88,6 @@ export function FacilityList({ facilities }: FacilityListProps) {
             ) : (
                 <div className="flex justify-center items-center h-[50vh]">
                   <p className="text-lg text-muted-foreground">현재 사용 가능한 시설이 없습니다.</p>
-                  {/*/!*서버 완성되면 아래 코드 지움*!/*/}
-                  {/*<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">*/}
-                  {/*  <Card>*/}
-                  {/*    <Link href="/facility-resevations" prefetch={false}>*/}
-                  {/*      <img*/}
-                  {/*          src="/placeholder.svg"*/}
-                  {/*          width={400}*/}
-                  {/*          height={225}*/}
-                  {/*          alt="농구장"*/}
-                  {/*          className="rounded-t-lg object-cover"*/}
-                  {/*          style={{aspectRatio: "400/225", objectFit: "cover"}}*/}
-                  {/*      />*/}
-                  {/*      <CardContent>*/}
-                  {/*        <h3 className="text-lg font-bold mb-2">농구장</h3>*/}
-                  {/*        <p className="text-muted-foreground mb-4">규격 농구장, 높이 조절 가능한 골대.</p>*/}
-                  {/*        <div className="flex items-center justify-between">*/}
-                  {/*          <Badge variant="default">*/}
-                  {/*            사용 가능*/}
-                  {/*          </Badge>*/}
-                  {/*          <Button variant="outline" size="sm">*/}
-                  {/*            자세히 보기*/}
-                  {/*          </Button>*/}
-                  {/*        </div>*/}
-                  {/*      </CardContent>*/}
-                  {/*    </Link>*/}
-                  {/*  </Card>*/}
-                  {/*  <Card>*/}
-                  {/*    <Link href="#" prefetch={false}>*/}
-                  {/*      <img*/}
-                  {/*          src="/placeholder.svg"*/}
-                  {/*          width={400}*/}
-                  {/*          height={225}*/}
-                  {/*          alt="배구장"*/}
-                  {/*          className="rounded-t-lg object-cover"*/}
-                  {/*          style={{aspectRatio: "400/225", objectFit: "cover"}}*/}
-                  {/*      />*/}
-                  {/*      <CardContent>*/}
-                  {/*        <h3 className="text-lg font-bold mb-2">배구장</h3>*/}
-                  {/*        <p className="text-muted-foreground mb-4">규격 배구장, 높이 조절 가능한 네트.</p>*/}
-                  {/*        <div className="flex items-center justify-between">*/}
-                  {/*          <Badge variant="default">*/}
-                  {/*            사용 가능*/}
-                  {/*          </Badge>*/}
-                  {/*          <Button variant="outline" size="sm">*/}
-                  {/*            자세히 보기*/}
-                  {/*          </Button>*/}
-                  {/*        </div>*/}
-                  {/*      </CardContent>*/}
-                  {/*    </Link>*/}
-                  {/*  </Card>*/}
-                  {/*  <Card>*/}
-                  {/*    <Link href="#" prefetch={false}>*/}
-                  {/*      <img*/}
-                  {/*          src="/placeholder.svg"*/}
-                  {/*          width={400}*/}
-                  {/*          height={225}*/}
-                  {/*          alt="축구장"*/}
-                  {/*          className="rounded-t-lg object-cover"*/}
-                  {/*          style={{aspectRatio: "400/225", objectFit: "cover"}}*/}
-                  {/*      />*/}
-                  {/*      <CardContent>*/}
-                  {/*        <h3 className="text-lg font-bold mb-2">축구장</h3>*/}
-                  {/*        <p className="text-muted-foreground mb-4">규격 축구장, 인조 잔디 표면.</p>*/}
-                  {/*        <div className="flex items-center justify-between">*/}
-                  {/*          <Badge variant="default">*/}
-                  {/*            사용 가능*/}
-                  {/*          </Badge>*/}
-                  {/*          <Button variant="outline" size="sm">*/}
-                  {/*            자세히 보기*/}
-                  {/*          </Button>*/}
-                  {/*        </div>*/}
-                  {/*      </CardContent>*/}
-                  {/*    </Link>*/}
-                  {/*  </Card>*/}
-                  {/*  <Card>*/}
-                  {/*    <Link href="#" prefetch={false}>*/}
-                  {/*      <img*/}
-                  {/*          src="/placeholder.svg"*/}
-                  {/*          width={400}*/}
-                  {/*          height={225}*/}
-                  {/*          alt="테니스장"*/}
-                  {/*          className="rounded-t-lg object-cover"*/}
-                  {/*          style={{aspectRatio: "400/225", objectFit: "cover"}}*/}
-                  {/*      />*/}
-                  {/*      <CardContent>*/}
-                  {/*        <h3 className="text-lg font-bold mb-2">테니스장</h3>*/}
-                  {/*        <p className="text-muted-foreground mb-4">규격 테니스장, 하드 코트 표면.</p>*/}
-                  {/*        <div className="flex items-center justify-between">*/}
-                  {/*          <Badge variant="default">*/}
-                  {/*            사용 가능*/}
-                  {/*          </Badge>*/}
-                  {/*          <Button variant="outline" size="sm">*/}
-                  {/*            자세히 보기*/}
-                  {/*          </Button>*/}
-                  {/*        </div>*/}
-                  {/*      </CardContent>*/}
-                  {/*    </Link>*/}
-                  {/*  </Card>*/}
-                  {/*</div>*/}
                 </div>
             )}
           </div>
