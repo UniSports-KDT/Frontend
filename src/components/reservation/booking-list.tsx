@@ -48,66 +48,66 @@ export function BookingList({ bookings }: { bookings: Booking[] }) {
                       </div>
                   ))
               ) : (
-                  // <div className="flex justify-center items-center h-64">
-                  //     <p className="text-lg text-muted-foreground">예약 내역이 없습니다.</p>
-                  // </div>
-                  //서버 연결 시 아래 코드 지움
-                  <div>
-                    <div className="bg-background rounded-lg shadow-md p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium">농구장</div>
-                        <div className="text-sm text-muted-foreground">2023-05-01에 예약됨</div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm text-muted-foreground">
-                          예약 상태: <span className="font-medium text-green-500">확정</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm">
-                            상세 보기
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            취소
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-background rounded-lg shadow-md p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium">테니스장</div>
-                        <div className="text-sm text-muted-foreground">2023-04-15에 예약됨</div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm text-muted-foreground">
-                          예약 상태: <span className="font-medium text-yellow-500">대기 중</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm">
-                            상세 보기
-                          </Button>
-                          <Button variant="outline" size="sm">
-                            취소
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="bg-background rounded-lg shadow-md p-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium">수영장</div>
-                        <div className="text-sm text-muted-foreground">2023-03-20에 예약됨</div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm text-muted-foreground">
-                          예약 상태: <span className="font-medium text-red-500">취소됨</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button variant="outline" size="sm">
-                            상세 보기
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                  <div className="flex justify-center items-center h-64">
+                      <p className="text-lg text-muted-foreground">예약 내역이 없습니다.</p>
                   </div>
+                  //서버 연결 시 아래 코드 지움
+                  // <div>
+                  //   <div className="bg-background rounded-lg shadow-md p-4">
+                  //     <div className="flex items-center justify-between mb-2">
+                  //       <div className="font-medium">농구장</div>
+                  //       <div className="text-sm text-muted-foreground">2023-05-01에 예약됨</div>
+                  //     </div>
+                  //     <div className="flex items-center justify-between">
+                  //       <div className="text-sm text-muted-foreground">
+                  //         예약 상태: <span className="font-medium text-green-500">확정</span>
+                  //       </div>
+                  //       <div className="flex items-center gap-2">
+                  //         <Button variant="outline" size="sm">
+                  //           상세 보기
+                  //         </Button>
+                  //         <Button variant="outline" size="sm">
+                  //           취소
+                  //         </Button>
+                  //       </div>
+                  //     </div>
+                  //   </div>
+                  //   <div className="bg-background rounded-lg shadow-md p-4">
+                  //     <div className="flex items-center justify-between mb-2">
+                  //       <div className="font-medium">테니스장</div>
+                  //       <div className="text-sm text-muted-foreground">2023-04-15에 예약됨</div>
+                  //     </div>
+                  //     <div className="flex items-center justify-between">
+                  //       <div className="text-sm text-muted-foreground">
+                  //         예약 상태: <span className="font-medium text-yellow-500">대기 중</span>
+                  //       </div>
+                  //       <div className="flex items-center gap-2">
+                  //         <Button variant="outline" size="sm">
+                  //           상세 보기
+                  //         </Button>
+                  //         <Button variant="outline" size="sm">
+                  //           취소
+                  //         </Button>
+                  //       </div>
+                  //     </div>
+                  //   </div>
+                  //   <div className="bg-background rounded-lg shadow-md p-4">
+                  //     <div className="flex items-center justify-between mb-2">
+                  //       <div className="font-medium">수영장</div>
+                  //       <div className="text-sm text-muted-foreground">2023-03-20에 예약됨</div>
+                  //     </div>
+                  //     <div className="flex items-center justify-between">
+                  //       <div className="text-sm text-muted-foreground">
+                  //         예약 상태: <span className="font-medium text-red-500">취소됨</span>
+                  //       </div>
+                  //       <div className="flex items-center gap-2">
+                  //         <Button variant="outline" size="sm">
+                  //           상세 보기
+                  //         </Button>
+                  //       </div>
+                  //     </div>
+                  //   </div>
+                  // </div>
               )}
             </div>
           </div>

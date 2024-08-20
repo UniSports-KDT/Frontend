@@ -4,7 +4,7 @@ import { getFacilities } from '@/lib/api';
 
 export default async function FacilityListPage() {
     return (
-        <Suspense fallback={<div>로딩 중...</div>}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
             <FacilityListContent />
         </Suspense>
     );

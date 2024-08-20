@@ -1,18 +1,20 @@
-import axios from 'axios';
+import { Suspense } from 'react';
+import { getAnnouncements } from "@/lib/api";
 import Announcements from '@/components/announcement/announcements';
+import { Announcement } from '@/types/announcements';
 
-async function getAnnouncements() {
-    try {
-        const res = await axios.get('http://3.39.23.4:8080/api/announcements', {
-        });
-        return res.data;
-    } catch (error) {
-        console.error('Failed to fetch announcements:', error);
-        return [];
-    }
+async function AnnouncementsContent() {
+    // const announcements = await getAnnouncements();
+    // return <Announcements announcements={announcements as Announcement[]} />;
+    const announcements = await getAnnouncements(false) as Announcement[];
+    return <Announcements announcements={announcements} />;
 }
 
 export default async function AnnouncementsPage() {
-    const announcements = await getAnnouncements();
-    return <Announcements announcements={announcements} />;
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
+            <AnnouncementsContent />
+        </Suspense>
+    )
 }
+export const revalidate = 3600; // 1시간마다 재검증

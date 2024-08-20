@@ -1,17 +1,7 @@
 import { BookingList } from '@/components/reservation/booking-list';
-import axios from 'axios';
 import React from 'react';
-import {Booking} from "@/types/booking";
-
-async function getBookingLists(userId: string): Promise<Booking[]> {
-    try {
-        const res = await axios.get<Booking[]>(`http://3.39.23.4:8080/api/users/${userId}/reservations`);
-        return res.data;
-    } catch (error) {
-        console.error('Failed to fetch booking lists:', error);
-        return []; // 빈 배열 반환 또는 에러 처리 로직
-    }
-}
+import {getBookingLists} from "@/lib/api";
+import { Suspense } from 'react';
 
 export async function generateStaticParams() {
     //하드코딩용
@@ -25,6 +15,8 @@ export default async function BookingListPage({ params }: { params: { userId: st
     const bookings = await getBookingLists(userId);
 
     return (
-        <BookingList bookings={bookings} />
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
+            <BookingList bookings={bookings} />
+        </Suspense>
     );
 }
