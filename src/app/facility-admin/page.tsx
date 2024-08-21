@@ -1,8 +1,17 @@
 import { FacilityAdmin } from '@/components/admin/facility-admin';
-import React from 'react';
+import { Suspense } from 'react';
+import { getFacilities } from '@/lib/api';
+import { FacilityListProps } from '@/types/facility';
 
-export default function HomePage() {
+export default async function FacilityAdminPage() {
+    const facilities = await getFacilities();
     return (
-        <FacilityAdmin/>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
+            <FacilityAdminContent facilities={facilities} />
+        </Suspense>
     );
-  }
+}
+
+function FacilityAdminContent({ facilities }: FacilityListProps) {
+    return <FacilityAdmin facilities={facilities} />
+}
