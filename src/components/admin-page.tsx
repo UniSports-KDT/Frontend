@@ -57,7 +57,7 @@ export function AdminPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
-                      <Link href="/reservation-admin" className="flex items-center justify-between" prefetch={false}>
+                      <Link href="/reservation-facilityList-admin" className="flex items-center justify-between" prefetch={false}>
                         <div>예약 신청 목록</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>

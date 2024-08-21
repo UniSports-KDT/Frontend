@@ -1,4 +1,4 @@
-import { AnnouncementsAdmin } from '@/components/admin/announcements-admin';
+import { AnnouncementsAdmin } from '@/components/announcement/announcements-admin';
 import { Suspense } from 'react';
 import { getAnnouncements } from "@/lib/api";
 import { Announcement } from '@/types/announcements';
@@ -15,4 +15,3 @@ export default async function AdminAnnouncementsPage() {
         </Suspense>
     )
 }
-export const revalidate = 3600; // 1시간마다 재검증

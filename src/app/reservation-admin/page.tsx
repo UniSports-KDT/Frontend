@@ -1,4 +1,4 @@
-import { ReservationAdmin } from '@/components/admin/reservation-admin';
+import { ReservationAdmin } from '@/components/reservation/reservation-admin';
 
 export default function HomePage() {
     return (

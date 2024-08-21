@@ -26,7 +26,7 @@ export default function RootLayout({
           <MountainIcon className="h-6 w-6"/>
           <span className="text-lg font-bold">UniSport</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex items-center gap-16">
           <Link href="/" className="hover:underline" prefetch={false}>
             홈
           </Link>

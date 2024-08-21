@@ -53,7 +53,7 @@ export async function getAnnouncements(isHomePage: boolean = false): Promise<Ann
     }
 }
 
-//27. 예약내역 조회
+//27. 예약내역 조회 (사용자가 개인 예약내역 보기)
 export async function getBookingLists(userId: number): Promise<Booking[]> {
     if (!API_URL) {
         return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
