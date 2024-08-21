@@ -6,7 +6,7 @@ import Navigation from "@/components/ui/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const userId = "123456"; // 실제 userId로 변경
+const userId = "123456"; // 실제 userId로 변경해야됨 (예약내역으로 이동 시 필요)
 
 export const metadata: Metadata = {
   title: "UniSport",
@@ -48,12 +48,12 @@ export default function RootLayout({
         */}
         <Navigation userId={userId} />
         <div className="flex items-center gap-4">
-          <Link href="#" className="hover:underline" prefetch={false}>
+          <Link href="/login" className="nav-link" prefetch={false}>
             로그인
           </Link>
           <Link
               href="#"
-              className="bg-primary-foreground text-primary px-4 py-2 rounded-md hover:bg-primary/90"
+              className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
               prefetch={false}
           >
             회원가입
