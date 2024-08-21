@@ -1,5 +1,5 @@
 export interface Facility {
-    id: string;
+    id: number;
     name: string;
     description: string;
     location: string;

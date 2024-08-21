@@ -1,5 +1,5 @@
 export interface Booking {
-    id: string;
+    id: number;
     facilityId: string;
     reservationTime: string;
     status: 'approved' | 'pending' | 'cancelled';

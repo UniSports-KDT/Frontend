@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 export function AnnouncementWrite() {
   return (
     <div className="flex flex-col min-h-screen">
-      <main className="flex-1 py-20 px-6">
+      <main className="flex-1 py-10 px-6">
         <div className="max-w-3xl mx-auto">
           <h1 className="text-2xl font-bold mb-8">공지사항 작성</h1>
           <form className="space-y-6">

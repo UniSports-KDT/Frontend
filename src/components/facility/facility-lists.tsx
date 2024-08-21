@@ -1,6 +1,5 @@
 'use client'
 import Link from "next/link"
-import React from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
@@ -69,7 +68,7 @@ export function FacilityList({ facilities }: FacilityListProps) {
                                 style={{ aspectRatio: "400/225", objectFit: "cover" }}
                             />
                             <CardContent>
-                              <h3 className="text-lg font-bold mb-2">{facility.name}</h3>
+                              <h3 className="text-lg font-bold mb-2 mt-3">{facility.name}</h3>
                               <p className="text-muted-foreground mb-4">{facility.description}</p>
                               <div className="flex items-center justify-between">
                                 <Badge variant="secondary">

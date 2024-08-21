@@ -1,5 +1,5 @@
 //userId에 따른 예약내역 조회가 가능하도록 수정해야됨!!!!!
-import { BookingList } from '@/components/reservation/booking-list';
+import { UserBookingList } from '@/components/reservation/user-booking-list';
 import React from 'react';
 import {getBookingLists} from "@/lib/api";
 import { Suspense } from 'react';
@@ -17,7 +17,7 @@ export default async function BookingListPage({ params }: { params: { userId: st
 
     return (
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
-            <BookingList bookings={bookings} />
+            <UserBookingList bookings={bookings} />
         </Suspense>
     );
 }
