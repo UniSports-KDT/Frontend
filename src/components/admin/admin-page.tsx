@@ -5,7 +5,7 @@ export function AdminPage() {
   return (
       <div className="flex flex-col min-h-[100dvh]">
         <main className="flex-1 px-4 md:px-6">
-          <section className="md:py-20">
+          <section className="md:py-10">
             <div className="max-w-3xl mx-auto space-y-8">
               <div className="max-w-4xl mx-auto">
                 <h1 className="text-2xl font-bold mb-6">관리자 페이지</h1>
@@ -38,12 +38,12 @@ export function AdminPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
-                      <Link href="/src/components/admin/facility-admin" className="flex items-center justify-between"
+                      <Link href="/facility-admin" className="flex items-center justify-between"
                             prefetch={false}>
                         <div>시설 목록</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
-                      <Link href="/src/components/facility/facility-create"
+                      <Link href="/facility-create"
                             className="flex items-center justify-between" prefetch={false}>
                         <div>새 시설 등록</div>
                         <ArrowRightIcon className="h-5 w-5"/>
@@ -51,7 +51,6 @@ export function AdminPage() {
                     </div>
                   </CardContent>
                 </Card>
-
                 <Card>
                   <CardHeader>
                     <CardTitle>예약 관리</CardTitle>
