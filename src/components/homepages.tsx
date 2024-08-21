@@ -1,5 +1,4 @@
 'use client'
-
 import Link from "next/link"
 import { HomepageProps } from '@/types/announcements'
 
@@ -9,7 +8,7 @@ export default function Homepage({ announcements }: HomepageProps) {
   return (
       <div className="flex flex-col min-h-screen">
         <main className="flex-1 py-12 px-6">
-          <section className="max-w-5xl mx-auto space-y-8">
+          <section className="max-w-5xl mx-auto space-y-10">
             <div>
               <h1 className="text-4xl font-bold">UniSport에 오신 것을 환영합니다!</h1>
               <p className="text-muted-foreground text-lg">대학교 내 최고의 스포츠 시설을 찾아보고 예약하세요.</p>
@@ -41,7 +40,7 @@ export default function Homepage({ announcements }: HomepageProps) {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">최신 공지사항</h2>
+              <h2 className="text-2xl font-bold mb-2">최신 공지사항</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {announcements.slice(0, 3).map((announcement) => (
                     <div key={announcement.id} className="bg-muted rounded-lg p-4 space-y-2">
@@ -55,7 +54,7 @@ export default function Homepage({ announcements }: HomepageProps) {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-4">인기 시설</h2>
+              <h2 className="text-2xl font-bold mb-2">인기 시설</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-muted rounded-lg p-4 space-y-2">
                   <img

@@ -10,7 +10,7 @@ async function HomePageContent() {
 
 export default async function HomePage() {
   return (
-      <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
+      <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
           <HomePageContent />
       </Suspense>
   );

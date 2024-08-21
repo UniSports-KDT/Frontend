@@ -12,7 +12,7 @@ async function AnnouncementsContent() {
 
 export default async function AnnouncementsPage() {
     return (
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
             <AnnouncementsContent />
         </Suspense>
     )

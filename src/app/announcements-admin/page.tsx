@@ -10,7 +10,7 @@ async function AdminAnnouncementsContent() {
 
 export default async function AdminAnnouncementsPage() {
     return (
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen">로딩 중...</div>}>
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
             <AdminAnnouncementsContent />
         </Suspense>
     )
