@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { ReservationAllAdmin } from '@/components/reservation/reservation-all-admin';
 import { getAllReservations } from '@/api';
-import { AllBooking } from '@/types/all-booking';
+import { AllBookingProps } from '@/types/all-booking';
 
 export default async function ReservationAdminPage() {
     const allBookings = await getAllReservations();
@@ -12,6 +12,6 @@ export default async function ReservationAdminPage() {
     );
 }
 
-function ReservationAdminContent({ allBookings }: { allBookings: AllBooking[] }) {
+function ReservationAdminContent({ allBookings }: AllBookingProps) {
     return <ReservationAllAdmin allBookings={allBookings} />
 }

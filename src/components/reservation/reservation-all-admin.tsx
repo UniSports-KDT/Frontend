@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { AllBooking } from '@/types/all-booking';
+import { AllBookingProps } from '@/types/all-booking';
 import { CalendarIcon, ClockIcon } from 'lucide-react'
 
 const StatusDot = ({ status }: { status: string }) => {
@@ -22,7 +22,7 @@ const StatusDot = ({ status }: { status: string }) => {
   );
 }
 
-export function ReservationAllAdmin({ allBookings }: { allBookings: AllBooking[] }) {
+export function ReservationAllAdmin({ allBookings }: AllBookingProps) {
   const getStatusText = (status: string) => {
     switch(status) {
       case 'PENDING': return '대기 중';
