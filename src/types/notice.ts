@@ -21,13 +21,3 @@ export interface Notice {
 export interface NoticesProps {
     notices: Notice[];
 }
-
-export interface HomePageNotice {
-    id: number;
-    title: string;
-    content: string;
-}
-
-export interface HomepageProps {
-    notices: HomePageNotice[];
-}

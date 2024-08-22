@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 1280px) { /* xl breakpoint */
+  .nav-link::after {
+    display: none;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -93,7 +99,7 @@
 .nav-link {
   position: relative;
   color: inherit;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -114,4 +120,15 @@
 
 .nav-link:hover::after, .nav-link.active::after {
   transform: scaleX(1);
+}
+
+/* 모바일 메뉴 스타일 */
+@media (max-width: 768px) {
+  .nav-link::after {
+    display: none;
+  }
+
+  .nav-link:active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
 }

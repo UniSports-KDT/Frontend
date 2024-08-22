@@ -13,7 +13,7 @@ export async function getFacilities(): Promise<Facility[]> {
         const res = await axios.get<Facility[]>(`${API_URL}/api/facilities`);
         return res.data;
     } catch (error) {
-        console.error('Failed to fetch facilities:', error);
+        console.error('Failed to fetch facility:', error);
         //throw error;
         return fallbackFacilities;
     }

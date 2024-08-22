@@ -8,7 +8,7 @@ export function AdminPage() {
           <section className="md:py-10">
             <div className="max-w-3xl mx-auto space-y-8">
               <div className="max-w-4xl mx-auto">
-                <h1 className="text-2xl font-bold mb-6">관리자 페이지</h1>
+                <h1 className="text-2xl font-bold mb-6 mt-4">관리자 페이지</h1>
                 <p className="text-muted-foreground text-lg md:text-xl">
                   공지사항, 시설, 예약, 사용자를 관리할 수 있습니다.
                 </p>
@@ -26,7 +26,7 @@ export function AdminPage() {
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
                       <Link href="/notice-write" className="flex items-center justify-between" prefetch={false}>
-                        <div>새 공지사항 작성</div>
+                        <div>공지사항 작성</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
                     </div>
