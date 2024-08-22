@@ -1,3 +1,5 @@
+//사용자가 예약한 내역 보기
+'use client'
 import { Button } from "@/components/ui/button"
 import {UserReservation} from "@/types/user-reservation";
 

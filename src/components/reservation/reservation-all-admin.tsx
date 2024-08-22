@@ -1,3 +1,4 @@
+// 관리자페이지 - 예약관리 - 전체 예약 신청내역 보기
 'use client'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

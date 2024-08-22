@@ -2,16 +2,11 @@ export interface User {
     id: number;
     name: string;
     department: string;
-    studentId: string;
+    studentId: string | null;
     password: string;
     phone: string;
     username: string;
     userRole: string;
-    authorities: string[];
-    enabled: boolean;
-    accountNonExpired: boolean;
-    accountNonLocked: boolean;
-    credentialsNonExpired: boolean;
 }
 
 export interface Facility {

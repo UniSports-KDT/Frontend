@@ -18,6 +18,20 @@ export async function getReservationLists(userId: number): Promise<UserReservati
     }
 }
 
+//28. 시설별 예약내역 조회 (관리자 기능)
+export async function getFacilityReservations(facilityId: number): Promise<AllReservation[]> {
+    if (!API_URL) {
+        return fallbackAllReservations.filter(r => r.facility.id === facilityId);
+    }
+    try {
+        const res = await axios.get<AllReservation[]>(`${API_URL}/api/facilities/${facilityId}/reservations`);
+        return res.data;
+    } catch (error) {
+        console.error('Failed to fetch reservations:', error);
+        return fallbackAllReservations.filter(r => r.facility.id === facilityId);
+    }
+}
+
 //29. 전체 예약 불러오기 (관리자 기능)
 export async function getAllReservations(): Promise<AllReservation[]> {
     if (!API_URL) {
@@ -58,8 +72,8 @@ const fallbackAllReservations: AllReservation[] = [
     {
         id: 1,
         date: '2023-08-25',
-        startTime: '10:00',
-        endTime: '12:00',
+        startTime: '10:00:00',
+        endTime: '12:00:00',
         status: 'APPROVED',
         user: {
             id: 1,
@@ -69,7 +83,12 @@ const fallbackAllReservations: AllReservation[] = [
             password: 'hashed_password',
             phone: '010-1234-5678',
             username: 'chulsoo.kim',
-            userRole: 'STUDENT'
+            userRole: 'STUDENT',
+            authorities: ['STUDENT'],
+            enabled: true,
+            accountNonExpired: true,
+            accountNonLocked: true,
+            credentialsNonExpired: true
         },
         facility: {
             id: 1,
@@ -87,8 +106,8 @@ const fallbackAllReservations: AllReservation[] = [
     {
         id: 2,
         date: '2023-08-26',
-        startTime: '14:00',
-        endTime: '16:00',
+        startTime: '14:00:00',
+        endTime: '16:00:00',
         status: 'PENDING',
         user: {
             id: 2,
@@ -98,7 +117,12 @@ const fallbackAllReservations: AllReservation[] = [
             password: 'hashed_password',
             phone: '010-2345-6789',
             username: 'younghee.lee',
-            userRole: 'STUDENT'
+            userRole: 'STUDENT',
+            authorities: ['STUDENT'],
+            enabled: true,
+            accountNonExpired: true,
+            accountNonLocked: true,
+            credentialsNonExpired: true
         },
         facility: {
             id: 2,
@@ -116,8 +140,8 @@ const fallbackAllReservations: AllReservation[] = [
     {
         id: 3,
         date: '2023-08-27',
-        startTime: '09:00',
-        endTime: '11:00',
+        startTime: '09:00:00',
+        endTime: '11:00:00',
         status: 'REJECTED',
         user: {
             id: 3,
@@ -127,7 +151,12 @@ const fallbackAllReservations: AllReservation[] = [
             password: 'hashed_password',
             phone: '010-3456-7890',
             username: 'minsoo.park',
-            userRole: 'STUDENT'
+            userRole: 'STUDENT',
+            authorities: ['STUDENT'],
+            enabled: true,
+            accountNonExpired: true,
+            accountNonLocked: true,
+            credentialsNonExpired: true
         },
         facility: {
             id: 3,
