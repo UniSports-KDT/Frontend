@@ -1,8 +1,8 @@
 'use client'
 import Link from "next/link"
-import { HomepageProps } from '@/types/announcements'
+import { HomepageProps } from '@/types/notice'
 
-export default function Homepage({ announcements }: HomepageProps) {
+export default function Homepage({ notices }: HomepageProps) {
   const userId = "123456";
 
   return (
@@ -26,7 +26,7 @@ export default function Homepage({ announcements }: HomepageProps) {
                 <BellIcon className="h-8 w-8 text-primary"/>
                 <h3 className="text-xl font-bold">최신 소식 확인하기</h3>
                 <p className="text-muted-foreground">UniSport의 최신 공지사항과 뉴스를 확인하세요.</p>
-                <Link href="/announcements" className="text-primary hover:underline">
+                <Link href="/notices" className="text-primary hover:underline">
                   공지사항 보기
                 </Link>
               </div>
@@ -42,11 +42,11 @@ export default function Homepage({ announcements }: HomepageProps) {
             <div>
               <h2 className="text-2xl font-bold mb-2">최신 공지사항</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {announcements.slice(0, 3).map((announcement) => (
-                    <div key={announcement.id} className="bg-muted rounded-lg p-4 space-y-2">
-                      <h3 className="text-lg font-bold">{announcement.title}</h3>
-                      <p className="text-muted-foreground">{announcement.content}</p>
-                      <Link href={`/announcements/${announcement.id}`} className="text-primary hover:underline">
+                {notices.slice(0, 3).map((notice) => (
+                    <div key={notice.id} className="bg-muted rounded-lg p-4 space-y-2">
+                      <h3 className="text-lg font-bold">{notice.title}</h3>
+                      <p className="text-muted-foreground">{notice.content}</p>
+                      <Link href={`/notices/${notice.id}`} className="text-primary hover:underline">
                         자세히 보기
                       </Link>
                     </div>

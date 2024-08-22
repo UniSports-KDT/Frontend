@@ -20,12 +20,12 @@ export function AdminPage() {
                   </CardHeader>
                   <CardContent>
                     <div className="grid gap-4">
-                      <Link href="/announcements-admin" className="flex items-center justify-between"
+                      <Link href="/notices-admin" className="flex items-center justify-between"
                             prefetch={false}>
                         <div>공지사항 목록</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
-                      <Link href="/announcement-write" className="flex items-center justify-between" prefetch={false}>
+                      <Link href="/notice-write" className="flex items-center justify-between" prefetch={false}>
                         <div>새 공지사항 작성</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>

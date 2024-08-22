@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 
-export function AnnouncementWrite() {
+export function NoticeWrite() {
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 py-10 px-6">
