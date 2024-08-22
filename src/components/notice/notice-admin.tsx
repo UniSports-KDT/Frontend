@@ -2,16 +2,16 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { AnnouncementsProps } from '@/types/announcements'
+import { NoticesProps } from '@/types/notice'
 
-export function AnnouncementsAdmin({announcements} : AnnouncementsProps) {
+export function NoticeAdmin({notices} : NoticesProps) {
   return (
       <div className="flex flex-col min-h-screen">
         <main className="flex-1 py-20 px-6">
           <div className="max-w-5xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold">공지사항</h1>
-              <Link href="/announcement-write" className="flex items-center justify-between" prefetch={false}>
+              <Link href="/notice-write" className="flex items-center justify-between" prefetch={false}>
                 <Button size="sm">
                   <PlusIcon className="h-4 w-4 mr-2"/>
                   공지사항 작성
@@ -19,18 +19,18 @@ export function AnnouncementsAdmin({announcements} : AnnouncementsProps) {
               </Link>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {announcements.length > 0 ? (
-                  announcements.map((announcement) => (
-                      <Card key={announcement.id}>
+              {notices.length > 0 ? (
+                  notices.map((notice) => (
+                      <Card key={notice.id}>
                         <CardHeader>
-                          <CardTitle>{announcement.title}</CardTitle>
+                          <CardTitle>{notice.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          <p>{announcement.content}</p>
+                          <p>{notice.content}</p>
                         </CardContent>
                         <CardFooter className="flex items-center justify-between">
                         <span
-                            className="text-sm text-muted-foreground">{new Date(announcement.createdAt).toLocaleDateString()}</span>
+                            className="text-sm text-muted-foreground">{new Date(notice.createdAt).toLocaleDateString()}</span>
                           <div className="flex items-center gap-2">
                             <Button variant="ghost" size="icon">
                               <FilePenIcon className="h-4 w-4"/>

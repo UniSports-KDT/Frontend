@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { ReservationAllAdmin } from '@/components/reservation/reservation-all-admin';
-import { getAllReservations } from '@/lib/api';
+import { getAllReservations } from '@/api';
 import { AllBooking } from '@/types/all-booking';
 
 export default async function ReservationAdminPage() {

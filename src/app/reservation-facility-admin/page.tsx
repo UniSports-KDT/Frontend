@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { FacilityListAdmin } from '@/components/reservation/reservation-facility-admin';
-import { getFacilities } from '@/lib/api';
+import { getFacilities } from '@/api';
 import { FacilityListProps } from '@/types/facility';
 
 export default async function FacilityListAdminPage() {

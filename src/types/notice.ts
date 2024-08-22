@@ -9,7 +9,7 @@ export interface User {
     userRole: string;
 }
 
-export interface Announcement {
+export interface Notice {
     id: number;
     title: string;
     content: string;
@@ -18,16 +18,16 @@ export interface Announcement {
     user: User;
 }
 
-export interface AnnouncementsProps {
-    announcements: Announcement[];
+export interface NoticesProps {
+    notices: Notice[];
 }
 
-export interface HomePageAnnouncement {
+export interface HomePageNotice {
     id: number;
     title: string;
     content: string;
 }
 
 export interface HomepageProps {
-    announcements: HomePageAnnouncement[];
+    notices: HomePageNotice[];
 }

@@ -38,7 +38,7 @@ export default function RootLayout({
           <Link href={`/booking-list/${userId}`} className="nav-link" prefetch={false}>
             예약내역
           </Link>
-          <Link href="/announcements" className="nav-link" prefetch={false}>
+          <Link href="/notices" className="nav-link" prefetch={false}>
             공지사항
           </Link>
           <Link href="/admin" className="nav-link" prefetch={false}>

@@ -1,6 +1,6 @@
 import { FacilityAdmin } from '@/components/facility/facility-admin';
 import { Suspense } from 'react';
-import { getFacilities } from '@/lib/api';
+import { getFacilities } from '@/api';
 import { FacilityListProps } from '@/types/facility';
 
 export default async function FacilityAdminPage() {

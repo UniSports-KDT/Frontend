@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Facility } from '@/types/facility';
-import { Announcement, HomePageAnnouncement } from '@/types/announcements';
+import { Notice, HomePageNotice } from '@/types/notice';
 import { UserBooking } from '@/types/user-booking';
 import { AllBooking} from "@/types/all-booking";
 
@@ -37,20 +37,20 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
 }
 
 //12. 공지사항 조회
-export async function getAnnouncements(isHomePage: boolean = false): Promise<Announcement[] | HomePageAnnouncement[]> {
+export async function getNotices(isHomePage: boolean = false): Promise<Notice[] | HomePageNotice[]> {
     if (!API_URL) {
-        return isHomePage ? fallbackAnnouncements : fallbackAnnouncementsWithUser;
+        return isHomePage ? fallbackNotices : fallbackNoticesWithUser;
     }
     try {
-        const response = await axios.get<Announcement[]>(`${API_URL}/api/announcements`);
+        const response = await axios.get<Notice[]>(`${API_URL}/api/announcements`);
         if (isHomePage) {
             return response.data.map(({ id, title, content }) => ({ id, title, content }));
         } else {
             return response.data;
         }
     } catch (error) {
-        console.error('Failed to fetch announcements:', error);
-        return isHomePage ? fallbackAnnouncements : fallbackAnnouncementsWithUser;
+        console.error('Failed to fetch notices:', error);
+        return isHomePage ? fallbackNotices : fallbackNoticesWithUser;
     }
 }
 
@@ -63,7 +63,7 @@ export async function getBookingLists(userId: number): Promise<UserBooking[]> {
         const res = await axios.get<UserBooking[]>(`${API_URL}/api/users/${userId}/reservations`);
         return res.data;
     } catch (error) {
-        //console.error('Failed to fetch booking lists:', error);
+        console.error('Failed to fetch booking lists:', error);
         return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
     }
 }
@@ -135,12 +135,12 @@ const fallbackFacilities: Facility[] = [
     }
 ];
 
-const fallbackAnnouncements: HomePageAnnouncement[] = [
+const fallbackNotices: HomePageNotice[] = [
     { id: 1, title: "새로운 체육관 장비 설치", content: "최신 장비를 추가로 설치했습니다. 확인해보세요!" },
     { id: 2, title: "수영장 정기 점검 안내", content: "수영장은 6월 1일부터 15일까지 정기 점검으로 이용이 불가능합니다." },
 ];
 
-const fallbackAnnouncementsWithUser: Announcement[] = [
+const fallbackNoticesWithUser: Notice[] = [
     {
         id: 1,
         title: "새로운 체육관 장비 설치",

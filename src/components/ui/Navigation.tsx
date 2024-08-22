@@ -20,7 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
         { href: '/', label: '홈' },
         { href: '/facility-lists', label: '시설' },
         { href: `/booking-list/${userId}`, label: '예약내역' },
-        { href: '/announcements', label: '공지사항' },
+        { href: '/notices', label: '공지사항' },
         { href: '/admin', label: '관리자 페이지' },
     ];
 

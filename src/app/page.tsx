@@ -1,11 +1,11 @@
 import Homepage from "@/components/homepages";
 import { Suspense } from 'react';
-import {getAnnouncements} from "@/lib/api";
-import { HomePageAnnouncement } from '@/types/announcements';
+import {getNotices} from "@/api";
+import { HomePageNotice } from '@/types/notice';
 
 async function HomePageContent() {
-    const announcements = await getAnnouncements(true) as HomePageAnnouncement[];
-    return <Homepage announcements={announcements} />;
+    const notices = await getNotices(true) as HomePageNotice[];
+    return <Homepage notices={notices} />;
 }
 
 export default async function HomePage() {
