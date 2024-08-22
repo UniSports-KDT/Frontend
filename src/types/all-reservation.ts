@@ -2,7 +2,7 @@ export interface User {
     id: number;
     name: string;
     department: string;
-    studentId: string;
+    studentId: number;
     password: string;
     phone: string;
     username: string;

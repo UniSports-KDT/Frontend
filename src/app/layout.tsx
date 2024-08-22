@@ -6,7 +6,7 @@ import Navigation from "@/components/ui/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const userId = "123456"; // 실제 userId로 변경해야됨 (예약내역으로 이동 시 필요)
+const userId = 123; // 실제 userId로 변경해야됨 (예약내역으로 이동 시 필요)
 
 export const metadata: Metadata = {
   title: "UniSport",
@@ -21,51 +21,10 @@ export default function RootLayout({
   return (
       <html lang="en">
       <body className={`${inter.className} flex flex-col min-h-screen`}>
-      <header
-          className="bg-primary text-primary-foreground py-4 px-6 flex items-center justify-between fixed top-0 left-0 right-0 z-10 h-16">
-        <Link href="/" className="flex items-center gap-2" prefetch={false}>
-          <MountainIcon className="h-6 w-6"/>
-          <span className="text-lg font-bold">UniSport</span>
-        </Link>
-        {/*
-        <nav className="hidden md:flex items-center gap-16">
-          <Link href="/" className="nav-link" prefetch={false}>
-            홈
-          </Link>
-          <Link href="/facility-lists" className="nav-link" prefetch={false}>
-            시설
-          </Link>
-          <Link href={`/reservation-list/${userId}`} className="nav-link" prefetch={false}>
-            예약내역
-          </Link>
-          <Link href="/notices" className="nav-link" prefetch={false}>
-            공지사항
-          </Link>
-          <Link href="/admin" className="nav-link" prefetch={false}>
-            관리자 페이지
-          </Link>
-        </nav>
-        */}
-        <Navigation userId={userId} />
-        <div className="flex items-center gap-4">
-          <Link href="/login" className="nav-link" prefetch={false}>
-            로그인
-          </Link>
-          <Link
-              href="#"
-              className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
-              prefetch={false}
-          >
-            회원가입
-          </Link>
+      <header className="bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-10">
+        <div className="container mx-auto px-4 py-2">
+          <Navigation userId={userId}/>
         </div>
-        {/* 모바일 뷰용 햄버거 메뉴 */}
-        <div className="md:hidden">
-          <button id="menuButton" className="flex items-center">
-            <HamburgerIcon className="h-6 w-6"/>
-          </button>
-        </div>
-        {/* 모바일 뷰용 드롭다운 메뉴 만들어줘야함*/}
       </header>
       <div className="flex-grow flex flex-col pt-16">
         <main className="flex-grow overflow-y-auto">
@@ -117,25 +76,6 @@ export default function RootLayout({
       </body>
       </html>
   );
-}
-
-function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-      <svg
-          {...props}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-      >
-        <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-      </svg>
-  )
 }
 
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -195,25 +135,4 @@ function TwitterIcon(props: React.SVGProps<SVGSVGElement>) {
         <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
       </svg>
   )
-}
-
-function HamburgerIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-      <svg
-          {...props}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-      >
-        <line x1="3" y1="12" x2="21" y2="12" />
-        <line x1="3" y1="6" x2="21" y2="6" />
-        <line x1="3" y1="18" x2="21" y2="18" />
-      </svg>
-  );
 }

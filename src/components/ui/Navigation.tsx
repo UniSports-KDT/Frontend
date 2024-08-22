@@ -1,16 +1,17 @@
 'use client'
-
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { Menu } from 'lucide-react';
 
 interface NavigationProps {
-    userId: string | number;
+    userId: number;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     const pathname = usePathname();
     const [mounted, setMounted] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -32,19 +33,88 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     };
 
     return (
-        <nav className="hidden md:flex items-center gap-16">
-            {navItems.map((item) => (
+        <nav className="flex items-center justify-between w-full">
+            <Link href="/" className="flex items-center gap-2" prefetch={false}>
+                <MountainIcon className="h-6 w-6"/>
+                <span className="text-lg font-bold">UniSport</span>
+            </Link>
+            <div className="hidden lg:flex items-center space-x-6">
+                {navItems.map((item) => (
+                    <Link
+                        key={item.href}
+                        href={item.href}
+                        className={`nav-link ${mounted && isActive(item.href) ? 'active' : ''}`}
+                        prefetch={false}
+                    >
+                        {item.label}
+                    </Link>
+                ))}
+            </div>
+            <div className="hidden lg:flex items-center gap-4">
+                <Link href="/login" className="nav-link" prefetch={false}>
+                    로그인
+                </Link>
                 <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`nav-link ${mounted && isActive(item.href) ? 'active' : ''}`}
+                    href="#"
+                    className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
                     prefetch={false}
                 >
-                    {item.label}
+                    회원가입
                 </Link>
-            ))}
+            </div>
+            <div className="lg:hidden">
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="p-2 text-primary-foreground hover:text-white transition-colors"
+                    aria-label="메뉴 토글"
+                >
+                    <Menu size={24} />
+                </button>
+            </div>
+            {isOpen && (
+                <div className="absolute top-14 left-0 right-0 bg-primary border-b border-border lg:hidden">
+                    {navItems.map((item) => (
+                        <Link
+                            key={item.href}
+                            href={item.href}
+                            className={`block px-4 py-3 nav-link ${
+                                mounted && isActive(item.href) ? 'active bg-primary-foreground/10' : ''
+                            } hover:bg-primary-foreground/5 transition-colors duration-200`}
+                            onClick={() => setIsOpen(false)}
+                            prefetch={false}
+                        >
+                            {item.label}
+                        </Link>
+                    ))}
+                    <Link href="/login" className="block px-4 py-3" prefetch={false}>
+                        로그인
+                    </Link>
+                    <Link href="#" className="block px-4 py-3" prefetch={false}>
+                        회원가입
+                    </Link>
+                </div>
+            )}
         </nav>
     );
 };
 
 export default Navigation;
+
+function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
+        </svg>
+    )
+}
