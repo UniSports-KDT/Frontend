@@ -1,4 +1,4 @@
-import Homepage from "@/components/homepages";
+import Homepage from "@/components/homepage";
 import { Suspense } from 'react';
 import {getNotices} from "@/api";
 import { HomePageNotice } from '@/types/notice';

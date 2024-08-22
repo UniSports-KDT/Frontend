@@ -38,7 +38,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                 <MountainIcon className="h-6 w-6"/>
                 <span className="text-lg font-bold">UniSport</span>
             </Link>
-            <div className="hidden lg:flex items-center space-x-6">
+            <div className="hidden lg:flex items-center space-x-14">
                 {navItems.map((item) => (
                     <Link
                         key={item.href}
