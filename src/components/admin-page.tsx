@@ -26,7 +26,7 @@ export function AdminPage() {
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
                       <Link href="/notice-write" className="flex items-center justify-between" prefetch={false}>
-                        <div>새 공지사항 작성</div>
+                        <div>공지사항 작성</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
                     </div>

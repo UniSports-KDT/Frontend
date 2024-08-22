@@ -27,9 +27,21 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
 
     const isActive = (href: string) => {
         if (href === '/') {
-            return pathname === href;
+            return pathname === '/';
         }
-        return pathname.startsWith(href);
+        if (href === '/facility-lists') {
+            return pathname.startsWith('/facility-lists') || pathname.startsWith('/facility/');
+        }
+        if (href.startsWith('/reservation-list/')) {
+            return pathname.startsWith('/reservation-list/') || pathname.startsWith('/reservation/');
+        }
+        if (href === '/notices') {
+            return pathname === '/notices' || pathname.startsWith('/notices/');
+        }
+        if (href === '/admin') {
+            return pathname.startsWith('/admin');
+        }
+        return false;
     };
 
     return (

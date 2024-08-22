@@ -1,9 +1,9 @@
 'use client'
 import Link from "next/link"
-import { HomepageProps } from '@/types/notice'
+import { NoticesProps } from '@/types/notice'
 
-export default function Homepage({ notices }: HomepageProps) {
-  const userId = "123456";
+export default function Homepage({ notices }: NoticesProps) {
+  const userId = 123456;
 
   return (
       <div className="flex flex-col min-h-screen">

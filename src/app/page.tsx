@@ -1,10 +1,10 @@
 import Homepage from "@/components/homepage";
 import { Suspense } from 'react';
 import {getNotices} from "@/api";
-import { HomePageNotice } from '@/types/notice';
+import { Notice } from '@/types/notice';
 
 async function HomePageContent() {
-    const notices = await getNotices(true) as HomePageNotice[];
+    const notices = await getNotices();
     return <Homepage notices={notices} />;
 }
 
