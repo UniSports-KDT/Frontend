@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { Facility } from '@/types/facility';
 import { Announcement, HomePageAnnouncement } from '@/types/announcements';
-import { Booking } from '@/types/booking';
+import { UserBooking } from '@/types/user-booking';
+import { AllBooking} from "@/types/all-booking";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -53,19 +54,34 @@ export async function getAnnouncements(isHomePage: boolean = false): Promise<Ann
     }
 }
 
-//27. 예약내역 조회 (사용자가 개인 예약내역 보기)
-export async function getBookingLists(userId: number): Promise<Booking[]> {
+//27. 예약내역 조회 (사용자 기능)
+export async function getBookingLists(userId: number): Promise<UserBooking[]> {
     if (!API_URL) {
         return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
     }
     try {
-        const res = await axios.get<Booking[]>(`${API_URL}/api/users/${userId}/reservations`);
+        const res = await axios.get<UserBooking[]>(`${API_URL}/api/users/${userId}/reservations`);
         return res.data;
     } catch (error) {
         //console.error('Failed to fetch booking lists:', error);
         return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
     }
 }
+
+//29. 전체 예약 불러오기 (관리자 기능)
+export async function getAllReservations(): Promise<AllBooking[]> {
+    if (!API_URL) {
+        return fallbackAllBookings;
+    }
+    try {
+        const res = await axios.get<AllBooking[]>(`${API_URL}/api/reservations`);
+        return res.data;
+    } catch (error) {
+        console.error('Failed to fetch all reservations:', error);
+        return fallbackAllBookings;
+    }
+}
+
 
 //하드코딩 데이터 모음
 const fallbackFacilities: Facility[] = [
@@ -161,7 +177,7 @@ const fallbackAnnouncementsWithUser: Announcement[] = [
     },
 ];
 
-const fallbackBookings: Booking[] = [
+const fallbackBookings: UserBooking[] = [
     {
         id: 1,
         facilityId: "농구장",
@@ -182,4 +198,93 @@ const fallbackBookings: Booking[] = [
     }
 ];
 
+const fallbackAllBookings: AllBooking[] = [
+    {
+        id: 1,
+        date: '2023-08-25',
+        startTime: '10:00',
+        endTime: '12:00',
+        status: 'APPROVED',
+        user: {
+            id: 1,
+            name: '김철수',
+            department: '컴퓨터공학과',
+            studentId: '20230001',
+            password: 'hashed_password',
+            phone: '010-1234-5678',
+            username: 'chulsoo.kim',
+            userRole: 'STUDENT'
+        },
+        facility: {
+            id: 1,
+            name: '농구장',
+            description: '실내 농구장',
+            location: '체육관 1층',
+            operatingHours: '09:00-18:00',
+            fee: 10000,
+            attachmentFlag: 'Y',
+            createdAt: '2023-01-01T00:00:00Z',
+            updatedAt: '2023-01-01T00:00:00Z',
+            imageUrls: '/images/basketball_court.jpg'
+        }
+    },
+    {
+        id: 2,
+        date: '2023-08-26',
+        startTime: '14:00',
+        endTime: '16:00',
+        status: 'PENDING',
+        user: {
+            id: 2,
+            name: '이영희',
+            department: '경영학과',
+            studentId: '20230002',
+            password: 'hashed_password',
+            phone: '010-2345-6789',
+            username: 'younghee.lee',
+            userRole: 'STUDENT'
+        },
+        facility: {
+            id: 2,
+            name: '테니스장',
+            description: '야외 테니스장',
+            location: '운동장 옆',
+            operatingHours: '08:00-20:00',
+            fee: 15000,
+            attachmentFlag: 'N',
+            createdAt: '2023-01-02T00:00:00Z',
+            updatedAt: '2023-01-02T00:00:00Z',
+            imageUrls: '/images/tennis_court.jpg'
+        }
+    },
+    {
+        id: 3,
+        date: '2023-08-27',
+        startTime: '09:00',
+        endTime: '11:00',
+        status: 'REJECTED',
+        user: {
+            id: 3,
+            name: '박민수',
+            department: '체육교육과',
+            studentId: '20230003',
+            password: 'hashed_password',
+            phone: '010-3456-7890',
+            username: 'minsoo.park',
+            userRole: 'STUDENT'
+        },
+        facility: {
+            id: 3,
+            name: '수영장',
+            description: '25m 실내 수영장',
+            location: '체육관 지하 1층',
+            operatingHours: '06:00-22:00',
+            fee: 8000,
+            attachmentFlag: 'Y',
+            createdAt: '2023-01-03T00:00:00Z',
+            updatedAt: '2023-01-03T00:00:00Z',
+            imageUrls: '/images/swimming_pool.jpg'
+        }
+    }
+];
 

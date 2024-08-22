@@ -55,10 +55,18 @@ export function AdminPage() {
                   <CardHeader>
                     <CardTitle>예약 관리</CardTitle>
                   </CardHeader>
+                  {/*<CardContent>*/}
+                  {/*  <div className="grid gap-4">*/}
+                  {/*    <Link href="/reservation-facility-admin" className="flex items-center justify-between" prefetch={false}>*/}
+                  {/*      <div>시설별 예약 신청내역 보기</div>*/}
+                  {/*      <ArrowRightIcon className="h-5 w-5"/>*/}
+                  {/*    </Link>*/}
+                  {/*  </div>*/}
+                  {/*</CardContent>*/}
                   <CardContent>
                     <div className="grid gap-4">
-                      <Link href="/reservation-facilityList-admin" className="flex items-center justify-between" prefetch={false}>
-                        <div>예약 신청 목록</div>
+                      <Link href="/reservation-all-admin" className="flex items-center justify-between" prefetch={false}>
+                        <div>전체 예약 신청내역 보기</div>
                         <ArrowRightIcon className="h-5 w-5"/>
                       </Link>
                     </div>

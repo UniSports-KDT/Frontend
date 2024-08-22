@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { FacilityListAdmin } from '@/components/reservation/reservation-facilityList-admin';
+import { FacilityListAdmin } from '@/components/reservation/reservation-facility-admin';
 import { getFacilities } from '@/lib/api';
 import { FacilityListProps } from '@/types/facility';
 
