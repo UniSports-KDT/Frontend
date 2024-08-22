@@ -15,4 +15,3 @@ export default async function HomePage() {
       </Suspense>
   );
 }
-export const revalidate = 3600; // 1시간마다 재검증

@@ -2,11 +2,16 @@ export interface User {
     id: number;
     name: string;
     department: string;
-    studentId: string | null;
+    studentId: string;
     password: string;
     phone: string;
     username: string;
     userRole: string;
+    authorities: string[];
+    enabled: boolean;
+    accountNonExpired: boolean;
+    accountNonLocked: boolean;
+    credentialsNonExpired: boolean;
 }
 
 export interface Facility {
@@ -22,7 +27,7 @@ export interface Facility {
     imageUrls: string | null;
 }
 
-export interface AllBooking {
+export interface AllReservation {
     id: number;
     date: string;
     startTime: string;
@@ -32,6 +37,6 @@ export interface AllBooking {
     facility: Facility;
 }
 
-export interface AllBookingProps {
-    allBookings: AllBooking[];
+export interface AllReservationProps {
+    allReservations: AllReservation[];
 }

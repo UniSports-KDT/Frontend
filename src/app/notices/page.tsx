@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { getNotices } from "@/api";
+import { getNotices } from "@/api/notice";
 import Notices from '@/components/notice/notices';
 import { Notice } from '@/types/notice';
 

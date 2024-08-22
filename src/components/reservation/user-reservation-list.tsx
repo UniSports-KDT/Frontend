@@ -1,35 +1,37 @@
+//사용자가 예약한 내역 보기
+'use client'
 import { Button } from "@/components/ui/button"
-import {UserBooking} from "@/types/user-booking";
+import {UserReservation} from "@/types/user-reservation";
 
-export function UserBookingList({ bookings }: { bookings: UserBooking[] }) {
+export function UserReservationList({ reservations }: { reservations: UserReservation[] }) {
   return (
       <div className="flex flex-col min-h-screen">
         <main className="flex-1 py-20 px-4 md:px-8">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-2xl font-bold mb-6">예약 내역</h1>
             <div className="space-y-4">
-              {bookings.length > 0 ? (
-                  bookings.map((booking) => (
-                      <div key={booking.id} className="bg-background rounded-lg shadow-md p-4">
+              {reservations.length > 0 ? (
+                  reservations.map((reservation) => (
+                      <div key={reservation.id} className="bg-background rounded-lg shadow-md p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <div className="font-medium">{booking.facilityId}</div>
-                          <div className="text-sm text-muted-foreground">{new Date(booking.reservationTime).toLocaleDateString()}에 예약됨</div>
+                          <div className="font-medium">{reservation.facilityId}</div>
+                          <div className="text-sm text-muted-foreground">{new Date(reservation.reservationTime).toLocaleDateString()}에 예약됨</div>
                         </div>
                         <div className="flex items-center justify-between">
                           <div className="text-sm text-muted-foreground">
                             예약 상태:{' '}
                             <span
                                 className={`font-medium ${
-                                    booking.status === 'approved'
+                                    reservation.status === 'approved'
                                         ? 'text-green-500'
-                                        : booking.status === 'pending'
+                                        : reservation.status === 'pending'
                                             ? 'text-yellow-500'
                                             : 'text-red-500'
                                 }`}
                             >
-                        {booking.status === 'approved'
+                        {reservation.status === 'approved'
                             ? '확정'
-                            : booking.status === 'pending'
+                            : reservation.status === 'pending'
                                 ? '대기 중'
                                 : '취소됨'}
                         </span>
@@ -38,7 +40,7 @@ export function UserBookingList({ bookings }: { bookings: UserBooking[] }) {
                             <Button variant="outline" size="sm">
                               상세 보기
                             </Button>
-                            {booking.status === 'pending' && (
+                            {reservation.status === 'pending' && (
                                 <Button variant="outline" size="sm">
                                   취소
                                 </Button>
