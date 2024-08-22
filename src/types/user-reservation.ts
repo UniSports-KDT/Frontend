@@ -1,4 +1,4 @@
-export interface UserBooking {
+export interface UserReservation {
     id: number;
     facilityId: string;
     reservationTime: string;

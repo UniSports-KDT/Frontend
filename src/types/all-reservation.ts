@@ -22,7 +22,7 @@ export interface Facility {
     imageUrls: string | null;
 }
 
-export interface AllBooking {
+export interface AllReservation {
     id: number;
     date: string;
     startTime: string;
@@ -32,6 +32,6 @@ export interface AllBooking {
     facility: Facility;
 }
 
-export interface AllBookingProps {
-    allBookings: AllBooking[];
+export interface AllReservationProps {
+    allReservations: AllReservation[];
 }

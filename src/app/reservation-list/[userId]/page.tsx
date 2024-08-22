@@ -1,7 +1,7 @@
 //userId에 따른 예약내역 조회가 가능하도록 수정해야됨!!!!!
-import { UserBookingList } from '@/components/reservation/user-booking-list';
+import { UserReservationList } from '@/components/reservation/user-reservation-list';
 import React from 'react';
-import {getBookingLists} from "@/api";
+import {getReservationLists} from "@/api";
 import { Suspense } from 'react';
 
 export async function generateStaticParams() {
@@ -11,13 +11,13 @@ export async function generateStaticParams() {
     ];
 }
 
-export default async function BookingListPage({ params }: { params: { userId: number } }) {
+export default async function ReservationListPage({ params }: { params: { userId: number } }) {
     const { userId } = params;
-    const bookings = await getBookingLists(userId);
+    const reservations = await getReservationLists(userId);
 
     return (
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
-            <UserBookingList bookings={bookings} />
+            <UserReservationList reservations={reservations} />
         </Suspense>
     );
 }

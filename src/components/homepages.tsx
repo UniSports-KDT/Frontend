@@ -34,7 +34,7 @@ export default function Homepage({ notices }: HomepageProps) {
                 <UserIcon className="h-8 w-8 text-primary"/>
                 <h3 className="text-xl font-bold">예약 관리하기</h3>
                 <p className="text-muted-foreground">지난 예약 내역과 예정된 예약을 확인하세요.</p>
-                <Link href={`/booking-list/${userId}`} className="text-primary hover:underline">
+                <Link href={`/reservation-list/${userId}`} className="text-primary hover:underline">
                   예약 내역 보기
                 </Link>
               </div>

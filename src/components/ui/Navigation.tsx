@@ -19,7 +19,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     const navItems = [
         { href: '/', label: '홈' },
         { href: '/facility-lists', label: '시설' },
-        { href: `/booking-list/${userId}`, label: '예약내역' },
+        { href: `/reservation-list/${userId}`, label: '예약내역' },
         { href: '/notices', label: '공지사항' },
         { href: '/admin', label: '관리자 페이지' },
     ];

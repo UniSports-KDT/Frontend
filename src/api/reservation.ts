@@ -1,39 +1,39 @@
 import axios from 'axios';
-import { UserBooking } from '@/types/user-booking';
-import { AllBooking } from "@/types/all-booking";
+import { UserReservation } from '@/types/user-reservation';
+import { AllReservation } from "@/types/all-reservation";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 //27. 예약내역 조회 (사용자 기능)
-export async function getBookingLists(userId: number): Promise<UserBooking[]> {
+export async function getReservationLists(userId: number): Promise<UserReservation[]> {
     if (!API_URL) {
-        return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
+        return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
     }
     try {
-        const res = await axios.get<UserBooking[]>(`${API_URL}/api/users/${userId}/reservations`);
+        const res = await axios.get<UserReservation[]>(`${API_URL}/api/users/${userId}/reservations`);
         return res.data;
     } catch (error) {
-        console.error('Failed to fetch booking lists:', error);
-        return fallbackBookings.map(booking => ({...booking, facilityId: `${booking.facilityId}`}));
+        console.error('Failed to fetch reservation lists:', error);
+        return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
     }
 }
 
 //29. 전체 예약 불러오기 (관리자 기능)
-export async function getAllReservations(): Promise<AllBooking[]> {
+export async function getAllReservations(): Promise<AllReservation[]> {
     if (!API_URL) {
-        return fallbackAllBookings;
+        return fallbackAllReservations;
     }
     try {
-        const res = await axios.get<AllBooking[]>(`${API_URL}/api/reservations`);
+        const res = await axios.get<AllReservation[]>(`${API_URL}/api/reservations`);
         return res.data;
     } catch (error) {
         console.error('Failed to fetch all reservations:', error);
-        return fallbackAllBookings;
+        return fallbackAllReservations;
     }
 }
 
 //하드코딩 데이터
-const fallbackBookings: UserBooking[] = [
+const fallbackReservations: UserReservation[] = [
     {
         id: 1,
         facilityId: "농구장",
@@ -54,7 +54,7 @@ const fallbackBookings: UserBooking[] = [
     }
 ];
 
-const fallbackAllBookings: AllBooking[] = [
+const fallbackAllReservations: AllReservation[] = [
     {
         id: 1,
         date: '2023-08-25',
