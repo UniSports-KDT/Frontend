@@ -1,7 +1,60 @@
 import { UserReservation } from '@/types/user-reservation';
 import { AllReservation } from "@/types/all-reservation";
+import { AvailableTimesRequest, AvailableTimesResponse, ReservationRequest } from '@/types/reservation-available';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+//18. 예약 신청
+export async function createReservation(reservationData: ReservationRequest): Promise<{ success: boolean; message: string }> {
+    if (!API_URL) {
+        //console.error('API URL is not defined');
+        return { success: false, message: 'API configuration error' };
+    }
+    try {
+        const res = await fetch(`${API_URL}/api/reservations`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reservationData),
+        });
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.message || 'Failed to create reservation');
+        }
+        return { success: true, message: 'Reservation created successfully' };
+    } catch (error) {
+        console.error('Failed to create reservation:', error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' };
+    }
+}
+
+//20. 특정 시설 예약상태 조회
+export async function getAvailableTimes({ facilityId, date }: AvailableTimesRequest): Promise<AvailableTimesResponse> {
+    if (!API_URL) {
+        //console.error('API URL is not defined');
+        return fallbackAvailableTimes;
+    }
+    try {
+        const url = new URL(`${API_URL}/api/facilities/${facilityId}/available-times`);
+        url.searchParams.append('date', date); // 쿼리 파라미터 추가
+        const res = await fetch(url.toString(), {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            cache: 'no-store'
+        });
+        if (!res.ok) {
+            throw new Error('Failed to fetch available times');
+        }
+        const data: AvailableTimesResponse = await res.json();
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch available times:', error);
+        return fallbackAvailableTimes;
+    }
+}
 
 //27. 예약내역 조회 (사용자 기능)
 export async function getReservationLists(userId: number): Promise<UserReservation[]> {
@@ -10,7 +63,7 @@ export async function getReservationLists(userId: number): Promise<UserReservati
     }
     try {
         const res = await fetch(`${API_URL}/api/users/${userId}/reservations`, {
-            cache: 'no-store' // 항상 새로운 데이터를 가져옵니다
+            cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch reservation lists');
         return res.json();
@@ -180,3 +233,18 @@ const fallbackAllReservations: AllReservation[] = [
         }
     }
 ];
+
+const fallbackAvailableTimes: AvailableTimesResponse = {
+    facilityId: 1,
+    date: "2023-08-25",
+    availableTimes: [
+        { startTime: "06:00", endTime: "08:00", available: true },
+        { startTime: "08:00", endTime: "10:00", available: true },
+        { startTime: "10:00", endTime: "12:00", available: false },
+        { startTime: "12:00", endTime: "14:00", available: true },
+        { startTime: "14:00", endTime: "16:00", available: true },
+        { startTime: "16:00", endTime: "18:00", available: false },
+        { startTime: "18:00", endTime: "20:00", available: true },
+        { startTime: "20:00", endTime: "22:00", available: true },
+    ]
+};

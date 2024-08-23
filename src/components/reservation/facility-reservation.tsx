@@ -1,4 +1,5 @@
 'use client'
+import React, { useState, useEffect } from 'react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Carousel, CarouselItem } from "@/components/ui/carousel"
@@ -6,23 +7,87 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { ChevronDownIcon } from "lucide-react"
-import { useState } from 'react'
 import { Facility } from '@/types/facility'
+import { createReservation, getAvailableTimes } from '@/api/reservation'
+import { AvailableTimesResponse, TimeSlot } from '@/types/reservation-available'
 
 interface FacilityReservationProps {
   facility: Facility;
-} //단일 시설 정보 받아옴
+  userId: number;
+  initialAvailableTimes: AvailableTimesResponse;
+}
 
-export function FacilityReservation({ facility }: FacilityReservationProps) {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+export function FacilityReservation({ facility, userId, initialAvailableTimes }: FacilityReservationProps): JSX.Element {
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [availableTimes, setAvailableTimes] = useState<TimeSlot[]>(initialAvailableTimes.availableTimes);
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState<TimeSlot[]>([]);
 
-  // 날짜 선택 시 호출되는 함수
-  const handleDateSelect = (date: Date | undefined) => {
-    setSelectedDate(date || null); // undefined일 경우 null로 설정
-    console.log("선택된 날짜:", date); // 콘솔에 선택된 날짜를 출력합니다.
-    console.log(date?.getDate())
-    console.log(date?.getFullYear())
-    console.log(date?.getMonth())
+  useEffect(() => {
+    const fetchAvailableTimes = async () => {
+      const formattedDate = selectedDate.toISOString().split('T')[0];
+      try {
+        const times = await getAvailableTimes({ facilityId: facility.id, date: formattedDate });
+        setAvailableTimes(times.availableTimes);
+      } catch (error) {
+        console.error('Failed to fetch available times:', error);
+        alert('예약 가능 시간을 불러오는데 실패했습니다.');
+      }
+    };
+
+    fetchAvailableTimes();
+  }, [selectedDate, facility.id]);
+
+  const handleDateSelect = (date: Date | undefined): void => {
+    if (date) {
+      setSelectedDate(date);
+      setSelectedTimeSlots([]);
+    }
+  };
+
+  const handleTimeSlotSelect = (timeSlot: TimeSlot): void => {
+    setSelectedTimeSlots(prev =>
+        prev.some(slot => slot.startTime === timeSlot.startTime)
+            ? prev.filter(slot => slot.startTime !== timeSlot.startTime)
+            : [...prev, timeSlot]
+    );
+  };
+
+  const handleReservation = async (): Promise<void> => {
+    if (selectedTimeSlots.length === 0) {
+      alert('예약할 시간을 선택해주세요.')
+      return;
+    }
+
+    const formattedDate = selectedDate.toISOString().split('T')[0];
+
+    //사용자가 선택한 시간대들 배열
+    const reservationPromises = selectedTimeSlots.map(slot => {
+      const reservationData = { //예약 데이터 객체 생성
+        facilityId: facility.id,
+        userId: userId,
+        date: formattedDate,
+        startTime: slot.startTime,
+        endTime: slot.endTime
+      };
+      return createReservation(reservationData);
+    });
+
+    try {
+      const results = await Promise.all(reservationPromises);
+      const allSuccessful = results.every(result => result.success);
+      if (allSuccessful) {
+        alert('예약 완료');
+        setSelectedTimeSlots([]);
+        // 예약 가능 시간 다시 불러오기
+        const times = await getAvailableTimes({ facilityId: facility.id, date: formattedDate });
+        setAvailableTimes(times.availableTimes);
+      } else {
+        throw new Error('일부 예약에 실패했습니다.');
+      }
+    } catch (error) {
+      console.error('Reservation error:', error);
+      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -69,7 +134,7 @@ export function FacilityReservation({ facility }: FacilityReservationProps) {
                         <h2 className="text-xl font-bold">위치</h2>
                         <p className="text-muted-foreground">
                           {facility.location}
-                          <Link href="#" className="underline ml-2" prefetch={false}>
+                          <Link href="#" className="underline ml-2">
                             지도 보기
                           </Link>
                         </p>
@@ -91,33 +156,36 @@ export function FacilityReservation({ facility }: FacilityReservationProps) {
                   </div>
                   <div className="space-y-8">
                     <div className="grid gap-2 mt-8">
-                    <Label htmlFor="unavailable-dates" className="text-xl font-bold">예약 날짜</Label>
+                      <Label htmlFor="unavailable-dates" className="text-xl font-bold">예약 날짜</Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button variant="outline" className="justify-between w-full">
-                            <span>{selectedDate ? selectedDate.toLocaleDateString() : "날짜 선택"}</span>
+                            <span>{selectedDate.toLocaleDateString()}</span>
                             <ChevronDownIcon className="w-4 h-4"/>
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="p-0 max-w-[276px]">
-                          <Calendar mode="single" onSelect={handleDateSelect}/>
+                          <Calendar mode="single" selected={selectedDate} onSelect={handleDateSelect}/>
                         </PopoverContent>
                       </Popover>
                     </div>
                     <div>
                       <h2 className="text-xl font-bold mt-8">예약 가능 시간</h2>
                       <div className="grid grid-cols-2 gap-4 overflow-x-auto mt-2">
-                        <Button variant="outline">오전 6시 - 오전 8시</Button>
-                        <Button variant="outline">오전 8시 - 오전 10시</Button>
-                        <Button variant="outline">오전 10시 - 오후 12시</Button>
-                        <Button variant="outline">오후 12시 - 오후 2시</Button>
-                        <Button variant="outline">오후 2시 - 오후 4시</Button>
-                        <Button variant="outline">오후 4시 - 오후 6시</Button>
-                        <Button variant="outline">오후 6시 - 오후 8시</Button>
-                        <Button variant="outline">오후 8시 - 오후 10시</Button>
+                        {availableTimes.map((slot) => (
+                            <Button
+                                key={slot.startTime}
+                                variant={selectedTimeSlots.some(s => s.startTime === slot.startTime) ? "default" : "outline"}
+                                onClick={() => handleTimeSlotSelect(slot)}
+                                disabled={!slot.available}
+                                className={!slot.available ? "opacity-50 cursor-not-allowed" : ""}
+                            >
+                              {`${slot.startTime} - ${slot.endTime}`}
+                            </Button>
+                        ))}
                       </div>
                     </div>
-                    <Button size="lg" className="w-full">
+                    <Button size="lg" className="w-full" onClick={handleReservation}>
                       지금 예약하기
                     </Button>
                   </div>
@@ -128,23 +196,4 @@ export function FacilityReservation({ facility }: FacilityReservationProps) {
         </main>
       </div>
   );
-}
-
-function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-      <svg
-          {...props}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-      >
-        <path d="M20 6 9 17l-5-5"/>
-      </svg>
-  )
 }
