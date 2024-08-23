@@ -9,8 +9,11 @@ import { ChevronDownIcon } from "lucide-react"
 import { useState } from 'react'
 import { Facility } from '@/types/facility'
 
-export function FacilityReservation({ facility }: { facility: Facility }) {
+interface FacilityReservationProps {
+  facility: Facility;
+} //단일 시설 정보 받아옴
 
+export function FacilityReservation({ facility }: FacilityReservationProps) {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   // 날짜 선택 시 호출되는 함수
@@ -86,27 +89,6 @@ export function FacilityReservation({ facility }: { facility: Facility }) {
                       </div>
                     </div>
                   </div>
-                  {/*<div className="mb-8">*/}
-                  {/*  <h2 className="text-xl font-bold mb-2">시설 정보</h2>*/}
-                  {/*  <ul className="space-y-1 text-muted-foreground">*/}
-                  {/*    <li className="flex items-center">*/}
-                  {/*      <CheckIcon className="w-5 h-5 mr-2 text-primary flex-shrink-0"/>*/}
-                  {/*      <span>규격 코트</span>*/}
-                  {/*    </li>*/}
-                  {/*    <li className="flex items-center">*/}
-                  {/*      <CheckIcon className="w-5 h-5 mr-2 text-primary flex-shrink-0"/>*/}
-                  {/*      <span>하드우드 바닥</span>*/}
-                  {/*    </li>*/}
-                  {/*    <li className="flex items-center">*/}
-                  {/*      <CheckIcon className="w-5 h-5 mr-2 text-primary flex-shrink-0"/>*/}
-                  {/*      <span>조절식 골대</span>*/}
-                  {/*    </li>*/}
-                  {/*    <li className="flex items-center">*/}
-                  {/*      <CheckIcon className="w-5 h-5 mr-2 text-primary flex-shrink-0"/>*/}
-                  {/*      <span>관람객을 위한 충분한 좌석</span>*/}
-                  {/*    </li>*/}
-                  {/*  </ul>*/}
-                  {/*</div>*/}
                   <div className="space-y-8">
                     <div className="grid gap-2 mt-8">
                     <Label htmlFor="unavailable-dates" className="text-xl font-bold">예약 날짜</Label>

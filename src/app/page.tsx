@@ -1,7 +1,6 @@
 import Homepage from "@/components/homepage";
 import { Suspense } from 'react';
 import {getNotices} from "@/api";
-import { Notice } from '@/types/notice';
 
 async function HomePageContent() {
     const notices = await getNotices();

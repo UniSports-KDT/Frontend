@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { UserReservation } from '@/types/user-reservation';
 import { AllReservation } from "@/types/all-reservation";
 
@@ -10,8 +9,11 @@ export async function getReservationLists(userId: number): Promise<UserReservati
         return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
     }
     try {
-        const res = await axios.get<UserReservation[]>(`${API_URL}/api/users/${userId}/reservations`);
-        return res.data;
+        const res = await fetch(`${API_URL}/api/users/${userId}/reservations`, {
+            cache: 'no-store' // 항상 새로운 데이터를 가져옵니다
+        });
+        if (!res.ok) throw new Error('Failed to fetch reservation lists');
+        return res.json();
     } catch (error) {
         console.error('Failed to fetch reservation lists:', error);
         return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
@@ -24,8 +26,11 @@ export async function getFacilityReservations(facilityId: number): Promise<AllRe
         return fallbackAllReservations.filter(r => r.facility.id === facilityId);
     }
     try {
-        const res = await axios.get<AllReservation[]>(`${API_URL}/api/facilities/${facilityId}/reservations`);
-        return res.data;
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}/reservations`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) throw new Error('Failed to fetch facility reservations');
+        return res.json();
     } catch (error) {
         console.error('Failed to fetch reservations:', error);
         return fallbackAllReservations.filter(r => r.facility.id === facilityId);
@@ -38,8 +43,11 @@ export async function getAllReservations(): Promise<AllReservation[]> {
         return fallbackAllReservations;
     }
     try {
-        const res = await axios.get<AllReservation[]>(`${API_URL}/api/reservations`);
-        return res.data;
+        const res = await fetch(`${API_URL}/api/reservations`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) throw new Error('Failed to fetch all reservations');
+        return res.json();
     } catch (error) {
         console.error('Failed to fetch all reservations:', error);
         return fallbackAllReservations;

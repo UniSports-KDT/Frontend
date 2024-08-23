@@ -4,8 +4,12 @@ import { getNotices } from "@/api";
 import { Notice } from '@/types/notice';
 
 async function AdminNoticesContent() {
-    const notices = await getNotices(false) as Notice[];
-    return <NoticeAdmin notices={notices} />;
+    try {
+        const notices: Notice[] = await getNotices();
+        return <NoticeAdmin notices={notices} />;
+    } catch (error) {
+        console.error('Failed to fetch notices:', error);
+    }
 }
 
 export default async function AdminNoticesPage() {

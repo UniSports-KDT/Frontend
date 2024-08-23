@@ -1,7 +1,29 @@
-import axios from 'axios';
 import { Notice } from '@/types/notice';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+// 9. 공지사항 작성
+export async function createNotice(noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
+    if (!API_URL) {
+        throw new Error('API URL is not defined');
+    }
+    try {
+        const response = await fetch(`${API_URL}/api/announcements`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(noticeData),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to create notice');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Failed to create notice:', error);
+        throw error;
+    }
+}
 
 // 12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
@@ -9,8 +31,13 @@ export async function getNotices(): Promise<Notice[]> {
         return fallbackNotices;
     }
     try {
-        const response = await axios.get<Notice[]>(`${API_URL}/api/announcements`);
-        return response.data;
+        const response = await fetch(`${API_URL}/api/announcements`, {
+            next: { revalidate: 60 },
+        });
+        if (!response.ok) {
+            throw new Error('Failed to fetch notices');
+        }
+        return response.json();
     } catch (error) {
         console.error('Failed to fetch notices:', error);
         return fallbackNotices;
