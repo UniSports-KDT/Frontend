@@ -8,7 +8,7 @@ export async function getFacilities(): Promise<Facility[]> {
         return fallbackFacilities;
     }
     try {
-        const res = await fetch(`${API_URL}/api/facilities`, { next: { revalidate: 3600 } }); // 1시간마다 재검증
+        const res = await fetch(`${API_URL}/api/facilities`, { next: { revalidate: 3600 } });
         if (!res.ok) {
             throw new Error('Failed to fetch facilities');
         }
@@ -25,7 +25,7 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
     }
     try {
-        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, { next: { revalidate: 3600 } }); // 1시간마다 재검증
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, { next: { revalidate: 3600 } });
         if (!res.ok) {
             throw new Error('Failed to fetch facility details');
         }
