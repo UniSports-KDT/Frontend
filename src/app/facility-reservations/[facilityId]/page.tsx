@@ -18,7 +18,7 @@ import { Suspense } from 'react';
 import { Facility } from '@/types/facility'
 
 export default async function FacilityReservationPage({ params }: { params: { facilityId: string } }) {
-    const facility = await getFacilityDetails(params.facilityId)
+    const facility = await getFacilityDetails(Number(params.facilityId)) //오류나서 Number로 매핑함
     return (
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
             <FacilityReservationContent facility={facility} />

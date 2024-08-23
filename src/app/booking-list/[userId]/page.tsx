@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 
 export default async function BookingListPage({ params }: { params: { userId: string } }) {
     const { userId } = params;
-    const bookings = await getBookingLists(userId);
+    const bookings = await getBookingLists(Number(userId)); //오류가 나서 Number로 매핑했음
 
     return (
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
