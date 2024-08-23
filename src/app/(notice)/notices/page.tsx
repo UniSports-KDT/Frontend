@@ -1,11 +1,15 @@
 import { Suspense } from 'react';
-import { getNotices } from "@/api/notice";
+import { getNotices } from "@/api";
 import Notices from '@/components/notice/notices';
 import { Notice } from '@/types/notice';
 
 async function NoticesContent() {
-    const notices = await getNotices(false) as Notice[];
-    return <Notices notices={notices} />;
+    try {
+        const notices: Notice[] = await getNotices();
+        return <Notices notices={notices} />;
+    } catch (error) {
+        console.error('Failed to fetch notices:', error);
+    }
 }
 
 export default async function NoticesPage() {

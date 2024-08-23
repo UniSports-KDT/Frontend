@@ -14,7 +14,6 @@ const StatusDot = ({ status }: { status: string }) => {
             default: return '#95a5a6';
         }
     }
-
     return (
         <svg width="10" height="10" className="inline mr-2">
             <circle cx="5" cy="5" r="5" fill={getStatusColor(status)} />
@@ -31,9 +30,7 @@ export function ReservationFacilityDetailAdmin({ reservations }: { reservations:
             default: return '알 수 없음';
         }
     }
-
     const facilityName = reservations.length > 0 ? reservations[0].facility.name : '';
-
     return (
         <div className="container mx-auto py-8">
             <h1 className="text-2xl font-bold mb-6">{facilityName} 예약 관리</h1>

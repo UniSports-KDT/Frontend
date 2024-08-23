@@ -1,7 +1,9 @@
 import { NoticeWrite } from '@/components/notice/notice-write';
 
-export default function HomePage() {
+export default async function NoticeWritePage() {
     return (
-        <NoticeWrite/>
+        <div>
+            <NoticeWrite />
+        </div>
     );
-  }
+}

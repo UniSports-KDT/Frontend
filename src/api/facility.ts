@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Facility } from '@/types/facility';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -6,15 +5,16 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 //3.전체 시설 조회
 export async function getFacilities(): Promise<Facility[]> {
     if (!API_URL) {
-        //throw new Error('API에러');
         return fallbackFacilities;
     }
     try {
-        const res = await axios.get<Facility[]>(`${API_URL}/api/facilities`);
-        return res.data;
+        const res = await fetch(`${API_URL}/api/facilities`, { next: { revalidate: 3600 } }); // 1시간마다 재검증
+        if (!res.ok) {
+            throw new Error('Failed to fetch facilities');
+        }
+        return res.json();
     } catch (error) {
-        console.error('Failed to fetch facility:', error);
-        //throw error;
+        console.error('Failed to fetch facilities:', error);
         return fallbackFacilities;
     }
 }
@@ -25,8 +25,11 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
     }
     try {
-        const res = await axios.get<Facility>(`${API_URL}/api/facilities/${facilityId}`);
-        return res.data;
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, { next: { revalidate: 3600 } }); // 1시간마다 재검증
+        if (!res.ok) {
+            throw new Error('Failed to fetch facility details');
+        }
+        return res.json();
     } catch (error) {
         console.error('Failed to fetch facility details:', error);
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];

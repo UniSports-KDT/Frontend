@@ -1,17 +1,35 @@
-import { FacilityReservation } from '@/components/facility/facility-reservation'
+import { FacilityReservation } from '@/components/reservation/facility-reservation'
 import { getFacilityDetails } from '@/api'
 import { Suspense } from 'react';
 import { Facility } from '@/types/facility'
+import { notFound } from 'next/navigation'
 
-export default async function FacilityReservationPage({ params }: { params: { facilityId: number } }) {
-    const facility = await getFacilityDetails(params.facilityId)
-    return (
-        <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
-            <FacilityReservationContent facility={facility} />
-        </Suspense>
-    );
+interface PageProps {
+    params: {
+        facilityId: string
+    }
 }
 
-function FacilityReservationContent({ facility }: { facility: Facility }) {
-    return <FacilityReservation facility={facility} />
+async function FacilityReservationContent({ facilityId }: { facilityId: number })  {
+    try {
+        const facility: Facility = await getFacilityDetails(facilityId);
+        return <FacilityReservation facility={facility} />
+    } catch (error) {
+        console.error('Failed to fetch facilities:', error);
+        notFound();
+    }
+}
+
+export default async function FacilityReservationPage({ params }: PageProps) {
+    const facilityId = Number(params.facilityId);
+
+    if (isNaN(facilityId)) {
+        notFound();
+    }
+
+    return (
+        <Suspense fallback={<div className="flex items-center justify-center min-h-screen text-xl font-bold">로딩 중...</div>}>
+            <FacilityReservationContent facilityId={facilityId} />
+        </Suspense>
+    );
 }
