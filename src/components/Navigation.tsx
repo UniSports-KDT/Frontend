@@ -67,7 +67,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                     로그인
                 </Link>
                 <Link
-                    href="#"
+                    href="/signup"
                     className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
                     prefetch={false}
                 >
@@ -101,7 +101,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                     <Link href="/login" className="block px-4 py-3" prefetch={false}>
                         로그인
                     </Link>
-                    <Link href="#" className="block px-4 py-3" prefetch={false}>
+                    <Link href="/signup" className="block px-4 py-3" prefetch={false}>
                         회원가입
                     </Link>
                 </div>
