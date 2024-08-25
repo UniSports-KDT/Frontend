@@ -4,7 +4,7 @@ export interface UserRegistrationRequest {
     password: string;
     phone: string;
     department: string;
-    studentId: number;
+    studentId: string;
     userRole: 'GENERAL' | 'ADMIN';
 }
 
@@ -12,7 +12,7 @@ export interface UserRegistrationResponse {
     id: number;
     name: string;
     department: string;
-    studentId: number;
+    studentId: string;
     password: string;
     phone: string;
     username: string;
@@ -27,9 +27,19 @@ export interface UserRegistrationResponse {
 export interface LoginRequest {
     username: string;
     password: string;
-    userRole: string;
 }
 
 export interface LoginResponse {
     token: string;
+    username: string;
 }
+
+//유저 프로필 조회
+// export interface UserProfile {
+//     id: number;
+//     name: string;
+//     department: string;
+//     phone: string;
+//     studentId: string;
+//     password: string;
+// }

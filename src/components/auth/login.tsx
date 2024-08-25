@@ -5,47 +5,40 @@ import { useRouter } from "next/navigation"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkBox"
+import { login } from '@/api/auth'
+import { LoginRequest } from '@/types/auth'
 
 export function Login() {
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [isAdmin, setIsAdmin] = useState(false)
-    const [error, setError] = useState("")
+    const [formData, setFormData] = useState<LoginRequest>({
+        username: "",
+        password: "",
+    })
+    const [isLoading, setIsLoading] = useState(false)
+
     const router = useRouter()
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        setError("")
-
+        setIsLoading(true)
         try {
-            const response = await fetch('http://localhost:8080/api/auth/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username,
-                    password,
-                    userRole: isAdmin ? 'ADMIN' : 'USER'
-                }),
-            });
+            const response = await login(formData);
+            console.log('Login successful:', response);
 
-            if (!response.ok) {
-                const errorData = await response.text();
-                throw new Error(errorData || '로그인에 실패했습니다.');
-            }
-
-            const data = await response.json();
-
-            // JWT 토큰을 로컬 스토리지에 저장
-            localStorage.setItem('token', data.token);
-
-            // 로그인 성공 후 홈페이지로 이동
+            localStorage.setItem('token', response.token);
+            localStorage.setItem('userRole', response.userRole);
             router.push('/');
-        } catch (error) {
-            console.error('Login error:', error);
-            setError(error instanceof Error ? error.message : '로그인 중 오류가 발생했습니다.');
+        } catch(error) {
+            console.error('로그인 중 에러 발생:', error);
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -54,19 +47,19 @@ export function Login() {
             <div className="w-full max-w-md space-y-6 rounded-lg bg-card p-6 shadow-lg">
                 <div className="space-y-2 text-center">
                     <h1 className="text-3xl font-bold">Welcome to UniSports</h1>
-                    <p className="text-muted-foreground">Enter your username and password to sign in.</p>
+                    <p className="text-muted-foreground">학교 스포츠 시설을 편하게 이용해보세요!</p>
                 </div>
-                {error && <p className="text-red-500 text-center">{error}</p>}
                 <form className="space-y-4" onSubmit={handleSubmit}>
                     <div className="space-y-2">
                         <Label htmlFor="username">사용자 이름</Label>
                         <Input
                             id="username"
+                            name="username"
                             type="text"
                             placeholder="username"
                             required
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            value={formData.username}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="space-y-2">
@@ -75,20 +68,15 @@ export function Login() {
                         </div>
                         <Input
                             id="password"
+                            name="password"
                             type="password"
                             required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                         />
                     </div>
-                    <Checkbox
-                        id="isAdmin"
-                        checked={isAdmin}
-                        onChange={(e) => setIsAdmin(e.target.checked)}
-                        label="관리자 로그인"
-                    />
-                    <Button type="submit" className="w-full">
-                        로그인
+                    <Button type="submit" className="w-full" disabled={isLoading}>
+                        {isLoading ? '로그인 중...' : '로그인'}
                     </Button>
                 </form>
                 <div className="text-center text-sm text-muted-foreground">

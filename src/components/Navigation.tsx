@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
+import React from 'react';
 
 interface NavigationProps {
     userId: number;
@@ -42,6 +43,10 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
             return pathname.startsWith('/admin');
         }
         return false;
+    };
+
+    const handleNavItemClick = () => {
+        setIsOpen(false);
     };
 
     return (
@@ -85,23 +90,29 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
             </div>
             {isOpen && (
                 <div className="absolute top-14 left-0 right-0 bg-primary border-b border-border lg:hidden">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={`block px-4 py-3 nav-link ${
-                                mounted && isActive(item.href) ? 'active bg-primary-foreground/10' : ''
-                            } hover:bg-primary-foreground/5 transition-colors duration-200`}
-                            onClick={() => setIsOpen(false)}
-                            prefetch={false}
-                        >
-                            {item.label}
-                        </Link>
+                    {navItems.map((item, index) => (
+                        <React.Fragment key={item.href}>
+                            <Link
+                                href={item.href}
+                                className={`block px-4 py-3 nav-link ${
+                                    mounted && isActive(item.href) ? 'active bg-primary-foreground/10' : ''
+                                } hover:bg-primary-foreground/5 transition-colors duration-200`}
+                                onClick={handleNavItemClick}
+                                prefetch={false}
+                            >
+                                {item.label}
+                            </Link>
+                            {index < navItems.length - 1 && (
+                                <div className="border-t border-white/20 mx-4"></div>
+                            )}
+                        </React.Fragment>
                     ))}
-                    <Link href="/login" className="block px-4 py-3" prefetch={false}>
+                    <div className="border-t border-white/20 mx-4"></div>
+                    <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
                         로그인
                     </Link>
-                    <Link href="/signup" className="block px-4 py-3" prefetch={false}>
+                    <div className="border-t border-white/20 mx-4"></div>
+                    <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
                         회원가입
                     </Link>
                 </div>

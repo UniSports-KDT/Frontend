@@ -34,22 +34,12 @@ export function Registration() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        // 학번 숫자로 변환
-        const studentIdNumber = parseInt(formData.studentId, 10);
-        if (isNaN(studentIdNumber)) {
+        if (formData.studentId.trim() === '') {
             alert('유효한 학번을 입력해주세요.');
             return;
         }
-        const registrationData: UserRegistrationRequest = {
-            ...formData,
-            studentId: studentIdNumber,
-        };
-
-        console.log('Sending registration data:', JSON.stringify(registrationData, null, 2));
-
         try {
-            const response = await register(registrationData);
+            const response = await register(formData);
             console.log('회원가입 성공:', response);
             router.push('/login');
         } catch (error) {
@@ -65,7 +55,7 @@ export function Registration() {
                     <div className="max-w-md mx-auto">
                         <div className="space-y-4">
                             <h1 className="text-2xl sm:text-3xl font-bold">회원가입</h1>
-                            <p className="text-muted-foreground text-sm sm:text-base">학교 시설을 편하게 이용해보세요! 계정을 만드세요.</p>
+                            <p className="text-muted-foreground text-sm sm:text-base">학교 스포츠 시설을 편하게 이용해보세요! 계정을 만드세요.</p>
                         </div>
                         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
                             <div className="grid gap-2">
@@ -110,6 +100,9 @@ export function Registration() {
                             </div>
                             <Button type="submit" className="w-full mt-6">
                                 가입하기!
+                            </Button>
+                            <Button onClick={() => router.push('/login')} variant="outlineBoldBlack" className="w-full mt-6">
+                                로그인 화면으로 이동
                             </Button>
                         </form>
                     </div>
