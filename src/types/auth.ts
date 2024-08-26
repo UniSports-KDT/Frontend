@@ -33,13 +33,3 @@ export interface LoginResponse {
     token: string;
     username: string;
 }
-
-//유저 프로필 조회
-// export interface UserProfile {
-//     id: number;
-//     name: string;
-//     department: string;
-//     phone: string;
-//     studentId: string;
-//     password: string;
-// }

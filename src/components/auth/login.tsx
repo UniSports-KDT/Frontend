@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { login } from '@/api/auth'
 import { LoginRequest } from '@/types/auth'
+import { useAuth } from "@/contexts/AuthContext";
+
 
 export function Login() {
     const [formData, setFormData] = useState<LoginRequest>({
@@ -14,8 +16,8 @@ export function Login() {
         password: "",
     })
     const [isLoading, setIsLoading] = useState(false)
-
     const router = useRouter()
+    const { login: authLogin } = useAuth()
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -31,9 +33,8 @@ export function Login() {
         try {
             const response = await login(formData);
             console.log('Login successful:', response);
-
-            localStorage.setItem('token', response.token);
-            localStorage.setItem('userRole', response.userRole);
+            //localStorage.setItem('token', response.token);
+            authLogin(response.token);
             router.push('/');
         } catch(error) {
             console.error('로그인 중 에러 발생:', error);

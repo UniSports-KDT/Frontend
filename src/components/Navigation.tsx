@@ -1,9 +1,10 @@
 'use client'
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Menu } from 'lucide-react';
 import React from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface NavigationProps {
     userId: number;
@@ -11,9 +12,17 @@ interface NavigationProps {
 
 const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     const pathname = usePathname();
+    const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    // const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const { isLoggedIn, logout } = useAuth();
 
+    // useEffect(() => {
+    //     setMounted(true);
+    //     const token = localStorage.getItem('token');
+    //     setIsLoggedIn(!!token);
+    // }, []);
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -49,6 +58,17 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
         setIsOpen(false);
     };
 
+    // const handleLogout = () => {
+    //     localStorage.removeItem('token');
+    //     setIsLoggedIn(false);
+    //     router.push('/');
+    // };
+    const handleLogout = () => {
+        logout();
+        router.push('/');
+    };
+
+
     return (
         <nav className="flex items-center justify-between w-full">
             <Link href="/" className="flex items-center gap-2" prefetch={false}>
@@ -68,16 +88,27 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                 ))}
             </div>
             <div className="hidden lg:flex items-center gap-4">
-                <Link href="/login" className="nav-link" prefetch={false}>
-                    로그인
-                </Link>
-                <Link
-                    href="/signup"
-                    className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
-                    prefetch={false}
-                >
-                    회원가입
-                </Link>
+                {isLoggedIn ? (
+                    <button
+                        onClick={handleLogout}
+                        className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
+                    >
+                        로그아웃
+                    </button>
+                ) : (
+                    <>
+                        <Link href="/login" className="nav-link" prefetch={false}>
+                            로그인
+                        </Link>
+                        <Link
+                            href="/signup"
+                            className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
+                            prefetch={false}
+                        >
+                            회원가입
+                        </Link>
+                    </>
+                )}
             </div>
             <div className="lg:hidden">
                 <button
@@ -85,7 +116,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                     className="p-2 text-primary-foreground hover:text-white transition-colors"
                     aria-label="메뉴 토글"
                 >
-                    <Menu size={24} />
+                    <Menu size={24}/>
                 </button>
             </div>
             {isOpen && (
@@ -108,13 +139,26 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                         </React.Fragment>
                     ))}
                     <div className="border-t border-white/20 mx-4"></div>
-                    <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
-                        로그인
-                    </Link>
-                    <div className="border-t border-white/20 mx-4"></div>
-                    <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
-                        회원가입
-                    </Link>
+                    {isLoggedIn ? (
+                        <button
+                            onClick={handleLogout}
+                            className="block w-full text-left px-4 py-3 hover:bg-primary-foreground/5 transition-colors duration-200"
+                        >
+                            로그아웃
+                        </button>
+                    ) : (
+                        <>
+                            <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick}
+                                  prefetch={false}>
+                                로그인
+                            </Link>
+                            <div className="border-t border-white/20 mx-4"></div>
+                            <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick}
+                                  prefetch={false}>
+                                회원가입
+                            </Link>
+                        </>
+                    )}
                 </div>
             )}
         </nav>

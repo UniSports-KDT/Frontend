@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Link from "next/link"
 import Navigation from "@/components/Navigation";
+import ClientAuthProvider from "@/app/ClientAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,60 +21,62 @@ export default function RootLayout({
 }>) {
   return (
       <html lang="en">
-      <body className={`${inter.className} flex flex-col min-h-screen`}>
-      <header className="bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-10">
-        <div className="container mx-auto px-4 py-2">
-          <Navigation userId={userId}/>
-        </div>
-      </header>
-      <div className="flex-grow flex flex-col pt-16">
-        <main className="flex-grow overflow-y-auto">
-          {children}
-        </main>
-        <footer className="bg-muted text-muted-foreground py-6 px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="space-y-2">
-              <h4 className="font-semibold">유니스포츠</h4>
-              <p>당신의 스포츠 시설 관리 솔루션</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">빠른 링크</h4>
-              <ul className="space-y-1">
-                <li>
-                  <Link href="#" prefetch={false}>
-                    이용 약관
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" prefetch={false}>
-                    개인정보 보호 정책
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">문의</h4>
-              <p>전화: 123-456-7890</p>
-              <p>이메일: info@unisport.com</p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="font-semibold">팔로우 하기</h4>
-              <div className="flex items-center gap-4">
-                <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                  <FacebookIcon className="h-6 w-6"/>
-                </Link>
-                <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                  <TwitterIcon className="h-6 w-6"/>
-                </Link>
-                <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
-                  <InstagramIcon className="h-6 w-6"/>
-                </Link>
+        <body className={`${inter.className} flex flex-col min-h-screen`}>
+          <ClientAuthProvider>
+            <header className="bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-10">
+              <div className="container mx-auto px-4 py-2">
+                <Navigation userId={userId}/>
               </div>
+            </header>
+            <div className="flex-grow flex flex-col pt-16">
+              <main className="flex-grow overflow-y-auto">
+                {children}
+              </main>
+              <footer className="bg-muted text-muted-foreground py-6 px-6">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                  <div className="space-y-2">
+                    <h4 className="font-semibold">유니스포츠</h4>
+                    <p>당신의 스포츠 시설 관리 솔루션</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold">빠른 링크</h4>
+                    <ul className="space-y-1">
+                      <li>
+                        <Link href="#" prefetch={false}>
+                          이용 약관
+                        </Link>
+                      </li>
+                      <li>
+                        <Link href="#" prefetch={false}>
+                          개인정보 보호 정책
+                        </Link>
+                      </li>
+                    </ul>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold">문의</h4>
+                    <p>전화: 123-456-7890</p>
+                    <p>이메일: info@unisport.com</p>
+                  </div>
+                  <div className="space-y-2">
+                    <h4 className="font-semibold">팔로우 하기</h4>
+                    <div className="flex items-center gap-4">
+                      <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
+                        <FacebookIcon className="h-6 w-6"/>
+                      </Link>
+                      <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
+                        <TwitterIcon className="h-6 w-6"/>
+                      </Link>
+                      <Link href="#" className="text-muted-foreground hover:text-foreground" prefetch={false}>
+                        <InstagramIcon className="h-6 w-6"/>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </footer>
             </div>
-          </div>
-        </footer>
-      </div>
-      </body>
+          </ClientAuthProvider>
+        </body>
       </html>
   );
 }

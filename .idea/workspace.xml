@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="변경">
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="로그인,회원가입">
+      <change afterPath="$PROJECT_DIR$/src/app/ClientAuthProvider.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/notice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/notice.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/registration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/registration.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ui/button.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,18 +31,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "jiyunggg"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;jiyunggg&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/UniSports-KDT/Frontend.git",
-    "accountId": "7a72feb9-f2ad-4148-b5ef-695b5ab033b4"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/UniSports-KDT/Frontend.git&quot;,
+    &quot;accountId&quot;: &quot;7a72feb9-f2ad-4148-b5ef-695b5ab033b4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -65,6 +69,10 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\kdt\Prj_3\UniSports\Uni-Frontend\Frontend\src\app\signup" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\app" />
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\contexts" />
     </key>
   </component>
   <component name="RunManager">
@@ -95,8 +103,18 @@
       <workItem from="1724256582481" duration="1168000" />
       <workItem from="1724407674655" duration="5668000" />
       <workItem from="1724428985041" duration="1479000" />
-      <workItem from="1724555625845" duration="11976000" />
+      <workItem from="1724555625845" duration="13851000" />
+      <workItem from="1724625850817" duration="15594000" />
     </task>
+    <task id="LOCAL-00001" summary="로그인,회원가입">
+      <option name="closed" value="true" />
+      <created>1724570970533</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1724570970533</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -127,6 +145,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="시설 예약 기능" />
-    <option name="LAST_COMMIT_MESSAGE" value="시설 예약 기능" />
+    <MESSAGE value="로그인,회원가입" />
+    <option name="LAST_COMMIT_MESSAGE" value="로그인,회원가입" />
   </component>
 </project>
