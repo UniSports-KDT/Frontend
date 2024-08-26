@@ -32,4 +32,5 @@ export interface LoginRequest {
 export interface LoginResponse {
     token: string;
     username: string;
+    userId: number;
 }

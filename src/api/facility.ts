@@ -8,7 +8,10 @@ export async function getFacilities(): Promise<Facility[]> {
         return fallbackFacilities;
     }
     try {
-        const res = await fetch(`${API_URL}/api/facilities`, { cache: "no-store" });
+        const res = await fetch(`${API_URL}/api/facilities`, {
+            cache: "no-store",
+            next: { revalidate: 0 }
+        });
         if (!res.ok) {
             throw new Error('Failed to fetch facilities');
         }
@@ -25,7 +28,10 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
     }
     try {
-        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, {
+            cache: 'no-store',
+            next: { revalidate: 0 }
+        });
         if (!res.ok) {
             throw new Error('Failed to fetch facility details');
         }

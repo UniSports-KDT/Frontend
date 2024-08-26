@@ -3,8 +3,6 @@ import { getFacilityDetails, getAvailableTimes } from '@/api'
 import { Suspense } from 'react';
 import { Facility } from '@/types/facility'
 import { notFound } from 'next/navigation'
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from "@/app/api/auth/[...nextauth]/route"
 
 interface PageProps {
     params: {
@@ -34,11 +32,6 @@ export default async function FacilityReservationPage({ params }: PageProps) {
     if (isNaN(facilityId)) {
         notFound();
     }
-    //const session = await getServerSession(authOptions);
-    // const userId = session?.user?.id ? Number(session.user.id) : null;
-    // if (userId === null) {
-    //     redirect('/login');
-    // }
     const UserId = 123456; //userId 하드코딩
 
     return (

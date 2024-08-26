@@ -1,18 +1,14 @@
 import { Notice } from '@/types/notice';
+import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 // 9. 공지사항 작성
 export async function createNotice(noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
-    if (!API_URL) {
-        throw new Error('API URL is not defined');
-    }
+
     try {
-        const response = await fetch(`${API_URL}/api/announcements`, {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(noticeData),
         });
         if (!response.ok) {
@@ -27,17 +23,13 @@ export async function createNotice(noticeData: { adminId: number; title: string;
 
 // 12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
-    console.log('getNotices 함수 호출됨');
     try {
         const response = await fetch(`${API_URL}/api/announcements`, {
-            // headers: {
-            //     'Authorization': `Bearer ${token}` // 토큰이 필요한 경우
-            // },
-            next: { revalidate: 60 },
+            cache: "no-store"
         });
         console.log('Response status:', response.status);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`status: ${response.status}`);
         }
         const data = await response.json();
         console.log('Fetched data:', data);

@@ -53,6 +53,7 @@ export async function login(loginData: LoginRequest): Promise<LoginResponse> {
         return {
             token,
             username,
+            userId: decodedToken.userId,
         };
     } catch (error) {
         console.error('Login error:', error);
