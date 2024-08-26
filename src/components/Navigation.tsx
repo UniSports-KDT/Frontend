@@ -15,14 +15,8 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    // const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const { isLoggedIn, logout } = useAuth();
+    const { isLoggedIn, username, logout } = useAuth();
 
-    // useEffect(() => {
-    //     setMounted(true);
-    //     const token = localStorage.getItem('token');
-    //     setIsLoggedIn(!!token);
-    // }, []);
     useEffect(() => {
         setMounted(true);
     }, []);
@@ -58,16 +52,10 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
         setIsOpen(false);
     };
 
-    // const handleLogout = () => {
-    //     localStorage.removeItem('token');
-    //     setIsLoggedIn(false);
-    //     router.push('/');
-    // };
     const handleLogout = () => {
         logout();
         router.push('/');
     };
-
 
     return (
         <nav className="flex items-center justify-between w-full">
@@ -89,12 +77,15 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
             </div>
             <div className="hidden lg:flex items-center gap-4">
                 {isLoggedIn ? (
-                    <button
-                        onClick={handleLogout}
-                        className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
-                    >
-                        로그아웃
-                    </button>
+                    <>
+                        <span className="text-primary-foreground">{username}</span>
+                        <button
+                            onClick={handleLogout}
+                            className="bg-primary-foreground text-primary px-4 py-2 rounded-md transition-colors duration-300"
+                        >
+                            로그아웃
+                        </button>
+                    </>
                 ) : (
                     <>
                         <Link href="/login" className="nav-link" prefetch={false}>
@@ -116,7 +107,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                     className="p-2 text-primary-foreground hover:text-white transition-colors"
                     aria-label="메뉴 토글"
                 >
-                    <Menu size={24}/>
+                    <Menu size={24} />
                 </button>
             </div>
             {isOpen && (
@@ -140,21 +131,23 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                     ))}
                     <div className="border-t border-white/20 mx-4"></div>
                     {isLoggedIn ? (
-                        <button
-                            onClick={handleLogout}
-                            className="block w-full text-left px-4 py-3 hover:bg-primary-foreground/5 transition-colors duration-200"
-                        >
-                            로그아웃
-                        </button>
+                        <>
+                            <div className="px-4 py-3 text-primary-foreground">{username}</div>
+                            <div className="border-t border-white/20 mx-4"></div>
+                            <button
+                                onClick={handleLogout}
+                                className="block w-full text-left px-4 py-3 hover:bg-primary-foreground/5 transition-colors duration-200"
+                            >
+                                로그아웃
+                            </button>
+                        </>
                     ) : (
                         <>
-                            <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick}
-                                  prefetch={false}>
+                            <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
                                 로그인
                             </Link>
                             <div className="border-t border-white/20 mx-4"></div>
-                            <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick}
-                                  prefetch={false}>
+                            <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
                                 회원가입
                             </Link>
                         </>
@@ -164,6 +157,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
         </nav>
     );
 };
+
 
 export default Navigation;
 

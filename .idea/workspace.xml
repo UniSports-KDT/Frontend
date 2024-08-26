@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="로그인,회원가입">
-      <change afterPath="$PROJECT_DIR$/src/app/ClientAuthProvider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="Context API 추가">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/notice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/notice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +96,7 @@
       <workItem from="1724407674655" duration="5668000" />
       <workItem from="1724428985041" duration="1479000" />
       <workItem from="1724555625845" duration="13851000" />
-      <workItem from="1724625850817" duration="15594000" />
+      <workItem from="1724625850817" duration="16649000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -114,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724570970533</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Context API 추가">
+      <option name="closed" value="true" />
+      <created>1724647855540</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1724647855540</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +146,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="시설 예약 기능" />
     <MESSAGE value="로그인,회원가입" />
-    <option name="LAST_COMMIT_MESSAGE" value="로그인,회원가입" />
+    <MESSAGE value="Context API 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="Context API 추가" />
   </component>
 </project>

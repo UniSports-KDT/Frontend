@@ -9,7 +9,6 @@ import { login } from '@/api/auth'
 import { LoginRequest } from '@/types/auth'
 import { useAuth } from "@/contexts/AuthContext";
 
-
 export function Login() {
     const [formData, setFormData] = useState<LoginRequest>({
         username: "",
@@ -33,8 +32,7 @@ export function Login() {
         try {
             const response = await login(formData);
             console.log('Login successful:', response);
-            //localStorage.setItem('token', response.token);
-            authLogin(response.token);
+            authLogin(response.token, response.username);
             router.push('/');
         } catch(error) {
             console.error('로그인 중 에러 발생:', error);
