@@ -8,7 +8,7 @@ export async function getFacilities(): Promise<Facility[]> {
         return fallbackFacilities;
     }
     try {
-        const res = await fetch(`${API_URL}/api/facilities`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_URL}/api/facilities`, { cache: "no-store" });
         if (!res.ok) {
             throw new Error('Failed to fetch facilities');
         }

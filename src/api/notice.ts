@@ -27,19 +27,23 @@ export async function createNotice(noticeData: { adminId: number; title: string;
 
 // 12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
-    if (!API_URL) {
-        return fallbackNotices;
-    }
+    console.log('getNotices 함수 호출됨');
     try {
         const response = await fetch(`${API_URL}/api/announcements`, {
+            // headers: {
+            //     'Authorization': `Bearer ${token}` // 토큰이 필요한 경우
+            // },
             next: { revalidate: 60 },
         });
+        console.log('Response status:', response.status);
         if (!response.ok) {
-            throw new Error('Failed to fetch notices');
+            throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json();
+        const data = await response.json();
+        console.log('Fetched data:', data);
+        return data;
     } catch (error) {
-        console.error('Failed to fetch notices:', error);
+        console.error('Detailed fetch error:', error);
         return fallbackNotices;
     }
 }
