@@ -3,9 +3,8 @@ import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// 9. 공지사항 작성
+//9. 공지사항 작성
 export async function createNotice(noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
-
     try {
         const response = await authenticatedFetch(`${API_URL}/api/admin/announcements`, {
             method: 'POST',
@@ -21,7 +20,24 @@ export async function createNotice(noticeData: { adminId: number; title: string;
     }
 }
 
-// 12. 공지사항 조회
+//10. 공지사항 수정
+export async function updateNotice(noticeId: number, noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${noticeId}`, {
+            method: 'PUT',
+            body: JSON.stringify(noticeData),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to update notice');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Failed to update notice:', error);
+        throw error;
+    }
+}
+
+//12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
     try {
         const response = await fetch(`${API_URL}/api/announcements`, {
@@ -38,6 +54,12 @@ export async function getNotices(): Promise<Notice[]> {
         console.error('Detailed fetch error:', error);
         return fallbackNotices;
     }
+}
+
+// 특정 ID의 공지사항 조회
+export async function getNoticeById(id: number): Promise<Notice | undefined> {
+    const notices = await getNotices();
+    return notices.find(notice => notice.id === id);
 }
 
 //하드코딩 데이터

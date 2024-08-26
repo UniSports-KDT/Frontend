@@ -4,9 +4,6 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 //3.전체 시설 조회
 export async function getFacilities(): Promise<Facility[]> {
-    if (!API_URL) {
-        return fallbackFacilities;
-    }
     try {
         const res = await fetch(`${API_URL}/api/facilities`, {
             cache: "no-store",
@@ -24,9 +21,6 @@ export async function getFacilities(): Promise<Facility[]> {
 
 //4. 특정 시설 상세 조회
 export async function getFacilityDetails(facilityId: number): Promise<Facility> {
-    if (!API_URL) {
-        return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
-    }
     try {
         const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, {
             cache: 'no-store',

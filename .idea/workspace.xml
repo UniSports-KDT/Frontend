@@ -4,25 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="헤더에 username 띄움">
-      <change afterPath="$PROJECT_DIR$/src/api/api-utils.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/facility-admin.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/facility-admin.ts" afterDir="false" />
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="시설 수정 완료">
+      <change afterPath="$PROJECT_DIR$/src/app/(notice)/notice-edit/[id]/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/notice/notice-edit.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/facility-admin.ts" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/notice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/notice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(facility)/facility-edit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(facility)/facility-edit/[facilityId]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(reservation)/facility-reservations/[facilityId]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(reservation)/facility-reservations/[facilityId]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-admin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/facility.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/homepage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/homepage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/notice/notice-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/notice/notice-admin.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +103,7 @@
       <workItem from="1724428985041" duration="1479000" />
       <workItem from="1724555625845" duration="13851000" />
       <workItem from="1724625850817" duration="17537000" />
-      <workItem from="1724652586691" duration="21018000" />
+      <workItem from="1724652586691" duration="24750000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -138,7 +129,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724648946601</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="시설 수정 완료">
+      <option name="closed" value="true" />
+      <created>1724676370005</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724676370005</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +171,7 @@
     <MESSAGE value="로그인,회원가입" />
     <MESSAGE value="Context API 추가" />
     <MESSAGE value="헤더에 username 띄움" />
-    <option name="LAST_COMMIT_MESSAGE" value="헤더에 username 띄움" />
+    <MESSAGE value="시설 수정 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="시설 수정 완료" />
   </component>
 </project>
