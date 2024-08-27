@@ -65,6 +65,22 @@ export async function getFacilities(): Promise<Facility[]> {
     }
 }
 
+export async function getAllFacilities(): Promise<Facility[]> {
+    try {
+        const res = await fetch(`${API_URL}/api/facilities`, {
+            cache: 'no-store',
+            next: { revalidate: 0 }
+        });
+        if (!res.ok) {
+            throw new Error('Failed to fetch facilities');
+        }
+        return res.json();
+    } catch (error) {
+        console.error('Failed to fetch facilities:', error);
+        throw error;
+    }
+}
+
 // 4. 특정 시설 상세 조회
 export async function getFacilityDetails(facilityId: number): Promise<Facility> {
     try {

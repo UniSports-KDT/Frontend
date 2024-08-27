@@ -9,42 +9,53 @@ import { Label } from "@/components/ui/label"
 import { ChevronDownIcon } from "lucide-react"
 import { Facility } from '@/types/facility'
 import { createReservation, getAvailableTimes } from '@/api/reservation'
-import { AvailableTimesResponse, TimeSlot } from '@/types/reservation-available'
+import {AvailableTimesResponse, ReservationRequest, TimeSlot} from '@/types/reservation-available'
+import { useAuth } from '@/contexts/AuthContext'
+import { format } from 'date-fns'
 
 interface FacilityReservationProps {
   facility: Facility;
-  userId: number;
   initialAvailableTimes: AvailableTimesResponse;
 }
 
-export function FacilityReservation({ facility, userId, initialAvailableTimes }: FacilityReservationProps): JSX.Element {
+export function FacilityReservation({ facility, initialAvailableTimes }: FacilityReservationProps): JSX.Element {
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [availableTimes, setAvailableTimes] = useState<TimeSlot[]>(initialAvailableTimes.availableTimes);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<TimeSlot[]>([]);
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    const fetchAvailableTimes = async () => {
-      const formattedDate = selectedDate.toISOString().split('T')[0];
-      try {
-        const times = await getAvailableTimes({ facilityId: facility.id, date: formattedDate });
-        setAvailableTimes(times.availableTimes);
-      } catch (error) {
-        console.error('Failed to fetch available times:', error);
-        alert('예약 가능 시간을 불러오는데 실패했습니다.');
-      }
-    };
-
-    fetchAvailableTimes();
+    fetchAvailableTimes(selectedDate);
   }, [selectedDate, facility.id]);
+
+  const formatDateForAPI = (date: Date): string => {
+    return format(date, 'yyyy-MM-dd');
+  };
+
+  const fetchAvailableTimes = async (date: Date) => {
+    const formattedDate = formatDateForAPI(date);
+    console.log('Fetching available times for date:', formattedDate);
+    try {
+      const times = await getAvailableTimes({ facilityId: facility.id, date: formattedDate });
+      console.log('예약 가능 시간 조회:', times);
+      setAvailableTimes(times.availableTimes);
+    } catch (error) {
+      console.error('Failed to fetch available times:', error);
+      alert('예약 가능 시간을 불러오는데 실패했습니다.');
+    }
+  };
 
   const handleDateSelect = (date: Date | undefined): void => {
     if (date) {
+      console.log('Selected date:', formatDateForAPI(date));
       setSelectedDate(date);
       setSelectedTimeSlots([]);
+      fetchAvailableTimes(date);
     }
   };
 
   const handleTimeSlotSelect = (timeSlot: TimeSlot): void => {
+    if (!timeSlot.available) return;
     setSelectedTimeSlots(prev =>
         prev.some(slot => slot.startTime === timeSlot.startTime)
             ? prev.filter(slot => slot.startTime !== timeSlot.startTime)
@@ -53,41 +64,45 @@ export function FacilityReservation({ facility, userId, initialAvailableTimes }:
   };
 
   const handleReservation = async (): Promise<void> => {
+    if (!isLoggedIn) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
+
     if (selectedTimeSlots.length === 0) {
       alert('예약할 시간을 선택해주세요.')
       return;
     }
 
-    const formattedDate = selectedDate.toISOString().split('T')[0];
+    const formattedDate = formatDateForAPI(selectedDate);
 
-    //사용자가 선택한 시간대들 배열
-    const reservationPromises = selectedTimeSlots.map(slot => {
-      const reservationData = { //예약 데이터 객체 생성
-        facilityId: facility.id,
-        userId: userId,
-        date: formattedDate,
-        startTime: slot.startTime,
-        endTime: slot.endTime
-      };
-      return createReservation(reservationData);
-    });
-
-    try {
-      const results = await Promise.all(reservationPromises);
-      const allSuccessful = results.every(result => result.success);
-      if (allSuccessful) {
-        alert('예약 완료');
-        setSelectedTimeSlots([]);
-        // 예약 가능 시간 다시 불러오기
-        const times = await getAvailableTimes({ facilityId: facility.id, date: formattedDate });
-        setAvailableTimes(times.availableTimes);
-      } else {
-        throw new Error('일부 예약에 실패했습니다.');
+    for (const slot of selectedTimeSlots) {
+      try {
+        const reservationData: ReservationRequest = {
+          facilityId: facility.id,
+          date: formattedDate,
+          startTime: slot.startTime,
+          endTime: slot.endTime
+        };
+        const result = await createReservation(reservationData);
+        if (result.success) {
+          alert(`${slot.startTime} - ${slot.endTime} 예약 완료`);
+          // 예약 성공 시 로컬 상태 업데이트
+          setAvailableTimes(prevTimes =>
+              prevTimes.map(t =>
+                  t.startTime === slot.startTime ? {...t, available: false} : t
+              )
+          );
+        } else {
+          alert(`${slot.startTime} - ${slot.endTime} 예약 실패: ${result.message}`);
+        }
+      } catch (error) {
+        console.error('Reservation error:', error);
+        alert(`${slot.startTime} - ${slot.endTime} 예약 중 오류가 발생했습니다.`);
       }
-    } catch (error) {
-      console.error('Reservation error:', error);
-      alert('예약 중 오류가 발생했습니다. 다시 시도해주세요.');
     }
+    await fetchAvailableTimes(selectedDate);
+    setSelectedTimeSlots([]);
   };
 
   return (
@@ -134,9 +149,6 @@ export function FacilityReservation({ facility, userId, initialAvailableTimes }:
                         <h2 className="text-xl font-bold">위치</h2>
                         <p className="text-muted-foreground">
                           {facility.location}
-                          <Link href="#" className="underline ml-2">
-                            지도 보기
-                          </Link>
                         </p>
                       </div>
                       <div className="mt-8">
@@ -160,7 +172,7 @@ export function FacilityReservation({ facility, userId, initialAvailableTimes }:
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button variant="outline" className="justify-between w-full">
-                            <span>{selectedDate.toLocaleDateString()}</span>
+                            <span>{format(selectedDate, 'yyyy-MM-dd')}</span>
                             <ChevronDownIcon className="w-4 h-4"/>
                           </Button>
                         </PopoverTrigger>
@@ -178,7 +190,7 @@ export function FacilityReservation({ facility, userId, initialAvailableTimes }:
                                 variant={selectedTimeSlots.some(s => s.startTime === slot.startTime) ? "default" : "outline"}
                                 onClick={() => handleTimeSlotSelect(slot)}
                                 disabled={!slot.available}
-                                className={!slot.available ? "opacity-50 cursor-not-allowed" : ""}
+                                className={!slot.available ? "opacity-25 cursor-not-allowed text-white" : ""}
                             >
                               {`${slot.startTime} - ${slot.endTime}`}
                             </Button>
@@ -186,7 +198,7 @@ export function FacilityReservation({ facility, userId, initialAvailableTimes }:
                       </div>
                     </div>
                     <Button size="lg" className="w-full" onClick={handleReservation}>
-                      지금 예약하기
+                      예약하기
                     </Button>
                   </div>
                 </div>

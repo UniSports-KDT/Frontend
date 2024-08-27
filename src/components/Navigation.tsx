@@ -20,7 +20,7 @@ const Navigation: React.FC = () => {
     const navItems = [
         { href: '/', label: '홈' },
         { href: '/facility-lists', label: '시설' },
-        { href: `/reservation-list/${userId}`, label: '예약내역', requireAuth: true },
+        { href: '/reservation-list', label: '예약내역', requireAuth: true },
         { href: '/notices', label: '공지사항' },
         { href: '/admin', label: '관리자 페이지', requireAuth: true },
     ];
@@ -32,8 +32,8 @@ const Navigation: React.FC = () => {
         if (href === '/facility-lists') {
             return pathname.startsWith('/facility-lists') || pathname.startsWith('/facility/');
         }
-        if (href.startsWith('/reservation-list/')) {
-            return pathname.startsWith('/reservation-list/') || pathname.startsWith('/reservation/');
+        if (href.startsWith('/reservation-list')) {
+            return pathname.startsWith('/reservation-list') || pathname.startsWith('/reservation/');
         }
         if (href === '/notices') {
             return pathname === '/notices' || pathname.startsWith('/notices/');

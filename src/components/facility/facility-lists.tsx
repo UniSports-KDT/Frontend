@@ -46,7 +46,7 @@ export function FacilityList({ facilities }: { facilities: Facility[] }) {
                               </div>
                               <div className="flex items-center justify-between mt-auto">
                                 <Badge variant="secondary">
-                                  {facility.fee === 0 ? '무료' : `1시간: ${facility.fee.toLocaleString()}원`}
+                                  {facility.fee === 0 ? '무료' : `요금(1hour): ${facility.fee.toLocaleString()}`}
                                 </Badge>
                                 <Button variant="outline" size="sm" className="ml-2">
                                   자세히 보기

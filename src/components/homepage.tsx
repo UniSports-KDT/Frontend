@@ -46,7 +46,7 @@ export default function Homepage({ notices }: NoticesProps) {
                 <h3 className="text-xl font-bold">예약 관리하기</h3>
                 <p className="text-muted-foreground">지난 예약 내역과 예정된 예약을 확인하세요.</p>
                 <Link
-                    href={isLoggedIn ? `/reservation-list/${userId}` : '#'}
+                    href={isLoggedIn ? '/reservation-list' : '/login'}
                     className="text-primary hover:underline"
                     onClick={handleNotLoggedInClick}
                 >
