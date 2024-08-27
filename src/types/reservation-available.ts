@@ -19,7 +19,6 @@ export interface AvailableTimesRequest {
 // 예약 요청을 위한 인터페이스
 export interface ReservationRequest {
     facilityId: number;
-    userId: number;
     date: string;
     startTime: string;
     endTime: string;

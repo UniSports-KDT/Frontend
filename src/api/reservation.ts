@@ -1,26 +1,41 @@
 import { UserReservation } from '@/types/user-reservation';
 import { AllReservation } from "@/types/all-reservation";
 import { AvailableTimesRequest, AvailableTimesResponse, ReservationRequest } from '@/types/reservation-available';
+import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-//18. 예약 신청
-export async function createReservation(reservationData: ReservationRequest): Promise<{ success: boolean; message: string }> {
-    if (!API_URL) {
-        //console.error('API URL is not defined');
-        return { success: false, message: 'API configuration error' };
-    }
+//8. 예약 승인 및 거절
+export async function updateReservationStatus(reservationId: number, newStatus: 'APPROVED' | 'REJECTED'): Promise<{ success: boolean; message: string }> {
     try {
-        const res = await fetch(`${API_URL}/api/reservations`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(reservationData),
+        const res = await authenticatedFetch(`${API_URL}/api/admin/reservations/${reservationId}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ status: newStatus }),
         });
+
         if (!res.ok) {
             const errorData = await res.json();
-            throw new Error(errorData.message || 'Failed to create reservation');
+            throw new Error(errorData.message || 'Failed to update reservation status');
+        }
+
+        const responseData = await res.json();
+        return { success: true, message: responseData.message || 'Reservation status updated successfully' };
+    } catch (error) {
+        console.error('Failed to update reservation status:', error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' };
+    }
+}
+
+//18. 예약 신청
+export async function createReservation(reservationData: ReservationRequest): Promise<{ success: boolean; message: string }> {
+    try {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations`, {
+            method: 'POST',
+            body: JSON.stringify(reservationData),
+        });
+        const responseData = await res.json();
+        if (!res.ok) {
+            throw new Error(responseData.message || 'Failed to create reservation');
         }
         return { success: true, message: 'Reservation created successfully' };
     } catch (error) {
@@ -29,55 +44,73 @@ export async function createReservation(reservationData: ReservationRequest): Pr
     }
 }
 
+//19. 예약 취소
+export async function cancelReservation(reservationId: number): Promise<{ success: boolean; message: string }> {
+    try {
+        if (!API_URL) {
+            throw new Error('API URL is not defined');
+        }
+        const res = await authenticatedFetch(`${API_URL}/api/reservations/${reservationId}`, {
+            method: 'DELETE',
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // },
+        });
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => ({}));
+            throw new Error(errorData.message || `HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
+        return { success: true, message: data.message || 'Reservation cancelled successfully' };
+    } catch (error) {
+        console.error('Failed to cancel reservation:', error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' };
+    }
+}
+
 //20. 특정 시설 예약상태 조회
 export async function getAvailableTimes({ facilityId, date }: AvailableTimesRequest): Promise<AvailableTimesResponse> {
-    if (!API_URL) {
-        //console.error('API URL is not defined');
-        return fallbackAvailableTimes;
-    }
     try {
         const url = new URL(`${API_URL}/api/facilities/${facilityId}/available-times`);
-        url.searchParams.append('date', date); // 쿼리 파라미터 추가
+        url.searchParams.append('date', date);
         const res = await fetch(url.toString(), {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
-            cache: 'no-store'
+            cache: 'no-store',
+            next: { revalidate: 0 }
         });
         if (!res.ok) {
-            throw new Error('Failed to fetch available times');
+            const errorData = await res.json().catch(() => ({}));
+            console.error('Server error response:', errorData);
+            throw new Error(`Failed to fetch available times: ${res.status} ${res.statusText}`);
         }
         const data: AvailableTimesResponse = await res.json();
+        //console.log('가능 시간:', JSON.stringify(data, null, 2));
         return data;
     } catch (error) {
         console.error('Failed to fetch available times:', error);
-        return fallbackAvailableTimes;
+        throw error;
     }
 }
 
 //27. 예약내역 조회 (사용자 기능)
-export async function getReservationLists(userId: number): Promise<UserReservation[]> {
-    if (!API_URL) {
-        return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
-    }
+export async function getReservationLists(): Promise<UserReservation[]> {
     try {
-        const res = await fetch(`${API_URL}/api/users/${userId}/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/users/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch reservation lists');
         return res.json();
     } catch (error) {
         console.error('Failed to fetch reservation lists:', error);
-        return fallbackReservations.map(reservation => ({...reservation, facilityId: `${reservation.facilityId}`}));
+        throw error;
     }
 }
 
 //28. 시설별 예약내역 조회 (관리자 기능)
 export async function getFacilityReservations(facilityId: number): Promise<AllReservation[]> {
-    if (!API_URL) {
-        return fallbackAllReservations.filter(r => r.facility.id === facilityId);
-    }
     try {
         const res = await fetch(`${API_URL}/api/facilities/${facilityId}/reservations`, {
             cache: 'no-store'
@@ -92,11 +125,8 @@ export async function getFacilityReservations(facilityId: number): Promise<AllRe
 
 //29. 전체 예약 불러오기 (관리자 기능)
 export async function getAllReservations(): Promise<AllReservation[]> {
-    if (!API_URL) {
-        return fallbackAllReservations;
-    }
     try {
-        const res = await fetch(`${API_URL}/api/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch all reservations');
@@ -108,27 +138,6 @@ export async function getAllReservations(): Promise<AllReservation[]> {
 }
 
 //하드코딩 데이터
-const fallbackReservations: UserReservation[] = [
-    {
-        id: 1,
-        facilityId: "농구장",
-        reservationTime: "2024-08-25T10:00:00Z",
-        status: 'approved'
-    },
-    {
-        id: 2,
-        facilityId: "테니스장",
-        reservationTime: "2024-08-26T14:00:00Z",
-        status: 'pending'
-    },
-    {
-        id: 3,
-        facilityId: "수영장",
-        reservationTime: "2024-08-27T09:00:00Z",
-        status: 'cancelled'
-    }
-];
-
 const fallbackAllReservations: AllReservation[] = [
     {
         id: 1,
@@ -233,18 +242,3 @@ const fallbackAllReservations: AllReservation[] = [
         }
     }
 ];
-
-const fallbackAvailableTimes: AvailableTimesResponse = {
-    facilityId: 1,
-    date: "2023-08-25",
-    availableTimes: [
-        { startTime: "06:00", endTime: "08:00", available: true },
-        { startTime: "08:00", endTime: "10:00", available: true },
-        { startTime: "10:00", endTime: "12:00", available: false },
-        { startTime: "12:00", endTime: "14:00", available: true },
-        { startTime: "14:00", endTime: "16:00", available: true },
-        { startTime: "16:00", endTime: "18:00", available: false },
-        { startTime: "18:00", endTime: "20:00", available: true },
-        { startTime: "20:00", endTime: "22:00", available: true },
-    ]
-};

@@ -1,38 +1,101 @@
-import { Facility } from '@/types/facility';
+import {Facility, FacilityCreateData, FacilityEditData} from '@/types/facility';
+import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-//3.전체 시설 조회
+// 3. 전체 시설 조회
 export async function getFacilities(): Promise<Facility[]> {
-    if (!API_URL) {
-        return fallbackFacilities;
-    }
     try {
-        const res = await fetch(`${API_URL}/api/facilities`, { cache: "no-store" });
+        const res = await fetch(`${API_URL}/api/facilities`, {
+            cache: "no-store",
+            next: { revalidate: 0 }
+        });
         if (!res.ok) {
             throw new Error('Failed to fetch facilities');
         }
-        return res.json();
+        const facilities: Facility[] = await res.json();
+        return facilities;
     } catch (error) {
         console.error('Failed to fetch facilities:', error);
         return fallbackFacilities;
     }
 }
 
-//4. 특정 시설 상세 조회
+// 4. 특정 시설 상세 조회
 export async function getFacilityDetails(facilityId: number): Promise<Facility> {
-    if (!API_URL) {
-        return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
-    }
     try {
-        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, { next: { revalidate: 3600 } });
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, {
+            cache: 'no-store',
+            next: { revalidate: 0 }
+        });
         if (!res.ok) {
             throw new Error('Failed to fetch facility details');
         }
-        return res.json();
+        const facility: Facility = await res.json();
+        return facility;
     } catch (error) {
         console.error('Failed to fetch facility details:', error);
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
+    }
+}
+
+/////////////////////////////////////////////////////////////////////
+//5. 시설 추가
+export async function createFacility(facilityData: FacilityCreateData): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities`, {
+            method: 'POST',
+            body: JSON.stringify(facilityData)
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete facility');
+        }
+        return response.json();
+    } catch(error) {
+        console.error('Failed to delete facility:', error);
+        throw error;
+    }
+}
+
+//6. 시설 수정
+export async function editFacility(facilityId: number, facilityData: FacilityEditData): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${facilityId}`, {
+            method: 'PUT',
+            body: JSON.stringify(facilityData),
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete facility');
+        }
+        return response.json();
+    } catch(error) {
+        console.error('Failed to delete facility:', error);
+        throw error;
+    }
+}
+
+//7. 시설 삭제
+export async function deleteFacility(facilityId: number): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${facilityId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete facility');
+        }
+        return response.json();
+    } catch(error) {
+        console.error('Failed to delete facility:', error);
+        throw error;
     }
 }
 

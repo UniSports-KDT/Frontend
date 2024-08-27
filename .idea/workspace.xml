@@ -4,11 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="Context API 추가">
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="시설별예약조회 ui수정">
+      <change afterPath="$PROJECT_DIR$/src/lib/imageUrl.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/reservation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reservation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(facility)/facility-create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(facility)/facility-create/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-all-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-all-admin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-facility-detail-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-facility-detail-admin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/facility.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +43,9 @@
     &quot;accountId&quot;: &quot;7a72feb9-f2ad-4148-b5ef-695b5ab033b4&quot;
   }
 }</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -63,8 +74,11 @@
       <recent name="C:\kdt\Prj_3\UniSports\Uni-Frontend\Frontend\src\app\signup" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\app\(reservation)\reservation-list" />
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\app\(reservation)\reservation-list\[userId]" />
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\app\(reservation)\user-reservation-list\[userId]" />
+      <recent name="C:\Users\jiyun\unisports\Frontend\src\app\(facility)\facility-edit\[facilityId]" />
       <recent name="C:\Users\jiyun\unisports\Frontend\src\app" />
-      <recent name="C:\Users\jiyun\unisports\Frontend\src\contexts" />
     </key>
   </component>
   <component name="RunManager">
@@ -96,7 +110,9 @@
       <workItem from="1724407674655" duration="5668000" />
       <workItem from="1724428985041" duration="1479000" />
       <workItem from="1724555625845" duration="13851000" />
-      <workItem from="1724625850817" duration="16649000" />
+      <workItem from="1724625850817" duration="17537000" />
+      <workItem from="1724652586691" duration="28375000" />
+      <workItem from="1724719331092" duration="51995000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -114,7 +130,63 @@
       <option name="project" value="LOCAL" />
       <updated>1724647855540</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="헤더에 username 띄움">
+      <option name="closed" value="true" />
+      <created>1724648946601</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1724648946601</updated>
+    </task>
+    <task id="LOCAL-00004" summary="시설 수정 완료">
+      <option name="closed" value="true" />
+      <created>1724676370005</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1724676370005</updated>
+    </task>
+    <task id="LOCAL-00005" summary="공지사항 수정 완료">
+      <option name="closed" value="true" />
+      <created>1724680152727</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1724680152727</updated>
+    </task>
+    <task id="LOCAL-00006" summary="시설 삭제, 로그인X 유저 로그인으로 이동 완료">
+      <option name="closed" value="true" />
+      <created>1724723549399</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724723549399</updated>
+    </task>
+    <task id="LOCAL-00007" summary="전체 시설 조회 PresignedUrl 했는데 일단 실패..">
+      <option name="closed" value="true" />
+      <created>1724730771287</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1724730771287</updated>
+    </task>
+    <task id="LOCAL-00008" summary="예약취소 완료">
+      <option name="closed" value="true" />
+      <created>1724773446181</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1724773446181</updated>
+    </task>
+    <task id="LOCAL-00009" summary="시설별예약조회 ui수정">
+      <option name="closed" value="true" />
+      <created>1724775051320</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1724775051320</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +219,13 @@
     <MESSAGE value="시설 예약 기능" />
     <MESSAGE value="로그인,회원가입" />
     <MESSAGE value="Context API 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="Context API 추가" />
+    <MESSAGE value="헤더에 username 띄움" />
+    <MESSAGE value="시설 수정 완료" />
+    <MESSAGE value="공지사항 수정 완료" />
+    <MESSAGE value="시설 삭제, 로그인X 유저 로그인으로 이동 완료" />
+    <MESSAGE value="전체 시설 조회 PresignedUrl 했는데 일단 실패.." />
+    <MESSAGE value="예약취소 완료" />
+    <MESSAGE value="시설별예약조회 ui수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="시설별예약조회 ui수정" />
   </component>
 </project>

@@ -1,18 +1,13 @@
 import { Notice } from '@/types/notice';
+import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-// 9. 공지사항 작성
+//9. 공지사항 작성
 export async function createNotice(noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
-    if (!API_URL) {
-        throw new Error('API URL is not defined');
-    }
     try {
-        const response = await fetch(`${API_URL}/api/announcements`, {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
             body: JSON.stringify(noticeData),
         });
         if (!response.ok) {
@@ -25,27 +20,65 @@ export async function createNotice(noticeData: { adminId: number; title: string;
     }
 }
 
-// 12. 공지사항 조회
+//10. 공지사항 수정
+export async function updateNotice(noticeId: number, noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${noticeId}`, {
+            method: 'PUT',
+            body: JSON.stringify(noticeData),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to update notice');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Failed to update notice:', error);
+        throw error;
+    }
+}
+
+//11. 공지사항 삭제
+export async function deleteNotice(announcementId: number): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${announcementId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete notice');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Failed to delete notice:', error);
+        throw error;
+    }
+}
+
+//12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
-    console.log('getNotices 함수 호출됨');
     try {
         const response = await fetch(`${API_URL}/api/announcements`, {
-            // headers: {
-            //     'Authorization': `Bearer ${token}` // 토큰이 필요한 경우
-            // },
-            next: { revalidate: 60 },
+            cache: "no-store"
         });
         console.log('Response status:', response.status);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched data:', data);
+        //console.log('Fetched data:', data);
         return data;
     } catch (error) {
         console.error('Detailed fetch error:', error);
         return fallbackNotices;
     }
+}
+
+// 특정 ID의 공지사항 조회
+export async function getNoticeById(id: number): Promise<Notice | undefined> {
+    const notices = await getNotices();
+    return notices.find(notice => notice.id === id);
 }
 
 //하드코딩 데이터

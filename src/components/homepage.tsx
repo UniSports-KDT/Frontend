@@ -1,9 +1,20 @@
 'use client'
 import Link from "next/link"
 import { NoticesProps } from '@/types/notice'
+import { useAuth } from "@/contexts/AuthContext"
+import {useRouter} from "next/navigation";
 
 export default function Homepage({ notices }: NoticesProps) {
-  const userId = 123456;
+  const { userId, isLoggedIn } = useAuth();
+
+  const router = useRouter();
+
+  const handleNotLoggedInClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isLoggedIn) {
+      e.preventDefault();
+      router.push('/login');
+    }
+  };
 
   return (
       <div className="flex flex-col min-h-screen">
@@ -34,7 +45,11 @@ export default function Homepage({ notices }: NoticesProps) {
                 <UserIcon className="h-8 w-8 text-primary"/>
                 <h3 className="text-xl font-bold">예약 관리하기</h3>
                 <p className="text-muted-foreground">지난 예약 내역과 예정된 예약을 확인하세요.</p>
-                <Link href={`/reservation-list/${userId}`} className="text-primary hover:underline">
+                <Link
+                    href={isLoggedIn ? '/reservation-list' : '/login'}
+                    className="text-primary hover:underline"
+                    onClick={handleNotLoggedInClick}
+                >
                   예약 내역 보기
                 </Link>
               </div>

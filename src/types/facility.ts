@@ -14,3 +14,30 @@ export interface Facility {
 export interface FacilityListProps {
     facilities: Facility[];
 }
+
+export interface FacilityEditData {
+    name: string;
+    description: string;
+    location: string;
+    availableHours: string;
+    startTime: string;
+    endTime: string;
+    fee: number;
+    attachmentFlag: string;
+    attachmentNames: string[];
+}
+
+export interface FacilityEditProps {
+    initialData: Facility;
+}
+
+//시설 추가
+export interface FacilityCreateData {
+    name: string;
+    description: string;
+    location: string;
+    availableHours: string;
+    fee: number;
+    attachmentFlag: string;
+    attachmentNames: string[];
+}

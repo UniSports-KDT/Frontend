@@ -32,7 +32,8 @@ export function Login() {
         try {
             const response = await login(formData);
             console.log('Login successful:', response);
-            authLogin(response.token, response.username);
+            authLogin(response.token, response.username, response.userId);
+            alert('로그인 완료')
             router.push('/');
         } catch(error) {
             console.error('로그인 중 에러 발생:', error);

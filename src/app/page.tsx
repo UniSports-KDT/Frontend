@@ -1,13 +1,16 @@
 import Homepage from "@/components/homepage";
 import { Suspense } from 'react';
 import {getNotices} from "@/api";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 async function HomePageContent() {
-    // const notices = await getNotices();
-    // return <Homepage notices={notices} />;
     try {
         const notices = await getNotices();
-        return <Homepage notices={notices} />;
+        return (
+            <AuthProvider>
+                <Homepage notices={notices} />
+            </AuthProvider>
+        )
     } catch (error) {
         console.error('공지사항 가져오기 실패:', error);
         return <div>Error loading notices</div>;

@@ -32,7 +32,7 @@ export interface AllReservation {
     date: string;
     startTime: string;
     endTime: string;
-    status: 'APPROVED' | 'REJECTED' | 'PENDING';
+    status: 'APPROVED' | 'REJECTED' | 'PENDING'| 'CANCELD';
     user: User;
     facility: Facility;
 }
