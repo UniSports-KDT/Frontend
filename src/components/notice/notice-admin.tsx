@@ -2,52 +2,77 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card"
-import { NoticesProps } from '@/types/notice'
+import { NoticesProps, Notice } from '@/types/notice'
+import { deleteNotice } from '@/api'
+import { useState } from 'react'
 
-export function NoticeAdmin({notices} : NoticesProps) {
-  return (
-      <div className="flex flex-col min-h-screen">
-        <main className="flex-1 py-20 px-6">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h1 className="text-2xl font-bold">공지사항</h1>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-              {notices.length > 0 ? (
-                  notices.map((notice) => (
-                      <Card key={notice.id} className="flex flex-col">
-                        <CardHeader>
-                          <CardTitle>{notice.title}</CardTitle>
-                        </CardHeader>
-                        <CardContent className="flex-grow">
-                          <p>{notice.content}</p>
-                        </CardContent>
-                        <CardFooter className="flex items-center justify-between h-16">
-                          <span className="text-sm text-muted-foreground">
-                            {new Date(notice.createdAt).toLocaleDateString()}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <Link href={`/notice-edit/${notice.id}`} passHref>
-                              <Button variant="ghost" size="icon">
-                                <FilePenIcon className="h-4 w-4"/>
-                                <span className="sr-only">편집</span>
-                              </Button>
-                            </Link>
-                            <Button variant="ghost" size="icon">
-                              <Trash2Icon className="h-4 w-4"/>
-                              <span className="sr-only">삭제</span>
-                            </Button>
-                          </div>
-                        </CardFooter>
-                      </Card>
-                  ))) : (
-                  <p>공지사항이 없습니다.</p>
-              )}
-            </div>
-          </div>
-        </main>
-      </div>
-  )
+export function NoticeAdmin({notices: initialNotices} : NoticesProps) {
+    const [notices, setNotices] = useState<Notice[]>(initialNotices)
+
+    const handleDelete = async (id: number) => {
+        if (window.confirm('이 공지사항을 삭제하시겠습니까?')) {
+            try {
+                await deleteNotice(id)
+                setNotices(notices.filter(notice => notice.id !== id))
+                alert('공지사항이 삭제되었습니다.')
+            } catch (error) {
+                console.error('공지사항 삭제 중 오류 발생:', error)
+                if (error instanceof Error && error.message.includes('403')) {
+                    alert('삭제할 권한이 없습니다.')
+                } else {
+                    alert('삭제 실패. 다시 시도해주세요.')
+                }
+            }
+        }
+    }
+
+    return (
+        <div className="flex flex-col min-h-screen">
+            <main className="flex-1 py-20 px-6">
+                <div className="max-w-5xl mx-auto">
+                    <div className="flex items-center justify-between mb-6">
+                        <h1 className="text-2xl font-bold">공지사항</h1>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+                        {notices.length > 0 ? (
+                            notices.map((notice) => (
+                                <Card key={notice.id} className="flex flex-col">
+                                    <CardHeader>
+                                        <CardTitle>{notice.title}</CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="flex-grow">
+                                        <p>{notice.content}</p>
+                                    </CardContent>
+                                    <CardFooter className="flex items-center justify-between h-16">
+                                        <span className="text-sm text-muted-foreground">
+                                        {new Date(notice.createdAt).toLocaleDateString()}
+                                        </span>
+                                        <div className="flex items-center gap-2">
+                                            <Link href={`/notice-edit/${notice.id}`} passHref>
+                                                <Button variant="ghost" size="icon">
+                                                    <FilePenIcon className="h-4 w-4"/>
+                                                    <span className="sr-only">편집</span>
+                                                </Button>
+                                            </Link>
+                                            <Button
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => handleDelete(notice.id)}
+                                            >
+                                                <Trash2Icon className="h-4 w-4"/>
+                                                <span className="sr-only">삭제</span>
+                                            </Button>
+                                        </div>
+                                    </CardFooter>
+                                </Card>
+                            ))) : (
+                            <p>공지사항이 없습니다.</p>
+                        )}
+                    </div>
+                </div>
+            </main>
+        </div>
+    )
 }
 
 function FilePenIcon(props: React.SVGProps<SVGSVGElement>) {

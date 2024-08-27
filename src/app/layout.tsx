@@ -7,16 +7,12 @@ import ClientAuthProvider from "@/app/ClientAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const userId = 123; // 실제 userId로 변경해야됨 (예약내역으로 이동 시 필요)
-
 export const metadata: Metadata = {
   title: "UniSport",
   description: "UniSport에 오신 것을 환영합니다!",
 };
 
-export default function RootLayout({
-                                     children,
-                                   }: Readonly<{
+export default function RootLayout({children}: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
@@ -25,7 +21,7 @@ export default function RootLayout({
           <ClientAuthProvider>
             <header className="bg-primary text-primary-foreground fixed top-0 left-0 right-0 z-10">
               <div className="container mx-auto px-4 py-2">
-                <Navigation userId={userId}/>
+                <Navigation />
               </div>
             </header>
             <div className="flex-grow flex flex-col pt-16">

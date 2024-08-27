@@ -6,16 +6,12 @@ import { Menu } from 'lucide-react';
 import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 
-interface NavigationProps {
-    userId: number;
-}
-
-const Navigation: React.FC<NavigationProps> = ({ userId }) => {
+const Navigation: React.FC = () => {
     const pathname = usePathname();
     const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const { isLoggedIn, username, logout } = useAuth();
+    const { isLoggedIn, username, userId, logout } = useAuth();
 
     useEffect(() => {
         setMounted(true);
@@ -24,9 +20,9 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
     const navItems = [
         { href: '/', label: '홈' },
         { href: '/facility-lists', label: '시설' },
-        { href: `/reservation-list/${userId}`, label: '예약내역' },
+        { href: `/reservation-list/${userId}`, label: '예약내역', requireAuth: true },
         { href: '/notices', label: '공지사항' },
-        { href: '/admin', label: '관리자 페이지' },
+        { href: '/admin', label: '관리자 페이지', requireAuth: true },
     ];
 
     const isActive = (href: string) => {
@@ -57,6 +53,13 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
         router.push('/');
     };
 
+    const handleNotLoggedInClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        if (!isLoggedIn) {
+            e.preventDefault();
+            router.push('/login');
+        }
+    };
+
     return (
         <nav className="flex items-center justify-between w-full">
             <Link onClick={handleNavItemClick} href="/" className="flex items-center gap-2" prefetch={false}>
@@ -69,6 +72,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                         key={item.href}
                         href={item.href}
                         className={`nav-link ${mounted && isActive(item.href) ? 'active' : ''}`}
+                        onClick={item.requireAuth ? handleNotLoggedInClick : undefined}
                         prefetch={false}
                     >
                         {item.label}
@@ -119,7 +123,7 @@ const Navigation: React.FC<NavigationProps> = ({ userId }) => {
                                 className={`block px-4 py-3 nav-link ${
                                     mounted && isActive(item.href) ? 'active bg-primary-foreground/10' : ''
                                 } hover:bg-primary-foreground/5 transition-colors duration-200`}
-                                onClick={handleNavItemClick}
+                                onClick={item.requireAuth ? handleNotLoggedInClick : handleNavItemClick}
                                 prefetch={false}
                             >
                                 {item.label}

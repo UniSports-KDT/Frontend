@@ -6,12 +6,14 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from 'next/navigation'
 import { createNotice } from '@/api/notice'
+import { useAuth } from '@/contexts/AuthContext'
 
 export function NoticeWrite() {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const { userId } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -19,10 +21,19 @@ export function NoticeWrite() {
       alert('제목과 내용을 모두 입력해주세요.')
       return
     }
+
+    console.log('현재 사용자 ID:', userId);
+
+    if (userId === null) {
+      alert('로그인한 사용자의 ID를 확인할 수 없습니다.')
+      return
+    }
+
     setIsLoading(true)
     try {
       await createNotice({
-        adminId: 1, // 실제 관리자 ID로 변경해야됨
+        //adminId: 1, // 실제 관리자 ID로 변경해야됨
+        adminId: userId,
         title,
         content
       })

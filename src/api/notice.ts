@@ -37,6 +37,25 @@ export async function updateNotice(noticeId: number, noticeData: { adminId: numb
     }
 }
 
+//11. 공지사항 삭제
+export async function deleteNotice(announcementId: number): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${announcementId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete notice');
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Failed to delete notice:', error);
+        throw error;
+    }
+}
+
 //12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
     try {
@@ -48,7 +67,7 @@ export async function getNotices(): Promise<Notice[]> {
             throw new Error(`status: ${response.status}`);
         }
         const data = await response.json();
-        console.log('Fetched data:', data);
+        //console.log('Fetched data:', data);
         return data;
     } catch (error) {
         console.error('Detailed fetch error:', error);

@@ -2,10 +2,31 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { FacilityListProps } from "@/types/facility";
+import {Facility, FacilityListProps} from "@/types/facility";
 import { useRouter } from 'next/navigation'
+import { deleteFacility } from "@/api";
+import {useState} from "react";
 
-export function FacilityAdmin({ facilities }: FacilityListProps) {
+export function FacilityAdmin({ facilities: initialFacilities }: FacilityListProps) {
+    const [facilities, setFacilities] = useState<Facility[]>(initialFacilities);
+
+    const handleDelete = async (id: number) => {
+        if (window.confirm('이 시설을 삭제하시겠습니까?')) {
+            try {
+                await deleteFacility(id)
+                setFacilities(facilities.filter(facility => facility.id !== id))
+                alert('시설이 삭제되었습니다.')
+            } catch (error) {
+                console.error('시설 삭제 중 오류 발생:', error)
+                if (error instanceof Error && error.message.includes('403')) {
+                    alert('삭제할 권한이 없습니다.')
+                } else {
+                    alert('삭제 실패. 다시 시도해주세요.')
+                }
+            }
+        }
+    }
+
     const router = useRouter()
 
     const handleRefresh = () => {
@@ -36,7 +57,10 @@ export function FacilityAdmin({ facilities }: FacilityListProps) {
                                                 <FilePenIcon className="h-4 w-4"/>
                                             </Button>
                                         </Link>
-                                        <Button variant="outline" size="icon" className="text-red-500">
+                                        <Button variant="outline" size="icon"
+                                                className="text-red-500"
+                                                onClick={()=>handleDelete(facility.id)}
+                                        >
                                             <TrashIcon className="h-4 w-4"/>
                                         </Button>
                                     </div>

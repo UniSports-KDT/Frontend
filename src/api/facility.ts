@@ -1,4 +1,5 @@
 import { Facility } from '@/types/facility';
+import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -33,6 +34,25 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
     } catch (error) {
         console.error('Failed to fetch facility details:', error);
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
+    }
+}
+
+//7. 시설 삭제
+export async function deleteFacility(facilityId: number): Promise<{ message: string }> {
+    try {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${facilityId}`, {
+            method: 'DELETE',
+        });
+        if (!response.ok) {
+            if (response.status === 403) {
+                throw new Error('403 Forbidden: 권한이 없습니다.');
+            }
+            throw new Error('Failed to delete facility');
+        }
+        return response.json();
+    } catch(error) {
+        console.error('Failed to delete facility:', error);
+        throw error;
     }
 }
 
