@@ -5,6 +5,27 @@ import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+//8. 예약 승인 및 거절
+export async function updateReservationStatus(reservationId: number, newStatus: 'APPROVED' | 'REJECTED'): Promise<{ success: boolean; message: string }> {
+    try {
+        const res = await authenticatedFetch(`${API_URL}/api/admin/reservations/${reservationId}/status`, {
+            method: 'PUT',
+            body: JSON.stringify({ status: newStatus }),
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            throw new Error(errorData.message || 'Failed to update reservation status');
+        }
+
+        const responseData = await res.json();
+        return { success: true, message: responseData.message || 'Reservation status updated successfully' };
+    } catch (error) {
+        console.error('Failed to update reservation status:', error);
+        return { success: false, message: error instanceof Error ? error.message : 'An unknown error occurred' };
+    }
+}
+
 //18. 예약 신청
 export async function createReservation(reservationData: ReservationRequest): Promise<{ success: boolean; message: string }> {
     try {
@@ -31,9 +52,9 @@ export async function cancelReservation(reservationId: number): Promise<{ succes
         }
         const res = await authenticatedFetch(`${API_URL}/api/reservations/${reservationId}`, {
             method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            // headers: {
+            //     'Content-Type': 'application/json',
+            // },
         });
         if (!res.ok) {
             const errorData = await res.json().catch(() => ({}));
@@ -105,7 +126,7 @@ export async function getFacilityReservations(facilityId: number): Promise<AllRe
 //29. 전체 예약 불러오기 (관리자 기능)
 export async function getAllReservations(): Promise<AllReservation[]> {
     try {
-        const res = await fetch(`${API_URL}/api/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch all reservations');
@@ -116,32 +137,7 @@ export async function getAllReservations(): Promise<AllReservation[]> {
     }
 }
 
-
-
 //하드코딩 데이터
-/*
-const fallbackReservations: UserReservation[] = [
-    {
-        id: 1,
-        facilityId: 1,
-        reservationTime: "2024-08-25T10:00:00Z",
-        status: 'approved'
-    },
-    {
-        id: 1,
-        facilityId: 2,
-        reservationTime: "2024-08-26T14:00:00Z",
-        status: 'pending'
-    },
-    {
-        id: 1,
-        facilityId: 3,
-        reservationTime: "2024-08-27T09:00:00Z",
-        status: 'rejected'
-    }
-];
- */
-
 const fallbackAllReservations: AllReservation[] = [
     {
         id: 1,

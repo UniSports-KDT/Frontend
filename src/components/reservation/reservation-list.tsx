@@ -37,7 +37,15 @@ export function ReservationList() {
     const fetchReservations = async () => {
         try {
             const reservationsData = await getReservationLists();
-            setReservations(reservationsData);
+
+            //카드 정렬
+            const sortedReservations = reservationsData.sort((a, b) => {
+                if (a.status === 'PENDING' && b.status !== 'PENDING') return -1;
+                if (a.status !== 'PENDING' && b.status === 'PENDING') return 1;
+                return a.facility.name.localeCompare(b.facility.name, 'ko-KR');
+            });
+
+            setReservations(sortedReservations);
         } catch (err) {
             console.error('Failed to fetch data:', err);
             setError('데이터를 불러오는 데 실패했습니다.');
@@ -74,16 +82,16 @@ export function ReservationList() {
 
     const getStatusText = (status: UserReservation['status']) => {
         switch(status) {
-            case 'PENDING': return '대기 중';
-            case 'APPROVED': return '승인됨';
-            case 'REJECTED': return '거절됨';
-            case 'CANCELED': return '취소됨';
+            case 'PENDING': return '승인 대기 중';
+            case 'APPROVED': return '승인 완료';
+            case 'REJECTED': return '예약 불가';
+            case 'CANCELED': return '예약 취소';
             default: return '알 수 없음';
         }
     };
 
     const formatTime = (time: string) => {
-        return time.slice(0, 5); // "18:00:00" -> "18:00"
+        return time.slice(0, 5);
     };
 
     if (isLoading) {
@@ -100,7 +108,7 @@ export function ReservationList() {
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {reservations.length > 0 ? (
                     reservations.map((reservation) => (
-                        <Card key={reservation.id} className="overflow-hidden">
+                        <Card key={reservation.id} className="overflow-hidden h-50">
                             <CardHeader className="bg-gray-50">
                                 <CardTitle className="flex justify-between items-center">
                                     <span>{reservation.facility.name}</span>
@@ -110,7 +118,7 @@ export function ReservationList() {
                                     </Badge>
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent className="pt-4">
+                            <CardContent className="pt-2">
                                 <div className="space-y-4">
                                     <div className="flex items-center text-sm text-gray-600">
                                         <CalendarIcon className="mr-2 h-4 w-4" />

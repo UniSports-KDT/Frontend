@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { ChevronDownIcon } from "lucide-react"
 import { Facility } from '@/types/facility'
 import { createReservation, getAvailableTimes } from '@/api/reservation'
-import {AvailableTimesResponse, ReservationRequest, TimeSlot} from '@/types/reservation-available'
+import { AvailableTimesResponse, ReservationRequest, TimeSlot } from '@/types/reservation-available'
 import { useAuth } from '@/contexts/AuthContext'
 import { format } from 'date-fns'
 
@@ -87,14 +87,13 @@ export function FacilityReservation({ facility, initialAvailableTimes }: Facilit
         const result = await createReservation(reservationData);
         if (result.success) {
           alert(`${slot.startTime} - ${slot.endTime} 예약 완료`);
-          // 예약 성공 시 로컬 상태 업데이트
           setAvailableTimes(prevTimes =>
               prevTimes.map(t =>
-                  t.startTime === slot.startTime ? {...t, available: false} : t
+                  t.startTime === slot.startTime ? { ...t, available: false } : t
               )
           );
         } else {
-          alert(`${slot.startTime} - ${slot.endTime} 예약 실패: ${result.message}`);
+          alert(`${slot.startTime} - ${slot.endTime} 이미 예약된 시간입니다.`);
         }
       } catch (error) {
         console.error('Reservation error:', error);
@@ -117,12 +116,12 @@ export function FacilityReservation({ facility, initialAvailableTimes }: Facilit
                         facility.imageUrls.map((url, index) => (
                             <CarouselItem key={index}>
                               <img
-                                  src={url}
+                                  src={url}  // DB에서 가져온 URL을 직접 사용
                                   width={800}
                                   height={500}
                                   alt={`${facility.name} 이미지 ${index + 1}`}
                                   className="object-cover w-full h-[400px] md:h-[500px]"
-                                  style={{aspectRatio: "800/500", objectFit: "cover"}}
+                                  style={{ aspectRatio: "800/500", objectFit: "cover" }}
                               />
                             </CarouselItem>
                         ))
@@ -134,7 +133,7 @@ export function FacilityReservation({ facility, initialAvailableTimes }: Facilit
                               height={500}
                               alt="시설 이미지 없음"
                               className="object-cover w-full h-[400px] md:h-[500px]"
-                              style={{aspectRatio: "800/500", objectFit: "cover"}}
+                              style={{ aspectRatio: "800/500", objectFit: "cover" }}
                           />
                         </CarouselItem>
                     )}
@@ -173,11 +172,11 @@ export function FacilityReservation({ facility, initialAvailableTimes }: Facilit
                         <PopoverTrigger asChild>
                           <Button variant="outline" className="justify-between w-full">
                             <span>{format(selectedDate, 'yyyy-MM-dd')}</span>
-                            <ChevronDownIcon className="w-4 h-4"/>
+                            <ChevronDownIcon className="w-4 h-4" />
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="p-0 max-w-[276px]">
-                          <Calendar mode="single" selected={selectedDate} onSelect={handleDateSelect}/>
+                          <Calendar mode="single" selected={selectedDate} onSelect={handleDateSelect} />
                         </PopoverContent>
                       </Popover>
                     </div>

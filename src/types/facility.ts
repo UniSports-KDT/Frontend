@@ -30,3 +30,14 @@ export interface FacilityEditData {
 export interface FacilityEditProps {
     initialData: Facility;
 }
+
+//시설 추가
+export interface FacilityCreateData {
+    name: string;
+    description: string;
+    location: string;
+    availableHours: string;
+    fee: number;
+    attachmentFlag: string;
+    attachmentNames: string[];
+}

@@ -1,19 +1,17 @@
 'use client'
-import React, { useState, useEffect } from 'react';
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { useState } from 'react';
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { FacilityEditData, FacilityEditProps } from "@/types/facility";
-import { authenticatedFetch } from "@/api/api-utils";
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { editFacility } from "@/api";
+import { getPresignedUrl, uploadImageToS3 } from "@/lib/imageUrl";
 
 export function FacilityEdit({ initialData }: FacilityEditProps) {
-  const router = useRouter()
-
+  const router = useRouter();
   const [facility, setFacility] = useState<FacilityEditData>(() => {
-    //const [startTime, endTime] = initialData.operatingHours.split('-');
     const defaultHours = { start: "09:00", end: "18:00" };
     let [startTime, endTime] = [defaultHours.start, defaultHours.end];
 
@@ -23,15 +21,11 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
         [startTime, endTime] = parts;
       }
     }
-    //------------------------------------------
 
     return {
       name: initialData.name,
       description: initialData.description,
       location: initialData.location,
-      //availableHours: initialData.operatingHours,
-      // startTime: startTime || "09:00",
-      // endTime: endTime || "18:00",
       availableHours: initialData.operatingHours || `${defaultHours.start}-${defaultHours.end}`,
       startTime,
       endTime,
@@ -41,19 +35,17 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
     };
   });
 
-  useEffect(() => {
-    console.log('Facility Edit Data:', facility);
-  }, [facility]);
+  const [newFiles, setNewFiles] = useState<File[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFacility(prev => ({ ...prev, [name]: value }));
+    setFacility(prev => ({ ...prev, [name]: value } as FacilityEditData));  // as FacilityEditData 추가
   };
 
   const handleTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFacility(prev => {
-      const newFacility = { ...prev, [name]: value };
+      const newFacility = { ...prev, [name]: value } as FacilityEditData; // as FacilityEditData 추가
       newFacility.availableHours = `${newFacility.startTime}-${newFacility.endTime}`;
       return newFacility;
     });
@@ -62,20 +54,22 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const { startTime, endTime, ...submitData } = facility;
-      submitData.availableHours = `${startTime}-${endTime}`;
+      // 이미지 업로드 처리
+      const attachmentNames = [...facility.attachmentNames];
 
-      console.log('Submitting facility data:', submitData);
-      const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${initialData.id}`, {
-        method: 'PUT',
-        body: JSON.stringify(submitData),
-      });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || '시설 정보 업데이트에 실패했습니다.');
+      for (const file of newFiles) {
+        const presignedUrl = await getPresignedUrl(file.name);
+        await uploadImageToS3(presignedUrl, file);
+        attachmentNames.push(file.name);
       }
-      const updatedFacility = await response.json();
-      console.log('Server response:', updatedFacility);
+
+      const submitData: FacilityEditData = {
+        ...facility,
+        availableHours: `${facility.startTime}-${facility.endTime}`,
+        attachmentNames,
+      };
+
+      await editFacility(initialData.id, submitData);
 
       alert('시설 정보 수정 완료');
       router.refresh();
@@ -87,19 +81,22 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
     }
   };
 
-
-  const handleImageAdd = () => {
-    setFacility(prev => ({
-      ...prev,
-      attachmentNames: [...prev.attachmentNames, '/placeholder.svg']
-    }));
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newFilesArray = Array.from(event.target.files);
+      setNewFiles(prev => [...prev, ...newFilesArray]);
+      setFacility(prev => ({
+        ...prev,
+        attachmentFlag: "Y",
+      } as FacilityEditData)); // as FacilityEditData 추가
+    }
   };
 
   const handleImageDelete = (index: number) => {
     setFacility(prev => ({
       ...prev,
-      attachmentNames: prev.attachmentNames.filter((_, i) => i !== index)
-    }));
+      attachmentNames: prev.attachmentNames.filter((_, i) => i !== index),
+    } as FacilityEditData)); // as FacilityEditData 추가
   };
 
   return (
@@ -153,29 +150,32 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
             </div>
             <div>
               <Label>시설 사진</Label>
+              <input type="file" multiple onChange={handleFileChange} />
               <div className="flex items-center space-x-4 mt-2">
-                <Button variant="outline" size="icon" type="button" onClick={handleImageAdd}>
-                  <PlusIcon className="h-5 w-5"/>
-                  <span className="sr-only">사진 추가</span>
-                </Button>
                 <div className="flex space-x-2">
                   {facility.attachmentNames.map((image, index) => (
                       <div key={index} className="relative">
-                        <img
-                            src={image}
-                            alt={`Facility image ${index + 1}`}
-                            width={80}
-                            height={80}
-                            className="rounded"
-                            style={{aspectRatio: "80/80", objectFit: "cover"}}
-                        />
+                        {typeof image === 'string' ? (
+                            <img
+                                src={image}
+                                alt={`Facility image ${index + 1}`}
+                                width={80}
+                                height={80}
+                                className="rounded"
+                                style={{ aspectRatio: "80/80", objectFit: "cover" }}
+                            />
+                        ) : (
+                            <div className="h-20 w-20 rounded bg-gray-200 flex items-center justify-center">
+                              <span>{(image as File).name}</span>
+                            </div>
+                        )}
                         <Button
                             variant="ghost"
                             size="icon"
                             className="absolute top-1 right-1 text-red-500"
                             onClick={() => handleImageDelete(index)}
                         >
-                          <TrashIcon className="h-5 w-5"/>
+                          <TrashIcon className="h-5 w-5" />
                           <span className="sr-only">삭제</span>
                         </Button>
                       </div>
@@ -189,27 +189,7 @@ export function FacilityEdit({ initialData }: FacilityEditProps) {
           </form>
         </main>
       </div>
-  )
-}
-
-function PlusIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-      <svg
-          {...props}
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-      >
-        <path d="M5 12h14"/>
-        <path d="M12 5v14"/>
-      </svg>
-  )
+  );
 }
 
 function TrashIcon(props: React.SVGProps<SVGSVGElement>) {
