@@ -1,11 +1,29 @@
 'use client'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { UserReservation } from "@/types/user-reservation";
 import { useEffect, useState } from "react";
 import { getReservationLists, cancelReservation } from "@/api/reservation";
 import { toast } from "@/components/ui/use-toast";
+import { CalendarIcon, ClockIcon } from 'lucide-react'
+
+const StatusDot = ({ status }: { status: UserReservation['status'] }) => {
+    const getStatusColor = (status: UserReservation['status']) => {
+        switch(status) {
+            case 'PENDING': return '#ffc300';
+            case 'APPROVED': return '#2ecc71';
+            case 'REJECTED': return '#e74c3c';
+            case 'CANCELED': return '#95a5a6';
+            default: return '#dcd6d6';
+        }
+    }
+    return (
+        <svg width="10" height="10" className="inline mr-2">
+            <circle cx="5" cy="5" r="5" fill={getStatusColor(status)} />
+        </svg>
+    );
+}
 
 export function ReservationList() {
     const [reservations, setReservations] = useState<UserReservation[]>([]);
@@ -64,16 +82,6 @@ export function ReservationList() {
         }
     };
 
-    const getStatusColor = (status: UserReservation['status']) => {
-        switch(status) {
-            case 'PENDING': return 'bg-yellow-100 text-yellow-800';
-            case 'APPROVED': return 'bg-green-100 text-green-800';
-            case 'REJECTED': return 'bg-red-100 text-red-800';
-            case 'CANCELED': return 'bg-gray-100 text-gray-800';
-            default: return 'bg-gray-100 text-gray-800';
-        }
-    };
-
     const formatTime = (time: string) => {
         return time.slice(0, 5); // "18:00:00" -> "18:00"
     };
@@ -87,54 +95,53 @@ export function ReservationList() {
     }
 
     return (
-        <div className="flex flex-col min-h-screen">
-            <main className="flex-1 py-20 px-4 md:px-8">
-                <div className="max-w-7xl mx-auto">
-                    <h1 className="text-2xl font-bold mb-6">예약 내역</h1>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {reservations.length > 0 ? (
-                            reservations.map((reservation) => (
-                                <Card key={reservation.id} className="bg-background rounded-lg shadow-md">
-                                    <CardContent className="p-4">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="font-medium">
-                                                {reservation.facility.name}
-                                            </div>
-                                            <Badge className={getStatusColor(reservation.status)}>
-                                                {getStatusText(reservation.status)}
-                                            </Badge>
+        <div className="container mx-auto py-8">
+            <h1 className="text-2xl font-bold mb-6">예약 내역</h1>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {reservations.length > 0 ? (
+                    reservations.map((reservation) => (
+                        <Card key={reservation.id} className="overflow-hidden">
+                            <CardHeader className="bg-gray-50">
+                                <CardTitle className="flex justify-between items-center">
+                                    <span>{reservation.facility.name}</span>
+                                    <Badge className="flex items-center bg-white text-gray-700 border border-gray-200">
+                                        <StatusDot status={reservation.status} />
+                                        {getStatusText(reservation.status)}
+                                    </Badge>
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent className="pt-4">
+                                <div className="space-y-4">
+                                    <div className="flex items-center text-sm text-gray-600">
+                                        <CalendarIcon className="mr-2 h-4 w-4" />
+                                        <span>{reservation.date}</span>
+                                    </div>
+                                    <div className="flex items-center text-sm text-gray-600">
+                                        <ClockIcon className="mr-2 h-4 w-4" />
+                                        <span>{formatTime(reservation.startTime)} - {formatTime(reservation.endTime)}</span>
+                                    </div>
+                                    {reservation.status === 'PENDING' && (
+                                        <div className="flex gap-2 mt-4">
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                className="flex-1 bg-red-50 text-red-600 hover:bg-red-100"
+                                                onClick={() => handleCancelReservation(reservation.id)}
+                                            >
+                                                취소
+                                            </Button>
                                         </div>
-                                        <div className="text-sm mb-2">
-                                            {reservation.facility.location}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground mb-2">
-                                            {reservation.date}
-                                        </div>
-                                        <div className="text-sm text-muted-foreground mb-4">
-                                            {formatTime(reservation.startTime)} - {formatTime(reservation.endTime)}
-                                        </div>
-                                        <div className="flex items-center justify-end">
-                                            {reservation.status === 'PENDING' && (
-                                                <Button
-                                                    variant="outline"
-                                                    size="sm"
-                                                    onClick={() => handleCancelReservation(reservation.id)}
-                                                >
-                                                    취소
-                                                </Button>
-                                            )}
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            ))
-                        ) : (
-                            <div className="col-span-3 flex justify-center items-center h-64">
-                                <p className="text-lg text-muted-foreground">예약 내역이 없습니다.</p>
-                            </div>
-                        )}
+                                    )}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))
+                ) : (
+                    <div className="col-span-3 flex justify-center items-center h-64">
+                        <p className="text-lg text-muted-foreground">예약 내역이 없습니다.</p>
                     </div>
-                </div>
-            </main>
+                )}
+            </div>
         </div>
     );
 }
