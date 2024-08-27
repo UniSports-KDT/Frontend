@@ -3,6 +3,88 @@ import {authenticatedFetch} from "@/api/api-utils";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
+// 이미지 URL이 외부 URL인지 확인하는 함수
+function isExternalUrl(url: string): boolean {
+    return url.startsWith('http://') || url.startsWith('https://');
+}
+
+// Presigned URL을 가져오는 함수
+async function getPresignedUrl(imageUrl: string): Promise<string> {
+    // 이미 외부 URL인 경우 그대로 반환
+    if (isExternalUrl(imageUrl)) {
+        return imageUrl;
+    }
+    // URL decoded 파일명 추출
+    const filename = decodeURIComponent(imageUrl.split('/').pop() || '');
+    if (!filename || filename === 'placeholder.svg') {
+        return '/placeholder.svg';
+    }
+    try {
+        const response = await fetch(`${API_URL}/api/presigned-url?filename=${encodeURIComponent(filename)}`, {
+            method: 'GET',
+            cache: 'no-store',
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to get presigned URL for ${filename}`);
+        }
+        const presignedUrl = await response.text();
+        return presignedUrl.startsWith('http') ? presignedUrl : `${API_URL}${presignedUrl}`;
+    } catch (error) {
+        console.error('Failed to get presigned URL:', error);
+        return '/placeholder.svg';
+    }
+}
+
+// Facility 객체의 imageUrls를 presigned URL로 변환하는 함수
+async function updateFacilityWithPresignedUrls(facility: Facility): Promise<Facility> {
+    if (facility.imageUrls && facility.imageUrls.length > 0) {
+        const updatedImageUrls = await Promise.all(
+            facility.imageUrls.map(url => getPresignedUrl(url))
+        );
+        return { ...facility, imageUrls: updatedImageUrls };
+    }
+    return facility;
+}
+
+// 3. 전체 시설 조회
+export async function getFacilities(): Promise<Facility[]> {
+    try {
+        const res = await fetch(`${API_URL}/api/facilities`, {
+            cache: "no-store",
+            next: { revalidate: 0 }
+        });
+        if (!res.ok) {
+            throw new Error('Failed to fetch facilities');
+        }
+        const facilities: Facility[] = await res.json();
+        // 각 시설의 이미지 URL을 presigned URL로 업데이트
+        return await Promise.all(facilities.map(updateFacilityWithPresignedUrls));
+    } catch (error) {
+        console.error('Failed to fetch facilities:', error);
+        return fallbackFacilities;
+    }
+}
+
+// 4. 특정 시설 상세 조회
+export async function getFacilityDetails(facilityId: number): Promise<Facility> {
+    try {
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, {
+            cache: 'no-store',
+            next: { revalidate: 0 }
+        });
+        if (!res.ok) {
+            throw new Error('Failed to fetch facility details');
+        }
+        const facility: Facility = await res.json();
+        // 시설의 이미지 URL을 presigned URL로 업데이트
+        return await updateFacilityWithPresignedUrls(facility);
+    } catch (error) {
+        console.error('Failed to fetch facility details:', error);
+        return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
+    }
+}
+
+/*
 //3.전체 시설 조회
 export async function getFacilities(): Promise<Facility[]> {
     try {
@@ -36,6 +118,8 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
         return fallbackFacilities.find(f => f.id === facilityId) || fallbackFacilities[0];
     }
 }
+ */
+
 
 //7. 시설 삭제
 export async function deleteFacility(facilityId: number): Promise<{ message: string }> {
