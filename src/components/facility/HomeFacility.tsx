@@ -64,7 +64,7 @@ const PopularFacilities: React.FC<PopularFacilitiesProps> = ({ facilities }) => 
                         </div>
                         <div className="flex justify-between items-center">
                             <h3 className="text-xl font-bold">{facility.name}</h3>
-                            <Link href={`/facilities/${facility.id}`} className="text-primary hover:underline">
+                            <Link href={`/facility-reservations/${facility.id}`} className="text-primary hover:cursor">
                                 시설 보기
                             </Link>
                         </div>
