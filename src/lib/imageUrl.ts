@@ -2,7 +2,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getPresignedUrl(filename: string): Promise<string> {
     try {
-        const response = await fetch(`${API_URL}/presigned-url?filename=${filename}`);
+        const response = await fetch(`/presigned-url?filename=${filename}`);
         if (!response.ok) {
             throw new Error('Failed to get presigned URL');
         }
