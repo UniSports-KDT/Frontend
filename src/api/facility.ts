@@ -10,7 +10,7 @@ export async function getFacilities(): Promise<Facility[]> {
         next: { revalidate: 0 }
     });
     if (!res.ok) {
-        throw new Error('Failed to fetch facilities');
+        throw new Error('시설 조회 실패');
     }
     //const facilities: Facility[] = await res.json();
     //return facilities;
@@ -24,7 +24,7 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
         next: { revalidate: 0 }
     });
     if (!res.ok) {
-        throw new Error(`Failed to fetch facility details for ID: ${facilityId}`);
+        throw new Error(`${facilityId} 시설 데이터 조회 실패`);
     }
     //const facility: Facility = await res.json();
     //return facility;

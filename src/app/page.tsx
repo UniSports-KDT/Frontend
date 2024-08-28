@@ -14,7 +14,6 @@ async function HomePageContent() {
         const facilityIds = [7, 10, 3]; //11
         const facilityPromises = facilityIds.map(id => getFacilityDetails(id));
         const facilities: Facility[] = await Promise.all(facilityPromises);
-        console.log(facilities)
 
         return (
             <AuthProvider>

@@ -58,21 +58,14 @@ export async function deleteNotice(announcementId: number): Promise<{ message: s
 
 //12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
-    try {
-        const response = await fetch(`${API_URL}/api/announcements`, {
-            cache: "no-store"
-        });
-        console.log('Response status:', response.status);
-        if (!response.ok) {
-            throw new Error(`status: ${response.status}`);
-        }
-        const data = await response.json();
-        //console.log('Fetched data:', data);
-        return data;
-    } catch (error) {
-        console.error('Detailed fetch error:', error);
-        return fallbackNotices;
+    const response = await fetch(`${API_URL}/api/announcements`, {
+        cache: "no-store"
+    });
+    if (!response.ok) {
+        throw new Error(`status: ${response.status}`);
     }
+    const data = await response.json();
+    return data;
 }
 
 // 특정 ID의 공지사항 조회
