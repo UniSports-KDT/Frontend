@@ -6,6 +6,7 @@ import { Notice } from '@/types/notice';
 async function NoticesContent() {
     try {
         const notices: Notice[] = await getNotices();
+        const sortedNotices = notices.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         return <Notices notices={notices} />;
     } catch (error) {
         console.error('Failed to fetch notices:', error);

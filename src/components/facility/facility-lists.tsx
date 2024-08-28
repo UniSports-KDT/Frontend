@@ -31,16 +31,16 @@ export function FacilityList({ facilities }: { facilities: Facility[] }) {
                       <Card key={facility.id} className="flex flex-col">
                         <Link href={`/facility-reservations/${facility.id}`} passHref className="flex-grow">
                           <div className="cursor-pointer h-full flex flex-col">
-                            <div className="relative w-full h-40">
+                            <div className="relative w-full h-60">
                               <FacilityImage
                                   src={facility.imageUrls?.[0]}
                                   alt={facility.name}
                                   className="rounded-t-lg"
                               />
                             </div>
-                            <CardContent className="flex-grow flex flex-col justify-between">
+                            <CardContent className="flex-grow flex flex-col justify-between pb-3">
                               <div>
-                                <h3 className="text-lg font-bold mb-1 mt-2">{facility.name}</h3>
+                                <h3 className="text-lg font-bold mb-1 mt-3">{facility.name}</h3>
                                 <p className="text-muted-foreground mb-4 line-clamp-2">{facility.description}</p>
                                 <p className="text-muted-foreground text-sm mb-2">운영 시간: {facility.operatingHours}</p>
                               </div>

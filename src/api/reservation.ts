@@ -8,7 +8,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 //8. 예약 승인 및 거절
 export async function updateReservationStatus(reservationId: number, newStatus: 'APPROVED' | 'REJECTED'): Promise<{ success: boolean; message: string }> {
     try {
-        const res = await authenticatedFetch(`/api/admin/reservations/${reservationId}/status`, {
+        const res = await authenticatedFetch(`${API_URL}/api/admin/reservations/${reservationId}/status`, {
             method: 'PUT',
             body: JSON.stringify({ status: newStatus }),
         });
@@ -29,7 +29,7 @@ export async function updateReservationStatus(reservationId: number, newStatus: 
 //18. 예약 신청
 export async function createReservation(reservationData: ReservationRequest): Promise<{ success: boolean; message: string }> {
     try {
-        const res = await authenticatedFetch(`/api/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations`, {
             method: 'POST',
             body: JSON.stringify(reservationData),
         });
@@ -50,7 +50,7 @@ export async function cancelReservation(reservationId: number): Promise<{ succes
         if (!API_URL) {
             throw new Error('API URL is not defined');
         }
-        const res = await authenticatedFetch(`/api/reservations/${reservationId}`, {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations/${reservationId}`, {
             method: 'DELETE',
             // headers: {
             //     'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export async function cancelReservation(reservationId: number): Promise<{ succes
 //20. 특정 시설 예약상태 조회
 export async function getAvailableTimes({ facilityId, date }: AvailableTimesRequest): Promise<AvailableTimesResponse> {
     try {
-        const url = new URL(`/api/facilities/${facilityId}/available-times`);
+        const url = new URL(`${API_URL}/api/facilities/${facilityId}/available-times`);
         url.searchParams.append('date', date);
         const res = await fetch(url.toString(), {
             method: 'GET',
@@ -98,7 +98,7 @@ export async function getAvailableTimes({ facilityId, date }: AvailableTimesRequ
 //27. 예약내역 조회 (사용자 기능)
 export async function getReservationLists(): Promise<UserReservation[]> {
     try {
-        const res = await authenticatedFetch(`/api/users/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/users/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch reservation lists');
@@ -112,7 +112,7 @@ export async function getReservationLists(): Promise<UserReservation[]> {
 //28. 시설별 예약내역 조회 (관리자 기능)
 export async function getFacilityReservations(facilityId: number): Promise<AllReservation[]> {
     try {
-        const res = await fetch(`/api/facilities/${facilityId}/reservations`, {
+        const res = await fetch(`${API_URL}/api/facilities/${facilityId}/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch facility reservations');
@@ -126,7 +126,7 @@ export async function getFacilityReservations(facilityId: number): Promise<AllRe
 //29. 전체 예약 불러오기 (관리자 기능)
 export async function getAllReservations(): Promise<AllReservation[]> {
     try {
-        const res = await authenticatedFetch(`/api/reservations`, {
+        const res = await authenticatedFetch(`${API_URL}/api/reservations`, {
             cache: 'no-store'
         });
         if (!res.ok) throw new Error('Failed to fetch all reservations');

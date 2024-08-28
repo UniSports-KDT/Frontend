@@ -4,21 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="${API_URL} 제거">
-      <change afterPath="$PROJECT_DIR$/src/components/ui/toast.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/toaster.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ui/use-toast.ts" afterDir="false" />
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="이미지 ui 완료">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/notice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/notice.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reservation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reservation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(reservation)/reservation-all-admin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(reservation)/reservation-all-admin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Navigation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Navigation.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/auth/login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/login.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/registration.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/registration.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/notice/notice-write.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/notice/notice-write.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/contexts/AuthContext.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/auth.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,21 +48,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;jiyun&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/kdt/Prj_3/UniSports/Uni-Frontend/Frontend/src/app/signup&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\jiyun\\unisports\\Frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "local1",
+    "last_opened_file_path": "C:/kdt/Prj_3/UniSports/Uni-Frontend/Frontend/src/app/signup",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\jiyun\\unisports\\Frontend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\kdt\Prj_3\UniSports\Uni-Frontend\Frontend\src\app\signup" />
@@ -118,7 +110,7 @@
       <workItem from="1724784193279" duration="8000" />
       <workItem from="1724808718355" duration="893000" />
       <workItem from="1724817495396" duration="1534000" />
-      <workItem from="1724822442829" duration="1602000" />
+      <workItem from="1724822442829" duration="12564000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -208,7 +200,39 @@
       <option name="project" value="LOCAL" />
       <updated>1724809499708</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="수정">
+      <option name="closed" value="true" />
+      <created>1724824097614</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1724824097614</updated>
+    </task>
+    <task id="LOCAL-00013" summary="api수정">
+      <option name="closed" value="true" />
+      <created>1724824875420</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1724824875420</updated>
+    </task>
+    <task id="LOCAL-00014" summary="공지사항 최신순 정렬">
+      <option name="closed" value="true" />
+      <created>1724826161614</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1724826161614</updated>
+    </task>
+    <task id="LOCAL-00015" summary="이미지 ui 완료">
+      <option name="closed" value="true" />
+      <created>1724833927087</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1724833927087</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -250,6 +274,10 @@
     <MESSAGE value="시설별예약조회 ui수정" />
     <MESSAGE value="시설 관련 모두 완료(이미지 빼고..)" />
     <MESSAGE value="${API_URL} 제거" />
-    <option name="LAST_COMMIT_MESSAGE" value="${API_URL} 제거" />
+    <MESSAGE value="수정" />
+    <MESSAGE value="api수정" />
+    <MESSAGE value="공지사항 최신순 정렬" />
+    <MESSAGE value="이미지 ui 완료" />
+    <option name="LAST_COMMIT_MESSAGE" value="이미지 ui 완료" />
   </component>
 </project>

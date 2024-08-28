@@ -4,7 +4,14 @@ const nextConfig = {
     // 기존 설정이 있을 경우 여기에 추가로 설정
     reactStrictMode: true,
     images: {
-        domains: ['unsplash.com', 'images.unsplash.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'images.unsplash.com',
+                port: '',
+                pathname: '/**',
+            },
+        ],
     },
 };
 

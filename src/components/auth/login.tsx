@@ -32,11 +32,12 @@ export function Login() {
         try {
             const response = await login(formData);
             console.log('Login successful:', response);
-            authLogin(response.token, response.username, response.userId);
+            authLogin(response.token, response.username, response.userId, response.userRole);
             alert('로그인 완료')
             router.push('/');
         } catch(error) {
             console.error('로그인 중 에러 발생:', error);
+            alert('로그인 실패: ' + (error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.'));
         } finally {
             setIsLoading(false)
         }

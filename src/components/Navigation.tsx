@@ -11,7 +11,7 @@ const Navigation: React.FC = () => {
     const router = useRouter();
     const [mounted, setMounted] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-    const { isLoggedIn, username, userId, logout } = useAuth();
+    const { isLoggedIn, username, userId, userRole, logout } = useAuth();
 
     useEffect(() => {
         setMounted(true);
@@ -22,8 +22,12 @@ const Navigation: React.FC = () => {
         { href: '/facility-lists', label: '시설' },
         { href: '/reservation-list', label: '예약내역', requireAuth: true },
         { href: '/notices', label: '공지사항' },
-        { href: '/admin', label: '관리자 페이지', requireAuth: true },
+        { href: '/admin', label: '관리자 페이지', requireAuth: true, requireAdmin: true },
     ];
+
+    const filteredNavItems = navItems.filter(item =>
+        !item.requireAdmin || (item.requireAdmin && userRole === 'ADMIN')
+    );
 
     const isActive = (href: string) => {
         if (href === '/') {
@@ -67,7 +71,7 @@ const Navigation: React.FC = () => {
                 <span className="text-lg font-bold">UniSport</span>
             </Link>
             <div className="hidden lg:flex items-center space-x-14">
-                {navItems.map((item) => (
+                {filteredNavItems.map((item) => (
                     <Link
                         key={item.href}
                         href={item.href}
@@ -111,7 +115,7 @@ const Navigation: React.FC = () => {
                     className="p-2 text-primary-foreground hover:text-white transition-colors"
                     aria-label="메뉴 토글"
                 >
-                    <Menu size={24} />
+                    <Menu size={24}/>
                 </button>
             </div>
             {isOpen && (
@@ -128,7 +132,7 @@ const Navigation: React.FC = () => {
                             >
                                 {item.label}
                             </Link>
-                            {index < navItems.length - 1 && (
+                            {index < filteredNavItems.length - 1 && (
                                 <div className="border-t border-white/20 mx-4"></div>
                             )}
                         </React.Fragment>
@@ -147,11 +151,13 @@ const Navigation: React.FC = () => {
                         </>
                     ) : (
                         <>
-                            <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
+                            <Link href="/login" className="block px-4 py-3" onClick={handleNavItemClick}
+                                  prefetch={false}>
                                 로그인
                             </Link>
                             <div className="border-t border-white/20 mx-4"></div>
-                            <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick} prefetch={false}>
+                            <Link href="/signup" className="block px-4 py-3" onClick={handleNavItemClick}
+                                  prefetch={false}>
                                 회원가입
                             </Link>
                         </>
