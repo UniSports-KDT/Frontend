@@ -6,7 +6,7 @@ import { AllReservation } from '@/types/all-reservation';
 async function ReservationAdminContent() {
     try {
         const allReservations: AllReservation[] = await getAllReservations();
-        return <ReservationAllAdmin allReservations={allReservations} />
+        return <ReservationAllAdmin reservations={allReservations} />
     } catch (error) {
         console.error('Failed to fetch ReservationAdminContent:',error);
     }

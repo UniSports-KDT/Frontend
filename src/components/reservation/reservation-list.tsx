@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { UserReservation } from "@/types/user-reservation";
 import { useEffect, useState } from "react";
-import { getReservationLists, cancelReservation } from "@/api/reservation";
+import { getReservationLists, cancelReservation } from "@/api";
 import { toast } from "@/components/ui/use-toast";
 import { CalendarIcon, ClockIcon } from 'lucide-react'
 

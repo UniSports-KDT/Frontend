@@ -1,7 +1,7 @@
 import { UserReservation } from '@/types/user-reservation';
 import { AllReservation } from "@/types/all-reservation";
 import { AvailableTimesRequest, AvailableTimesResponse, ReservationRequest } from '@/types/reservation-available';
-import {authenticatedFetch} from "@/api/api-utils";
+import {authenticatedFetch} from "@/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

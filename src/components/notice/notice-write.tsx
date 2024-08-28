@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useRouter } from 'next/navigation'
-import { createNotice } from '@/api/notice'
+import { createNotice } from '@/api'
 import { useAuth } from '@/contexts/AuthContext'
 
 export function NoticeWrite() {
