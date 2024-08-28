@@ -38,7 +38,7 @@ export async function login(loginData: LoginRequest): Promise<LoginResponse> {
             const errorMessage = await response.text();
             throw new Error(errorMessage || `로그인 실패: ${response.status} ${response.statusText}`);
         }
-        const { token } = await response.json();
+        const { token, userRole } = await response.json();
 
         if (!token) {
             throw new Error('토큰이 없습니다.');
@@ -54,6 +54,7 @@ export async function login(loginData: LoginRequest): Promise<LoginResponse> {
             token,
             username,
             userId: decodedToken.userId,
+            userRole: userRole || 'USER',
         };
     } catch (error) {
         console.error('Login error:', error);
