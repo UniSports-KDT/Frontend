@@ -120,14 +120,20 @@ const Navigation: React.FC = () => {
             </div>
             {isOpen && (
                 <div className="absolute top-14 left-0 right-0 bg-primary border-b border-border lg:hidden">
-                    {navItems.map((item, index) => (
+                    {filteredNavItems.map((item, index) => (
                         <React.Fragment key={item.href}>
                             <Link
                                 href={item.href}
                                 className={`block px-4 py-3 nav-link ${
                                     mounted && isActive(item.href) ? 'active bg-primary-foreground/10' : ''
                                 } hover:bg-primary-foreground/5 transition-colors duration-200`}
-                                onClick={item.requireAuth ? handleNotLoggedInClick : handleNavItemClick}
+                                onClick={(e) => {
+                                    handleNavItemClick(); // 메뉴 닫기
+                                    if (item.requireAuth && !isLoggedIn) {
+                                        e.preventDefault(); // 로그인 필요 시 클릭 방지
+                                        router.push('/login'); // 로그인 페이지로 리다이렉트
+                                    }
+                                }}
                                 prefetch={false}
                             >
                                 {item.label}
@@ -164,6 +170,7 @@ const Navigation: React.FC = () => {
                     )}
                 </div>
             )}
+
         </nav>
     );
 };

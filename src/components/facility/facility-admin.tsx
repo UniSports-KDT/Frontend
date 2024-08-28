@@ -3,7 +3,6 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import {Facility, FacilityListProps} from "@/types/facility";
-import { useRouter } from 'next/navigation'
 import { deleteFacility } from "@/api";
 import {useState} from "react";
 
@@ -27,19 +26,12 @@ export function FacilityAdmin({ facilities: initialFacilities }: FacilityListPro
         }
     }
 
-    const router = useRouter()
-
-    const handleRefresh = () => {
-        router.refresh()
-    }
-
     return (
         <div className="flex flex-col min-h-screen">
             <main className="flex-1 py-8 px-6">
                 <div className="max-w-7xl mx-auto">
                     <div className="flex items-center justify-between mb-6">
                         <h1 className="text-2xl font-bold">시설 관리</h1>
-                        <Button onClick={handleRefresh}>update</Button>
                     </div>
                     {facilities && facilities.length > 0 ? (
                         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">

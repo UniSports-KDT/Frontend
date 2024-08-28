@@ -42,7 +42,7 @@ export async function createFacility(facilityData: FacilityCreateData): Promise<
             if (response.status === 403) {
                 throw new Error('403 Forbidden: 권한이 없습니다.');
             }
-            throw new Error('Failed to delete facility');
+            throw new Error('Failed to create facility');
         }
         return response.json();
     } catch(error) {
