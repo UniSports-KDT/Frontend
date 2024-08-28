@@ -116,11 +116,11 @@ export function FacilityReservation({ facility, initialAvailableTimes }: Facilit
                         facility.imageUrls.map((url, index) => (
                             <CarouselItem key={index}>
                               <img
-                                  src={url}  // DB에서 가져온 URL을 직접 사용
+                                  src={url}
                                   width={800}
                                   height={500}
                                   alt={`${facility.name} 이미지 ${index + 1}`}
-                                  className="object-cover w-full h-[400px] md:h-[500px]"
+                                  className="object-cover w-full mb-1.5 h-[400px] md:h-[500px]"
                                   style={{ aspectRatio: "800/500", objectFit: "cover" }}
                               />
                             </CarouselItem>

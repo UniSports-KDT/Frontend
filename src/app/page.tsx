@@ -1,7 +1,8 @@
 import Homepage from "@/components/homepage";
 import { Suspense } from 'react';
-import { getNotices } from "@/api";
+import {getFacilityDetails, getNotices} from "@/api";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { Facility } from '@/types/facility';
 
 async function HomePageContent() {
     try {
@@ -10,9 +11,14 @@ async function HomePageContent() {
         const sortedNotices = notices.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
         const topNotices = sortedNotices.slice(0, 3);
 
+        const facilityIds = [7, 10, 3]; //11
+        const facilityPromises = facilityIds.map(id => getFacilityDetails(id));
+        const facilities: Facility[] = await Promise.all(facilityPromises);
+        console.log(facilities)
+
         return (
             <AuthProvider>
-                <Homepage notices={topNotices} />
+                <Homepage notices={topNotices} facilities={facilities} />
             </AuthProvider>
         )
     } catch (error) {
