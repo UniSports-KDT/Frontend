@@ -5,7 +5,7 @@ import { useAuth } from "@/contexts/AuthContext"
 import {useRouter} from "next/navigation";
 
 export default function Homepage({ notices }: NoticesProps) {
-  const { userId, isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const router = useRouter();
 
@@ -55,15 +55,17 @@ export default function Homepage({ notices }: NoticesProps) {
               </div>
             </div>
             <div>
-              <h2 className="text-2xl font-bold mb-2">최신 공지사항</h2>
+              <div className="flex justify-start items-center mb-2">
+                <h2 className="text-2xl font-bold mr-4">최신 공지사항</h2>
+                <Link href="/notices" className="text-primary hover:cursor text-md">
+                  더보기
+                </Link>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {notices.slice(0, 3).map((notice) => (
                     <div key={notice.id} className="bg-muted rounded-lg p-4 space-y-2">
                       <h3 className="text-lg font-bold">{notice.title}</h3>
                       <p className="text-muted-foreground">{notice.content}</p>
-                      <Link href={`/notices/${notice.id}`} className="text-primary hover:underline">
-                        자세히 보기
-                      </Link>
                     </div>
                 ))}
               </div>
