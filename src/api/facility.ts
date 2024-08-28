@@ -6,7 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 // 3. 전체 시설 조회
 export async function getFacilities(): Promise<Facility[]> {
     try {
-        const res = await fetch(`${API_URL}/api/facilities`, {
+        const res = await fetch(`/api/facilities`, {
             cache: "no-store",
             next: { revalidate: 0 }
         });
@@ -24,7 +24,7 @@ export async function getFacilities(): Promise<Facility[]> {
 // 4. 특정 시설 상세 조회
 export async function getFacilityDetails(facilityId: number): Promise<Facility> {
     try {
-        const res = await fetch(`${API_URL}/api/facilities/${facilityId}`, {
+        const res = await fetch(`/api/facilities/${facilityId}`, {
             cache: 'no-store',
             next: { revalidate: 0 }
         });
@@ -43,7 +43,7 @@ export async function getFacilityDetails(facilityId: number): Promise<Facility> 
 //5. 시설 추가
 export async function createFacility(facilityData: FacilityCreateData): Promise<{ message: string }> {
     try {
-        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities`, {
+        const response = await authenticatedFetch(`/api/admin/facilities`, {
             method: 'POST',
             body: JSON.stringify(facilityData)
         });
@@ -63,7 +63,7 @@ export async function createFacility(facilityData: FacilityCreateData): Promise<
 //6. 시설 수정
 export async function editFacility(facilityId: number, facilityData: FacilityEditData): Promise<{ message: string }> {
     try {
-        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${facilityId}`, {
+        const response = await authenticatedFetch(`/api/admin/facilities/${facilityId}`, {
             method: 'PUT',
             body: JSON.stringify(facilityData),
         });
@@ -83,7 +83,7 @@ export async function editFacility(facilityId: number, facilityData: FacilityEdi
 //7. 시설 삭제
 export async function deleteFacility(facilityId: number): Promise<{ message: string }> {
     try {
-        const response = await authenticatedFetch(`${API_URL}/api/admin/facilities/${facilityId}`, {
+        const response = await authenticatedFetch(`/api/admin/facilities/${facilityId}`, {
             method: 'DELETE',
         });
         if (!response.ok) {

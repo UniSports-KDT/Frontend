@@ -4,19 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="시설별예약조회 ui수정">
-      <change afterPath="$PROJECT_DIR$/src/lib/imageUrl.ts" afterDir="false" />
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="시설 관련 모두 완료(이미지 빼고..)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reservation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reservation.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(facility)/facility-create/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(facility)/facility-create/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-create.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/facility-edit.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/facility-reservation.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-all-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-all-admin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-facility-detail-admin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-facility-detail-admin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/facility.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +101,9 @@
       <workItem from="1724555625845" duration="13851000" />
       <workItem from="1724625850817" duration="17537000" />
       <workItem from="1724652586691" duration="28375000" />
-      <workItem from="1724719331092" duration="51995000" />
+      <workItem from="1724719331092" duration="53036000" />
+      <workItem from="1724784193279" duration="8000" />
+      <workItem from="1724808718355" duration="372000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -186,7 +177,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724775051320</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="시설 관련 모두 완료(이미지 빼고..)">
+      <option name="closed" value="true" />
+      <created>1724783668480</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1724783668480</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -226,6 +225,7 @@
     <MESSAGE value="전체 시설 조회 PresignedUrl 했는데 일단 실패.." />
     <MESSAGE value="예약취소 완료" />
     <MESSAGE value="시설별예약조회 ui수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="시설별예약조회 ui수정" />
+    <MESSAGE value="시설 관련 모두 완료(이미지 빼고..)" />
+    <option name="LAST_COMMIT_MESSAGE" value="시설 관련 모두 완료(이미지 빼고..)" />
   </component>
 </project>
