@@ -1,5 +1,5 @@
 import {Facility, FacilityCreateData, FacilityEditData} from '@/types/facility';
-import {authenticatedFetch} from "@/api/api-utils";
+import {authenticatedFetch} from "@/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

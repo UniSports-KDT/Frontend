@@ -1,5 +1,5 @@
 import { Notice } from '@/types/notice';
-import {authenticatedFetch} from "@/api/api-utils";
+import {authenticatedFetch} from "@/api";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 

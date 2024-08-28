@@ -8,7 +8,7 @@ import { Calendar } from "@/components/ui/calendar"
 import { Label } from "@/components/ui/label"
 import { ChevronDownIcon } from "lucide-react"
 import { Facility } from '@/types/facility'
-import { createReservation, getAvailableTimes } from '@/api/reservation'
+import { createReservation, getAvailableTimes } from '@/api'
 import { AvailableTimesResponse, ReservationRequest, TimeSlot } from '@/types/reservation-available'
 import { useAuth } from '@/contexts/AuthContext'
 import { format } from 'date-fns'
