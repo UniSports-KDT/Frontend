@@ -5,7 +5,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 //회원가입
 export async function register(user: UserRegistrationRequest): Promise<UserRegistrationResponse> {
     try {
-        const response = await fetch(`/api/auth/register`, {
+        const response = await fetch(`${API_URL}/api/auth/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ export async function register(user: UserRegistrationRequest): Promise<UserRegis
 //로그인
 export async function login(loginData: LoginRequest): Promise<LoginResponse> {
     try {
-        const response = await fetch(`/api/auth/login`, {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

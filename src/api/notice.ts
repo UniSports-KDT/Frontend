@@ -6,7 +6,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 //9. 공지사항 작성
 export async function createNotice(noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
     try {
-        const response = await authenticatedFetch(`/api/admin/announcements`, {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements`, {
             method: 'POST',
             body: JSON.stringify(noticeData),
         });
@@ -23,7 +23,7 @@ export async function createNotice(noticeData: { adminId: number; title: string;
 //10. 공지사항 수정
 export async function updateNotice(noticeId: number, noticeData: { adminId: number; title: string; content: string }): Promise<Notice> {
     try {
-        const response = await authenticatedFetch(`/api/admin/announcements/${noticeId}`, {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${noticeId}`, {
             method: 'PUT',
             body: JSON.stringify(noticeData),
         });
@@ -40,7 +40,7 @@ export async function updateNotice(noticeId: number, noticeData: { adminId: numb
 //11. 공지사항 삭제
 export async function deleteNotice(announcementId: number): Promise<{ message: string }> {
     try {
-        const response = await authenticatedFetch(`/api/admin/announcements/${announcementId}`, {
+        const response = await authenticatedFetch(`${API_URL}/api/admin/announcements/${announcementId}`, {
             method: 'DELETE',
         });
         if (!response.ok) {
@@ -59,7 +59,7 @@ export async function deleteNotice(announcementId: number): Promise<{ message: s
 //12. 공지사항 조회
 export async function getNotices(): Promise<Notice[]> {
     try {
-        const response = await fetch(`/api/announcements`, {
+        const response = await fetch(`${API_URL}/api/announcements`, {
             cache: "no-store"
         });
         console.log('Response status:', response.status);
