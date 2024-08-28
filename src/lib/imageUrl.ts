@@ -1,10 +1,13 @@
+import {authenticatedFetch} from "@/api";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export async function getPresignedUrl(filename: string): Promise<string> {
     try {
-        const response = await fetch(`/presigned-url?filename=${filename}`);
+        const response = await authenticatedFetch(`${API_URL}/presigned-url?filename=${encodeURIComponent(filename)}`);
         if (!response.ok) {
-            throw new Error('Failed to get presigned URL');
+            const errorText = await response.text();
+            throw new Error(`Failed to get presigned URL: ${response.status} ${errorText}`);
         }
         return await response.text();
     } catch (error) {
