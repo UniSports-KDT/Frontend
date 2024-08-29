@@ -1,12 +1,3 @@
-/*
-export interface UserReservation {
-    id: number;
-    facilityId: number;
-    reservationTime: string;
-    status: 'pending' | 'approved' | 'rejected';
-}
-*/
-
 export interface UserReservation {
     id: number;
     date: string;

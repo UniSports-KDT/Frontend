@@ -52,9 +52,6 @@ export async function cancelReservation(reservationId: number): Promise<{ succes
         }
         const res = await authenticatedFetch(`${API_URL}/api/reservations/${reservationId}`, {
             method: 'DELETE',
-            // headers: {
-            //     'Content-Type': 'application/json',
-            // },
         });
         if (!res.ok) {
             const errorData = await res.json().catch(() => ({}));
@@ -97,16 +94,11 @@ export async function getAvailableTimes({ facilityId, date }: AvailableTimesRequ
 
 //27. 예약내역 조회 (사용자 기능)
 export async function getReservationLists(): Promise<UserReservation[]> {
-    try {
-        const res = await authenticatedFetch(`${API_URL}/api/users/reservations`, {
-            cache: 'no-store'
-        });
-        if (!res.ok) throw new Error('Failed to fetch reservation lists');
-        return res.json();
-    } catch (error) {
-        console.error('Failed to fetch reservation lists:', error);
-        throw error;
-    }
+    const res = await authenticatedFetch(`${API_URL}/api/users/reservations`, {
+        cache: 'no-store'
+    });
+    if (!res.ok) throw new Error('Failed to fetch reservation lists');
+    return res.json();
 }
 
 //28. 시설별 예약내역 조회 (관리자 기능)

@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="시설 수정, 시설 등록 에러 해결!!!">
+    <list default="true" id="b22aa446-406b-4815-9964-2ad47182e874" name="변경" comment="로딩 화면 수정, 시설보기 화면 이동">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/facility.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/facility.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/notice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/notice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/reservation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reservation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(reservation)/reservation-list/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(reservation)/reservation-list/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/facility/HomeFacility.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/facility/HomeFacility.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/reservation/reservation-list.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/user-reservation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/user-reservation.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +112,9 @@
       <workItem from="1724817495396" duration="1534000" />
       <workItem from="1724822442829" duration="18928000" />
       <workItem from="1724850836324" duration="192000" />
-      <workItem from="1724858884793" duration="1722000" />
+      <workItem from="1724858884793" duration="5903000" />
+      <workItem from="1724864891118" duration="48000" />
+      <workItem from="1724891068115" duration="2197000" />
     </task>
     <task id="LOCAL-00001" summary="로그인,회원가입">
       <option name="closed" value="true" />
@@ -249,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724841517066</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="로딩 화면 수정, 시설보기 화면 이동">
+      <option name="closed" value="true" />
+      <created>1724860780751</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1724860780751</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -297,6 +308,7 @@
     <MESSAGE value="이미지 ui 완료" />
     <MESSAGE value="수정 완료" />
     <MESSAGE value="시설 수정, 시설 등록 에러 해결!!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="시설 수정, 시설 등록 에러 해결!!!" />
+    <MESSAGE value="로딩 화면 수정, 시설보기 화면 이동" />
+    <option name="LAST_COMMIT_MESSAGE" value="로딩 화면 수정, 시설보기 화면 이동" />
   </component>
 </project>
