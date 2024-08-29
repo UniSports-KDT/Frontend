@@ -22,7 +22,6 @@ async function HomePageContent() {
         )
     } catch (error) {
         console.error('공지사항 가져오기 실패:', error);
-        return <div>Error loading notices</div>;
     }
 }
 
